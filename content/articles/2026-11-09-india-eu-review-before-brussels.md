@@ -1,0 +1,51 @@
+---
+title: India and the EU Clear the Desk Before Brussels
+date: 2026-11-09
+category: Geopolitics
+summary: The 7th India-EU review in New Delhi shows what is settled before the December trade deal signing, and what still is not.
+description: Kamlesh Bhagatkar on the 7th India-EU Strategic Partnership Review in New Delhi and what it means for Bharat before the trade deal is signed in Brussels.
+---
+On Monday, 9 November, Indian and European officials sat down in New Delhi for the seventh India-EU Strategic Partnership Review Meeting. Sibi George, Secretary (West) in the Ministry of External Affairs, co-chaired it with Matti Maasikas, Deputy Secretary General for Geoeconomics and Interinstitutional Issues of the European External Action Service.
+
+According to the joint press release, as reported by IANS, the two sides "reviewed engagements towards the timely signing and implementation" of the India-EU Free Trade Agreement. They also agreed to keep working on two agreements that are still open: an Investment Protection Agreement and an Agreement on Geographical Indications.
+
+What makes the meeting worth noticing is its timing. Last month, in Montreal, European Council President Antonio Costa said: "Prime Minister Modi will come in December to sign the deal." So the officials met only weeks before the leaders are due to put their names to the agreement.
+
+## Where the trade deal stands
+
+The negotiations were concluded on 27 January 2026, at the 16th India-EU Summit in New Delhi. Prime Minister Narendra Modi and European Commission President Ursula von der Leyen announced it together. The Commerce Ministry's release from that day gives the figures that matter. In 2024-25, India's goods trade with the EU was USD 136.54 billion (INR 11.5 lakh crore), with exports of USD 75.85 billion and imports of USD 60.68 billion. Services trade was USD 83.10 billion in 2024.
+
+The Ministry said more than 99 per cent of Indian exports by trade value would get preferential entry into the EU. It also said tariffs of up to 10 per cent on almost USD 33 billion of exports in labour-intensive sectors, such as textiles, leather, marine products, and gems and jewellery, would fall to zero when the agreement enters into force. Dairy, cereals, poultry and soymeal were kept out.
+
+Signing is still a step short of the finish line. The phrase in Monday's release was "signing and implementation". The tariff cuts reach a textile unit or a seafood exporter only after the agreement enters into force. In my reading, the December visit starts the clock, and the work after Brussels will decide how fast our exporters feel any change.
+
+## What else was on the table
+
+The joint release went well beyond tariffs. The two sides discussed supply chains and economic security through the Trade and Technology Council and the Blue Valleys initiative. They covered artificial intelligence, quantum technologies, digital public infrastructure, advanced semiconductors, clean tech and biotechnology.
+
+On connectivity, they "underscored the importance of strengthening connectivity partnership including Global Gateway, India-Middle East-Europe Economic Corridor (IMEC) and trilateral projects in clean energy, climate resilience, green mobility and digitalisation." On people, they talked about talent mobility, education and skills, and reviewed updates on the European Legal Gateway Office.
+
+Two smaller items caught my eye. First, they agreed to work towards adding Indian ship recycling yards that meet the EU Regulation on Ship Recycling to the EU's list of approved facilities. If it happens, Indian yards that meet the EU rules could compete for European ships. Second, on research, the release speaks of "India's potential association with Horizon Europe", the EU's main research and innovation programme. An earlier version of the IANS report said negotiations on this had been completed. The joint release language is more careful, so I will treat it as unfinished until both sides announce it.
+
+## What it means for Bharat
+
+I think India's interest here is plain. Goods trade with the EU was already USD 136.54 billion in 2024-25. A signed agreement with the 27-nation bloc would fix the rules of that trade in a treaty, and to an exporter planning three years ahead, predictable rules can matter as much as any single tariff line.
+
+There is also a strategic side. The release describes the two sides as "trusted, predictable and like-minded partners". Those words are diplomatic, but in my view they carry weight now that supply chains have become a security question. Semiconductors, clean tech and digital public infrastructure were all named on Monday. I think India has something to offer on each, and most of all on digital public infrastructure, where I think our record is strong.
+
+IMEC is the item I would watch most closely. The corridor is meant to link India to Europe through West Asia. I think its fate depends on stability in West Asia more than on anything officials in Delhi or Brussels decide. Seeing it named in Monday's document tells me both sides still want it, but the release gave no dates or projects.
+
+## What to watch next
+
+I am watching for the date and place of the December signing, and whether the leaders also announce a timeline for the agreement to enter into force. After that, whether the Investment Protection Agreement and the Agreement on Geographical Indications move ahead with the main deal or stay pending. The GI agreement would protect product names linked to a place, which matters to Indian producers who sell under such names. And finally, whether India's association with Horizon Europe is formally announced.
+
+The next review meeting is due in Brussels next year, on a date still to be fixed. By then, if things go as Costa said, the trade agreement will have been signed for several months.
+
+## Sources
+
+- [Hi India (IANS): India and EU review FTA, investment pact, IMEC at Strategic Partnership meeting](https://hiindia.com/india-and-eu-review-fta-investment-pact-imec-at-strategic-partnership-meeting-ld/)
+- [The Public World: India, EU review Strategic Partnership at 7th Review Meeting in New Delhi](https://thepublicworld.com/archives/121450)
+- [Punjab Kesari (IANS): India and EU review Strategic Partnership, progress on FTA](https://english.punjabkesari.com/india/india-and-eu-review-strategic-partnership-progress-on-fta)
+- [Greek City Times: EU chief confirms PM Modi to sign India-EU trade deal in Brussels this December](https://greekcitytimes.com/2026/10/30/eu-chief-confirms-trade-deal/)
+- [PIB, Ministry of Commerce and Industry: India-EU Free Trade Agreement concluded](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2219065&reg=3&lang=1)
+- [All India Radio: India, European Union exchange historic Free Trade Agreement](https://www.newsonair.gov.in/india-european-union-exchange-historic-free-trade-agreement)
