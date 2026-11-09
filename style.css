@@ -220,3 +220,11 @@ footer a:hover{color:#fff}
 .band.has-stack:before{display:none}
 @media (max-width:900px){.band.has-stack .wrap{grid-template-columns:200px 1fr}.band.has-stack .stack{grid-column:1/-1;justify-self:center;width:320px}}
 @media (max-width:820px){.band.has-stack .wrap{grid-template-columns:1fr}}
+
+/* ---------- article PDF downloads ---------- */
+.card-actions{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.dl{display:inline-flex;align-items:center;gap:6px;font:600 13px var(--cond);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
+ color:var(--muted);border:1px solid var(--line);padding:7px 12px;transition:color .2s,border-color .2s,background .2s}
+.dl:hover,.dl:focus-visible{color:#fff;background:var(--ink);border-color:var(--ink)}
+.dl-btn{margin-top:22px;gap:10px}
+.dl-end{margin-top:28px}
