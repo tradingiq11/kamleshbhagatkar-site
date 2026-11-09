@@ -1,0 +1,50 @@
+# Builds pages, PDFs, archive, sitemap and RSS from content/articles/*.md, commits the
+# generated files, and deploys the site to GitHub Pages. Runs on every push to main
+# (for example when a "Daily articles" pull request is merged) and on demand.
+name: Build and deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: build-and-deploy
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate articles
+        run: python3 tools/build_site.py --check
+
+      - name: Build site (pages, PDFs, archive, sitemap, RSS)
+        run: python3 tools/build_site.py
+
+      - name: Commit generated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A articles downloads index.html sitemap.xml feed.xml
+          if ! git diff --cached --quiet; then
+            git commit -m "Build site from content"
+            git push
+          fi
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deploy
+        uses: actions/deploy-pages@v4
