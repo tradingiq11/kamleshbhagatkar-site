@@ -29,6 +29,7 @@ Run this when asked for "today's articles" (the scheduled 7:00 IST job does this
       - for each article: title, category, word count, the summary, and a list of the 5 to 8 most important claims, each with its source link;
       - anything uncertain or left out, and why;
       - the line: "Approve = tap **Merge pull request**. Changes = comment on the PR. Reject = **Close pull request**."
+    - Write links as plain Markdown `[text](https://...)` with nothing around the URL (no backticks or quotes). After creating the PR, read its body back and fix any link that is wrapped in backticks or quotes.
 11. If you cannot find a topic that meets the rules, or the sources do not hold up, write only the article that does, or none, and open the PR (or an issue if there is nothing to review) explaining why. A missing article is better than a weak one.
 
 ## Editing an existing article
