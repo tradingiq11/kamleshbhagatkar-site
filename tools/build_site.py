@@ -14,12 +14,14 @@ Article file format (content/articles/<slug>.md):
     description: One sentence for Google (optional, defaults to summary)
     image: images/x.jpg              (optional; cards without one get a typographic panel)
     image_position: 50% 30%          (optional)
+    countries: EU, USA               (optional; Geopolitics map highlights, comma-separated)
+    place: New Delhi                 (optional; Indian city marked on Current Affairs / Defence maps)
     essay: yes                       (optional; personal essays may skip the Sources list)
     ---
     Body in simple Markdown: paragraphs, ## headings, - lists, > quotes, *italic*, **bold**, [text](https://url).
     End with a "## Sources" list of links.
 """
-import datetime, email.utils, hashlib, html, json, pathlib, re, shutil, subprocess, sys
+import datetime, email.utils, hashlib, html, json, math, pathlib, re, shutil, subprocess, sys
 
 SITE = pathlib.Path(__file__).resolve().parent.parent
 BASE = "https://kamleshbhagatkar.com/"
@@ -93,6 +95,110 @@ ARTS = sorted((load(p) for p in (SITE / "content/articles").glob("*.md")), key=l
 if "--check" in sys.argv:
     print(f"OK: {len(ARTS)} articles valid"); sys.exit()
 
+# ---------------------------------------------------------------- card art (maps), for articles without a photo
+WORLD = json.loads((SITE / "tools/world.json").read_text())  # simplified Natural Earth, India point-of-view boundaries
+EU = ["Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland", "France", "Germany",
+      "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal",
+      "Romania", "Slovakia", "Slovenia", "Spain", "Sweden"]
+ALIASES = {"usa": "United States of America", "us": "United States of America", "united states": "United States of America",
+           "america": "United States of America", "uk": "United Kingdom", "britain": "United Kingdom", "uae": "United Arab Emirates",
+           "south korea": "South Korea", "north korea": "North Korea", "czech republic": "Czechia", "serbia": "Republic of Serbia",
+           "tanzania": "United Republic of Tanzania", "ivory coast": "Ivory Coast", "burma": "Myanmar"}
+CITIES = {"new delhi": (77.21, 28.61), "delhi": (77.21, 28.61), "mumbai": (72.88, 19.08), "nagpur": (79.09, 21.15),
+          "bengaluru": (77.59, 12.97), "chennai": (80.27, 13.08), "kolkata": (88.36, 22.57), "hyderabad": (78.49, 17.39),
+          "ahmedabad": (72.57, 23.02), "gandhinagar": (72.64, 23.22), "pune": (73.86, 18.52), "lucknow": (80.95, 26.85),
+          "jaipur": (75.79, 26.91), "bhopal": (77.41, 23.26), "patna": (85.14, 25.59), "guwahati": (91.74, 26.14),
+          "srinagar": (74.80, 34.08), "jammu": (74.86, 32.73), "leh": (77.58, 34.15), "thiruvananthapuram": (76.94, 8.52),
+          "kochi": (76.27, 9.93), "bhubaneswar": (85.82, 20.30), "chandigarh": (76.78, 30.73), "sriharikota": (80.23, 13.72),
+          "raipur": (81.63, 21.25), "ranchi": (85.31, 23.34), "dehradun": (78.03, 30.32), "shimla": (77.17, 31.10),
+          "panaji": (73.83, 15.49), "visakhapatnam": (83.22, 17.69), "imphal": (93.94, 24.82), "port blair": (92.73, 11.62)}
+
+def entities(text):
+    """'EU, USA, France' -> [(label, [country names], (lon, lat))] for the map highlights."""
+    out = []
+    for raw in (t.strip() for t in (text or "").split(",")):
+        if not raw:
+            continue
+        if raw.lower() in ("eu", "european union"):
+            out.append(("EU", EU, (9.0, 50.0)))
+            continue
+        name = ALIASES.get(raw.lower(), next((k for k in WORLD if k.lower() == raw.lower()), None))
+        if name and name != "India":
+            out.append((name, [name], tuple(WORLD[name]["c"])))
+        elif not name:
+            print(f"note: unknown country '{raw}' in countries:, ignored")
+    return out
+
+def card_art(a):
+    W_, H_ = 800, 500
+    cat, ents = a["category"], entities(a.get("countries"))
+    place = CITIES.get((a.get("place") or "").strip().lower())
+    india = tuple(WORLD["India"]["c"])
+    if cat == "Geopolitics":
+        pts = [india] + [e[2] for e in ents]
+        lon0, lon1 = min(p[0] for p in pts) - 18, max(p[0] for p in pts) + 22
+        lat0, lat1 = min(p[1] for p in pts) - 16, max(p[1] for p in pts) + 14
+        lon0, lon1 = min(lon0, 40), max(lon1, 110)
+        lat0, lat1 = min(lat0, -2), max(lat1, 48)
+    else:  # India-centred: country on the right, room for the label on the left
+        lon0, lon1, lat0, lat1 = 50.0, 101.0, 4.0, 39.0
+    k = math.cos(math.radians((lat0 + lat1) / 2))
+    # fit to the 8:5 frame by widening whichever side is short
+    w_deg, h_deg = (lon1 - lon0) * k, lat1 - lat0
+    if w_deg / h_deg < W_ / H_:
+        extra = (h_deg * W_ / H_ - w_deg) / k / 2; lon0 -= extra; lon1 += extra
+    else:
+        extra = (w_deg * H_ / W_ - h_deg) / 2; lat0 -= extra; lat1 += extra
+    s = W_ / ((lon1 - lon0) * k)
+    P = lambda lon, lat: ((lon - lon0) * k * s, (lat1 - lat) * s)
+    def path(name):
+        return " ".join("M" + " L".join(f"{x:.1f},{y:.1f}" for x, y in (P(*q) for q in ring)) + "Z" for ring in WORLD[name]["r"])
+    def visible(name):
+        return any(lon0 - 5 < q[0] < lon1 + 5 and lat0 - 5 < q[1] < lat1 + 5 for ring in WORLD[name]["r"] for q in ring[::5])
+    hi = {n for e in ents for n in e[1]}
+    bg = {"Geopolitics": ("#18283a", "#0d1117"), "Current Affairs": ("#3a1810", "#120c0b"),
+          "Defence": ("#202619", "#0e100c"), "RSS at 100": ("#46200b", "#140b07")}.get(cat, ("#1d1f24", "#121316"))
+    g = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W_} {H_}" width="{W_}" height="{H_}">',
+         f'<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{bg[0]}"/><stop offset="1" stop-color="{bg[1]}"/></linearGradient>',
+         '<linearGradient id="in" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F09A3E"/><stop offset="1" stop-color="#C8321F"/></linearGradient>',
+         '<pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="#ffffff" fill-opacity=".13"/></pattern>',
+         '<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></linearGradient></defs>',
+         f'<rect width="{W_}" height="{H_}" fill="url(#bg)"/>']
+    for lat in range(-60, 90, 15):  # graticule
+        y = P(lon0, lat)[1]
+        if 0 < y < H_: g.append(f'<line x1="0" y1="{y:.1f}" x2="{W_}" y2="{y:.1f}" stroke="#fff" stroke-opacity=".05"/>')
+    for lon in range(-180, 181, 15):
+        x = P(lon, lat0)[0]
+        if 0 < x < W_: g.append(f'<line x1="{x:.1f}" y1="0" x2="{x:.1f}" y2="{H_}" stroke="#fff" stroke-opacity=".05"/>')
+    for name in WORLD:
+        if name == "India" or name in hi or not visible(name):
+            continue
+        g.append(f'<path d="{path(name)}" fill="#fff" fill-opacity=".055" stroke="#fff" stroke-opacity=".16" stroke-width=".7"/>')
+    for name in hi:
+        if name in WORLD and visible(name):
+            g.append(f'<path d="{path(name)}" fill="#C9A45C" fill-opacity=".42" stroke="#E6C580" stroke-width="1"/>')
+    g.append(f'<path d="{path("India")}" fill="url(#in)" stroke="#F7D58C" stroke-width="1.3"/>')
+    if cat != "Geopolitics":
+        g.append(f'<path d="{path("India")}" fill="url(#dots)"/>')
+    ix, iy = P(*india)
+    if cat == "Geopolitics":
+        for _, _, c in ents:
+            x, y = P(*c)
+            mx, my = (ix + x) / 2, min(iy, y) - abs(x - ix) * .28 - 30
+            g.append(f'<path d="M{ix:.1f},{iy:.1f} Q{mx:.1f},{my:.1f} {x:.1f},{y:.1f}" fill="none" stroke="#F7D58C" stroke-width="2" stroke-dasharray="6 6"/>'
+                     f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="#F7D58C"/><circle cx="{x:.1f}" cy="{y:.1f}" r="11" fill="none" stroke="#F7D58C" stroke-opacity=".5"/>')
+        g.append(f'<circle cx="{ix:.1f}" cy="{iy:.1f}" r="6" fill="#fff"/>')
+    target = P(*place) if place else (P(*india) if cat == "Defence" else None)
+    if target:
+        x, y = target
+        if cat == "Defence":
+            g += [f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r}" fill="none" stroke="#B9E07A" stroke-opacity="{o}"/>' for r, o in ((40, .5), (80, .35), (120, .22), (160, .12))]
+            g.append(f'<path d="M{x:.1f},{y:.1f} L{x + 160:.1f},{y - 30:.1f} A160,160 0 0 0 {x + 120:.1f},{y - 106:.1f} Z" fill="#B9E07A" fill-opacity=".14"/>')
+        g += [f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r}" fill="none" stroke="#fff" stroke-opacity="{o}" stroke-width="1.5"/>' for r, o in ((14, .7), (26, .35), (40, .15))]
+        g.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="6" fill="#fff"/>')
+    g.append(f'<rect width="{W_}" height="{H_}" fill="url(#fade)"/></svg>')
+    return "\n".join(g)
+
 def esc(t): return html.escape(t, quote=True)
 def nice(d): return f"{d.day} {d:%B %Y}"
 def cat_class(c): return "cat-" + re.sub(r"[^a-z]+", "-", c.lower()).strip("-")
@@ -148,7 +254,7 @@ def write_if_changed(path, text):
         print("wrote", path.relative_to(SITE))
 
 live = {a["slug"] for a in ARTS}
-for stale in [*(SITE / "articles").glob("*.html"), *(SITE / "downloads").glob("*.pdf")]:
+for stale in [*(SITE / "articles").glob("*.html"), *(SITE / "downloads").glob("*.pdf"), *(SITE / "images/cards").glob("*.svg")]:
     if stale.stem not in live and stale.name != "index.html":  # article was deleted: remove its page and PDF
         stale.unlink(); print("removed", stale.relative_to(SITE))
 
@@ -170,8 +276,11 @@ def card(a, prefix):
         img = f'<img src="{prefix}{esc(a["image"])}" alt="" loading="lazy"{pos}>'
         cls = "card-img"
     else:
-        img = f'<span class="typo-cat">{esc(a["category"])}</span><span class="typo-date">{nice(a["date_obj"])}</span>'
-        cls = f"card-img card-typo {cat_class(a['category'])}"
+        art = f"images/cards/{a['slug']}.svg"
+        write_if_changed(SITE / art, card_art(a))
+        img = (f'<img class="card-art" src="{prefix}{art}" alt="" loading="lazy">'
+               f'<span class="typo-cat">{esc(a["category"])}</span><span class="typo-date">{nice(a["date_obj"])}</span>')
+        cls = f"card-img card-typo has-art {cat_class(a['category'])}"
     link = f"{prefix}articles/{a['slug']}.html"
     return f"""      <article class="card reveal">
         <a class="{cls}" href="{link}" tabindex="-1" aria-hidden="true">{img}</a>

@@ -36,7 +36,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A articles downloads index.html sitemap.xml feed.xml
+          git add -A articles downloads images/cards index.html sitemap.xml feed.xml
           if ! git diff --cached --quiet; then
             git commit -m "Build site from content"
             git push

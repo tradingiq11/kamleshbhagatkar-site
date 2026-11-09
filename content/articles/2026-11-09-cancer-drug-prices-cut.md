@@ -4,6 +4,7 @@ date: 2026-11-09
 category: Current Affairs
 summary: Revised MRPs for 1,364 anti-cancer formulations took effect on 9 November. The government puts consumer savings at Rs 3,540.38 crore a year.
 description: Kamlesh Bhagatkar explains the NPPA trade margin cap on 137 anti-cancer drugs, the revised MRPs in force from 9 November 2026, and what families should check.
+place: New Delhi
 ---
 From today, 9 November 2026, revised maximum retail prices (MRPs) apply to 1,364 anti-cancer formulations sold in India. The Department of Pharmaceuticals said in a release this morning that 85 pharmaceutical companies had reported the new prices by 8 November, covering 121 drugs. Of these, 679 brands reported price cuts of more than 50 per cent. The largest single cut reported was 96.45 per cent.
 

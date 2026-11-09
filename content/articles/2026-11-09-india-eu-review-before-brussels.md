@@ -4,6 +4,7 @@ date: 2026-11-09
 category: Geopolitics
 summary: The 7th India-EU review in New Delhi shows what is settled before the December trade deal signing, and what still is not.
 description: Kamlesh Bhagatkar on the 7th India-EU Strategic Partnership Review in New Delhi and what it means for Bharat before the trade deal is signed in Brussels.
+countries: EU
 ---
 On Monday, 9 November, Indian and European officials sat down in New Delhi for the seventh India-EU Strategic Partnership Review Meeting. Sibi George, Secretary (West) in the Ministry of External Affairs, co-chaired it with Matti Maasikas, Deputy Secretary General for Geoeconomics and Interinstitutional Issues of the European External Action Service.
 

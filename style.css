@@ -249,3 +249,12 @@ footer a:hover{color:#fff}
 .chip{font:600 13px var(--cond);letter-spacing:.14em;text-transform:uppercase;padding:9px 16px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
 .chip.on,.chip:hover,.chip:focus-visible{background:var(--ink);color:#fff;border-color:var(--ink)}
 .card[hidden]{display:none}
+
+/* ---------- map art on cards without a photo ---------- */
+.card-typo.has-art:after{display:none}
+.card-typo .card-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.card:hover .card-typo .card-art{transform:scale(1.04)}
+.card-typo .typo-cat,.card-typo .typo-date{position:relative;z-index:1;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.card-typo.has-art .typo-cat{font-size:22px;letter-spacing:.06em}
+.card-typo.has-art{justify-content:flex-end;gap:4px}
+.card-typo.has-art .typo-cat{font-size:20px}
