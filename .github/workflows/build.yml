@@ -36,7 +36,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A articles downloads images/cards index.html sitemap.xml feed.xml
+          git add -A articles downloads images/cards images/og publications whitepapers 404.html index.html sitemap.xml feed.xml
           if ! git diff --cached --quiet; then
             git commit -m "Build site from content"
             git push
@@ -48,3 +48,20 @@ jobs:
           path: .
       - id: deploy
         uses: actions/deploy-pages@v4
+
+      - name: Tell Bing, Yahoo and others about new pages (IndexNow)
+        if: github.event_name == 'push'
+        continue-on-error: true
+        run: |
+          python3 - <<'PY'
+          import json, re, urllib.request
+          urls = re.findall(r"<loc>([^<]+)</loc>", open("sitemap.xml").read())
+          body = json.dumps({"host": "kamleshbhagatkar.com", "key": "2a5a5ce3ba5f73facb608884c626474d",
+                              "keyLocation": "https://kamleshbhagatkar.com/2a5a5ce3ba5f73facb608884c626474d.txt", "urlList": urls}).encode()
+          req = urllib.request.Request("https://api.indexnow.org/indexnow", data=body,
+                                       headers={"Content-Type": "application/json; charset=utf-8"})
+          try:
+              print("IndexNow:", urllib.request.urlopen(req, timeout=30).status, len(urls), "URLs")
+          except Exception as e:
+              print("IndexNow failed (site is still live):", e)
+          PY

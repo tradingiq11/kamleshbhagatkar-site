@@ -218,6 +218,9 @@ PAGE = """<!doctype html>
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{og_image}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="article:author" content="{base}">
 <meta property="article:published_time" content="{date}">
 <link rel="alternate" type="application/rss+xml" title="Kamlesh Bhagatkar: articles" href="{base}feed.xml">
@@ -252,6 +255,7 @@ PAGE = """<!doctype html>
 # SHA-256 hash only; JSON-LD blocks are data, not executed, so they need no hash.
 import base64
 CSP_RE = re.compile(r'\n?<meta http-equiv="Content-Security-Policy"[^>]*>')
+ICON_RE = re.compile(r'\n?<link rel="(?:icon|apple-touch-icon)"[^>]*>')
 def with_csp(t):
     t = CSP_RE.sub("", t)
     hashes = sorted({"'sha256-" + base64.b64encode(hashlib.sha256(m.encode()).digest()).decode() + "'"
@@ -260,7 +264,12 @@ def with_csp(t):
         "default-src 'self'", "script-src 'self' " + " ".join(hashes), "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
         "font-src https://fonts.gstatic.com", "img-src 'self' data: https://i.ytimg.com", "frame-src https://www.youtube-nocookie.com",
         "connect-src 'self'", "object-src 'none'", "base-uri 'self'", "form-action 'self'", "upgrade-insecure-requests"])
-    return t.replace('<meta charset="utf-8">', f'<meta charset="utf-8">\n<meta http-equiv="Content-Security-Policy" content="{policy}">', 1)
+    t = ICON_RE.sub("", t)
+    icons = ('\n<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n<link rel="icon" href="/favicon.ico" sizes="32x32">'
+             '\n<link rel="apple-touch-icon" href="/apple-touch-icon.png">')
+    if 'name="theme-color"' not in t:
+        icons += '\n<meta name="theme-color" content="#121316">'
+    return t.replace('<meta charset="utf-8">', f'<meta charset="utf-8">\n<meta http-equiv="Content-Security-Policy" content="{policy}">{icons}', 1)
 
 def write_if_changed(path, text):
     if path.suffix == ".html":
@@ -276,14 +285,19 @@ for stale in [*(SITE / "articles").glob("*.html"), *(SITE / "downloads").glob("*
         stale.unlink(); print("removed", stale.relative_to(SITE))
 
 for a in ARTS:
-    og = BASE + a.get("image", "images/kamlesh-bhagatkar.jpg")
+    og = BASE + f"images/og/{a['slug']}.png"
     ld = json.dumps({"@context": "https://schema.org", "@type": "Article", "headline": a["title"], "description": a["description"],
                      "url": a["url"], "datePublished": a["date"], "image": og, "inLanguage": "en-IN", "articleSection": a["category"],
                      "author": {"@type": "Person", "@id": BASE + "#person", "name": "Kamlesh Bhagatkar", "url": BASE},
-                     "publisher": {"@id": BASE + "#person"}, "mainEntityOfPage": a["url"]}, ensure_ascii=False)
+                     "publisher": {"@id": BASE + "#person"}, "mainEntityOfPage": a["url"]}, ensure_ascii=False).replace("</", "<\\/")
+    crumbs = json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": BASE},
+        {"@type": "ListItem", "position": 2, "name": "Articles", "item": BASE + "articles/"},
+        {"@type": "ListItem", "position": 3, "name": a["title"], "item": a["url"]}]}, ensure_ascii=False).replace("</", "<\\/")
+    ld = ld + '</script>\n<script type="application/ld+json">' + crumbs
     write_if_changed(SITE / "articles" / f"{a['slug']}.html", PAGE.format(
         title=esc(a["title"]), desc=esc(a["description"]), url=a["url"], og_image=og, base=BASE, date=a["date"], fonts=FONTS,
-        ld=ld.replace("</", "<\\/"), cat=esc(a["category"]), nice_date=nice(a["date_obj"]), mins=max(1, round(a["words"] / 220)),
+        ld=ld, cat=esc(a["category"]), nice_date=nice(a["date_obj"]), mins=max(1, round(a["words"] / 220)),
         slug=a["slug"], icon=ICON, body=a["body"], author_box=AUTHOR_BOX, year=a["date_obj"].year))
 
 # ---------------------------------------------------------------- cards (home + archive)
@@ -546,6 +560,37 @@ h2 = home.read_text()
 assert "<!-- PUBS:START -->" in h2, "index.html needs the PUBS markers"
 write_if_changed(home, re.sub(r"(<!-- PUBS:START -->).*?(<!-- PUBS:END -->)", lambda m: m[1] + tiles + m[2], h2, flags=re.S))
 
+# ---------------------------------------------------------------- 404 page (GitHub Pages serves /404.html)
+write_if_changed(SITE / "404.html", f"""<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found | Kamlesh Bhagatkar</title>
+<meta name="robots" content="noindex">
+{FONTS}
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<nav class="nav" aria-label="Main"><div class="wrap">
+  <a class="brand" href="/">Kamlesh Bhagatkar</a>
+  <ul><li><a href="/#books">Books</a></li><li><a href="/articles/">Articles</a></li><li><a href="/publications/">Publications</a></li><li><a href="/#contact">Contact</a></li></ul>
+</div></nav>
+<header class="article-head"><div class="wrap">
+  <p class="art-meta"><span class="tag-pill">404</span></p>
+  <h1>This page is not here</h1>
+  <p class="by">It may have moved, or the link may be mistyped.</p>
+</div></header>
+<main><div class="prose">
+<p>Try one of these instead:</p>
+<ul><li><a href="/">Home</a></li><li><a href="/articles/">All articles</a></li><li><a href="/publications/">Publications</a></li><li><a href="/#books">Books</a></li></ul>
+{"<p class='h'>Latest</p><ul>" + "".join(f'<li><a href="/articles/{a["slug"]}.html">{esc(a["title"])}</a></li>' for a in ARTS[:3]) + "</ul>" if ARTS else ""}
+</div></main>
+<footer><div class="wrap"><span>© {datetime.date.today().year} Kamlesh Bhagatkar · <a href="/">Home</a></span></div></footer>
+</body>
+</html>
+""")
+
 # ---------------------------------------------------------------- sitemap + RSS
 latest = ARTS[0]["date"] if ARTS else datetime.date.today().isoformat()
 urls = [(BASE, latest), (BASE + "articles/", latest), (BASE + "publications/", latest)] + [(a["url"], a["date"]) for a in ARTS] + [(w["url"], w["date"]) for w in WPS]
@@ -627,4 +672,37 @@ for a in ARTS:
     src.unlink()
     manifest[a["slug"]] = digest
     print("built", pdf.relative_to(SITE))
+OG_DIR = SITE / "images/og"
+for a in ARTS:
+    bg = SITE / (a["image"] if a.get("image") else f"images/cards/{a['slug']}.svg")
+    pos = a.get("image_position", "50% 35%")
+    doc = f"""<!doctype html><html><head><meta charset="utf-8">{FONTS}<style>
+html,body{{margin:0;width:1200px;height:630px;overflow:hidden;background:#121316}}
+.bg{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{pos}}}
+.shade{{position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,19,22,.94) 0%,rgba(18,19,22,.82) 48%,rgba(18,19,22,.25) 100%)}}
+.box{{position:absolute;left:64px;top:56px;bottom:56px;width:700px;display:flex;flex-direction:column;color:#f4efe4;font-family:Oswald,sans-serif}}
+.cat{{align-self:flex-start;background:#c8321f;color:#fff;font:600 22px Oswald;letter-spacing:.2em;text-transform:uppercase;padding:6px 16px}}
+h1{{font:700 58px/1.05 Oswald;text-transform:uppercase;margin:28px 0 0}}
+.by{{margin-top:auto;font:500 24px Oswald;letter-spacing:.22em;text-transform:uppercase;color:#c9a45c}}
+.by b{{color:#f4efe4;font-weight:600}}
+.bar{{position:absolute;left:0;bottom:0;width:100%;height:10px;background:#c8321f}}
+</style></head><body><img class="bg" src="{bg.as_uri()}" alt=""><div class="shade"></div>
+<div class="box"><span class="cat">{esc(a['category'])}</span><h1>{esc(a['title'])}</h1>
+<p class="by"><b>Kamlesh Bhagatkar</b> · kamleshbhagatkar.com</p></div><div class="bar"></div></body></html>"""
+    digest = hashlib.sha256(doc.replace(SITE.as_uri(), "").encode() + bg.read_bytes()).hexdigest()[:16]
+    png = OG_DIR / f"{a['slug']}.png"
+    if png.exists() and manifest.get("og:" + a["slug"]) == digest:
+        continue
+    OG_DIR.mkdir(parents=True, exist_ok=True)
+    src = OUT / f".og-{a['slug']}.html"
+    src.write_text(doc)
+    subprocess.run([chrome, "--headless", "--disable-gpu", "--no-sandbox", "--hide-scrollbars", "--force-device-scale-factor=1", "--window-size=1200,630",
+                    "--virtual-time-budget=8000", "--allow-file-access-from-files", f"--screenshot={png}", src.as_uri()],
+                   check=True, capture_output=True, timeout=180)
+    src.unlink()
+    manifest["og:" + a["slug"]] = digest
+    print("built", png.relative_to(SITE))
+for stale in OG_DIR.glob("*.png") if OG_DIR.exists() else []:
+    if stale.stem not in live:
+        stale.unlink(); print("removed", stale.relative_to(SITE))
 manifest_path.write_text(json.dumps(manifest, indent=1, sort_keys=True) + "\n")
