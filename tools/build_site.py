@@ -343,7 +343,7 @@ document.querySelectorAll('.chip').forEach(function(b){{b.addEventListener('clic
 """
 write_if_changed(SITE / "articles/index.html", ARCHIVE)
 
-# ---------------------------------------------------------------- publications page (books, articles, videos, media)
+# ---------------------------------------------------------------- publications page (whitepapers, articles, videos, media)
 def entries(path, n):
     """Lines '- f1 | f2 | ...' from a content list file; returns lists of n fields (newest first)."""
     out = []
@@ -365,14 +365,81 @@ VIDEOS = [(d, t, yt_id(u)) for d, t, u in entries("content/videos.md", 3) if yt_
 MEDIA = entries("content/media.md", 5)
 assert yt_id("https://youtu.be/abcdefghijk") == yt_id("https://www.youtube.com/watch?v=abcdefghijk&t=3") == "abcdefghijk"
 
-BOOKS = [
-    ("RSS: 100 Years of Selfless Service", "Engineers of Glorious Bharat · Paperback, 2025 · ISBN 9798281394369",
-     "The story of the Sangh's first century, told for readers aged 10 to 18, with sewa at its centre.",
-     "images/rss-book.jpg", "https://www.amazon.com/dp/B0F6JMSHDH", "Buy on Amazon"),
-    ("Nineteen Days", "Pahalgam, Operation Sindoor and the Answer of Bharat · Coming soon",
-     "From the Pahalgam attack of 22 April 2025 to the ceasefire of 10 May: the families, the decisions and the doctrine.",
-     "images/nineteen-days.jpg", "../#contact", "Publishers & media: get in touch"),
-]
+# Whitepapers: content/whitepapers/<slug>.md (front matter + abstract) and the PDF in downloads/whitepapers/<pdf>
+def load_wp(path):
+    m = re.match(r"---\n(.*?)\n---\n(.*)", path.read_text(), re.S)
+    if not m:
+        raise SystemExit(f"{path.name}: missing --- front matter ---")
+    meta = {k.strip(): v.strip() for k, v in (l.split(":", 1) for l in m[1].splitlines() if ":" in l)}
+    missing = [k for k in ("title", "date", "pages", "summary", "pdf") if not meta.get(k)]
+    if missing:
+        raise SystemExit(f"{path.name}: missing {', '.join(missing)}")
+    meta["date_obj"] = datetime.date.fromisoformat(meta["date"])
+    meta["slug"], meta["abstract"] = path.stem, markdown(m[2])
+    meta["url"] = f"{BASE}whitepapers/{meta['slug']}.html"
+    if not (SITE / "downloads/whitepapers" / meta["pdf"]).exists():
+        print(f"WARNING: {path.name}: downloads/whitepapers/{meta['pdf']} not found")
+    return meta
+
+WPS = sorted((load_wp(p) for p in (SITE / "content/whitepapers").glob("*.md")), key=lambda w: w["date_obj"], reverse=True) \
+    if (SITE / "content/whitepapers").exists() else []
+for stale in (SITE / "whitepapers").glob("*.html") if (SITE / "whitepapers").exists() else []:
+    if stale.stem not in {w["slug"] for w in WPS}:
+        stale.unlink(); print("removed", stale.relative_to(SITE))
+
+def wp_cover(w, prefix):
+    return (f'<a class="wpcover" href="{prefix}whitepapers/{w["slug"]}.html" tabindex="-1" aria-hidden="true">'
+            f'<span class="wpk">Whitepaper</span><span class="wpt">{esc(w["title"])}</span>'
+            f'<span class="wpm">{esc(w["pages"])} pages · {w["date_obj"]:%B %Y}</span><span class="wpa">Kamlesh Bhagatkar</span></a>')
+
+for w in WPS:
+    pdf = f"../downloads/whitepapers/{w['pdf']}"
+    cite = f"Bhagatkar, K. ({w['date_obj'].year}). {w['title']}. Whitepaper, {w['pages']} pp. kamleshbhagatkar.com."
+    ld = json.dumps({"@context": "https://schema.org", "@type": "Report", "name": w["title"], "abstract": w["summary"],
+                     "datePublished": w["date"], "numberOfPages": w["pages"], "url": w["url"], "inLanguage": "en-IN",
+                     "encoding": {"@type": "MediaObject", "contentUrl": BASE + f"downloads/whitepapers/{w['pdf']}", "encodingFormat": "application/pdf"},
+                     "author": {"@type": "Person", "@id": BASE + "#person", "name": "Kamlesh Bhagatkar", "url": BASE}},
+                    ensure_ascii=False).replace("</", "<\\/")
+    write_if_changed(SITE / "whitepapers" / f"{w['slug']}.html", f"""<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{esc(w['title'])} | Whitepaper by Kamlesh Bhagatkar</title>
+<meta name="description" content="{esc(w['summary'])}">
+<link rel="canonical" href="{w['url']}">
+<meta name="citation_title" content="{esc(w['title'])}">
+<meta name="citation_author" content="Bhagatkar, Kamlesh">
+<meta name="citation_publication_date" content="{w['date_obj']:%Y/%m/%d}">
+<meta name="citation_pdf_url" content="{BASE}downloads/whitepapers/{esc(w['pdf'])}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{esc(w['title'])}">
+<meta property="og:description" content="{esc(w['summary'])}">
+{FONTS}
+<link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">{ld}</script>
+</head>
+<body>
+<nav class="nav" aria-label="Main"><div class="wrap">
+  <a class="brand" href="../">Kamlesh Bhagatkar</a>
+  <ul><li><a href="../#books">Books</a></li><li><a href="../articles/">Articles</a></li><li><a href="../publications/">Publications</a></li><li><a href="../#about">About</a></li><li><a href="../#contact">Contact</a></li></ul>
+</div></nav>
+<header class="article-head"><div class="wrap">
+  <p class="art-meta"><span class="tag-pill">Whitepaper</span> {nice(w['date_obj'])} · {esc(w['pages'])} pages</p>
+  <h1>{esc(w['title'])}</h1>
+  <p class="by">By <a href="../" style="color:inherit">Kamlesh Bhagatkar</a>, author &amp; geopolitical analyst</p>
+  <a class="btn primary dl-btn" href="{pdf}" download>{ICON} Download PDF ({esc(w['pages'])} pages)</a>
+</div></header>
+<main><article class="prose">
+<p class="h">Abstract</p>
+{w['abstract']}
+<div class="cite"><p class="h">Cite as</p><p>{esc(cite)}</p></div>
+<p class="dl-end"><a class="btn primary dl-btn" href="{pdf}" download>{ICON} Download PDF</a> <a class="dl" href="../publications/">All publications</a></p>
+</article></main>
+<footer><div class="wrap"><span>© {w['date_obj'].year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="../publications/">Publications</a></span></div></footer>
+</body>
+</html>
+""")
 
 def video_card(d, t, vid):
     return (f'<article class="vcard"><button type="button" class="vplay" data-id="{vid}" aria-label="Play video: {esc(t)}">'
@@ -380,18 +447,23 @@ def video_card(d, t, vid):
             f'<div class="vbody"><span class="tag">{nice(datetime.date.fromisoformat(d))}</span><h3>{esc(t)}</h3>'
             f'<a class="more" href="https://www.youtube.com/watch?v={vid}" rel="noopener">Watch on YouTube →</a></div></article>')
 
-counts = {c: sum(a["category"] == c for a in ARTS) for c in CATEGORIES}
-pub_books = "".join(
-    f'\n    <article class="pbook"><img src="../{img}" alt="Cover of {esc(t)}" loading="lazy">'
-    f'<div><h3>{esc(t)}</h3><p class="meta">{esc(sub)}</p><p>{esc(blurb)}</p><a class="btn primary" href="{url}" rel="noopener">{esc(cta)} →</a></div></article>'
-    for t, sub, blurb, img, url, cta in BOOKS)
-pub_articles = "".join(f'<li><a href="../articles/{a["slug"]}.html">{esc(a["title"])}</a> <span class="meta">{esc(a["category"])} · {nice(a["date_obj"])}</span></li>' for a in ARTS[:8])
-pub_counts = " · ".join(f"{n} {c}" for c, n in counts.items() if n)
-if VIDEOS:
-    pub_videos = '<div class="vgrid">' + "".join(video_card(d, t, v) for d, t, v in VIDEOS) + "</div>"
+def soon(title, text):
+    return (f'<div class="vsoon"><span class="soon-mark" aria-hidden="true"></span><div><h3>{title}</h3><p>{text}</p></div></div>')
+
+if WPS:
+    pub_wps = '<div class="wpgrid">' + "".join(
+        f'<article class="wpcard">{wp_cover(w, "../")}<div class="vbody"><span class="tag">{nice(w["date_obj"])} · {esc(w["pages"])} pages</span>'
+        f'<h3><a href="../whitepapers/{w["slug"]}.html">{esc(w["title"])}</a></h3><p>{esc(w["summary"])}</p>'
+        f'<div class="card-actions"><a class="more" href="../whitepapers/{w["slug"]}.html">Abstract →</a>'
+        f'<a class="dl" href="../downloads/whitepapers/{esc(w["pdf"])}" download>{ICON}PDF</a></div></div></article>' for w in WPS) + "</div>"
 else:
-    pub_videos = ('<div class="vsoon"><span class="vbtn" aria-hidden="true"></span><div><h3>Video explainers are coming</h3>'
-                  "<p>Short videos on the day's geopolitics and current affairs, from Nagpur. They will appear here as they are published.</p></div></div>")
+    pub_wps = soon("The first whitepaper is in preparation",
+                   "Long-form research papers on India's security and strategic choices, around 50 pages each, free to download.")
+counts = {c: sum(a["category"] == c for a in ARTS) for c in CATEGORIES}
+pub_counts = " · ".join(f"{n} {c}" for c, n in counts.items() if n)
+pub_articles = "".join(f'<li><a href="../articles/{a["slug"]}.html">{esc(a["title"])}</a> <span class="meta">{esc(a["category"])} · {nice(a["date_obj"])}</span></li>' for a in ARTS[:8])
+pub_videos = ('<div class="vgrid">' + "".join(video_card(d, t, v) for d, t, v in VIDEOS) + "</div>") if VIDEOS else \
+    soon("Video explainers are coming", "Short videos on the day's geopolitics and current affairs, from Nagpur. They will appear here as they are published.")
 pub_media = "" if not MEDIA else ('<section class="pub-sec" id="media"><h2>Media &amp; published elsewhere</h2><ul class="plist">' + "".join(
     f'<li><a href="{esc(u)}" rel="noopener">{esc(t)}</a> <span class="meta">{esc(kind)} · {esc(outlet)} · {nice(datetime.date.fromisoformat(d))}</span></li>'
     for d, kind, outlet, t, u in MEDIA) + "</ul></section>")
@@ -409,7 +481,7 @@ PUBS = f"""<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Publications | Kamlesh Bhagatkar</title>
-<meta name="description" content="Books, articles and videos by Kamlesh Bhagatkar, author and geopolitical analyst from Nagpur.">
+<meta name="description" content="Whitepapers, articles and videos by Kamlesh Bhagatkar, author and geopolitical analyst from Nagpur.">
 <link rel="canonical" href="{BASE}publications/">
 {FONTS}
 <link rel="stylesheet" href="../style.css">
@@ -422,12 +494,11 @@ PUBS = f"""<!doctype html>
 </div></nav>
 <header class="article-head"><div class="wrap">
   <h1>Publications</h1>
-  <p class="by">Books, articles and videos by Kamlesh Bhagatkar.</p>
-  <p class="pub-jump"><a href="#books">Books</a><a href="#articles">Articles</a><a href="#videos">Videos</a>{media_jump}</p>
+  <p class="by">Whitepapers, articles and videos by Kamlesh Bhagatkar.</p>
+  <p class="pub-jump"><a href="#whitepapers">Whitepapers</a><a href="#articles">Articles</a><a href="#videos">Videos</a>{media_jump}</p>
 </div></header>
 <main><div class="wrap">
-<section class="pub-sec" id="books"><h2>Books</h2><div class="pbooks">{pub_books}
-</div></section>
+<section class="pub-sec" id="whitepapers"><h2>Whitepapers</h2>{pub_wps}</section>
 <section class="pub-sec" id="articles"><h2>Articles</h2><p class="sub">{len(ARTS)} articles on this site{counts_txt}.</p>
   <ul class="plist">{pub_articles}</ul><p><a class="btn dark" href="../articles/">All articles →</a></p></section>
 <section class="pub-sec" id="videos"><h2>Videos</h2>{pub_videos}</section>
@@ -448,7 +519,7 @@ write_if_changed(SITE / "publications/index.html", PUBS)
 # home-page summary tiles
 tiles = f"""
     <div class="ptiles">
-      <a class="ptile" href="publications/#books"><b>{len(BOOKS)}</b><span>Books</span></a>
+      <a class="ptile" href="publications/#whitepapers"><b>{len(WPS) or 'Soon'}</b><span>Whitepapers</span></a>
       <a class="ptile" href="articles/"><b>{len(ARTS)}</b><span>Articles</span></a>
       <a class="ptile" href="publications/#videos"><b>{len(VIDEOS) or 'Soon'}</b><span>Videos</span></a>
     </div>
@@ -460,7 +531,7 @@ write_if_changed(home, re.sub(r"(<!-- PUBS:START -->).*?(<!-- PUBS:END -->)", la
 
 # ---------------------------------------------------------------- sitemap + RSS
 latest = ARTS[0]["date"] if ARTS else datetime.date.today().isoformat()
-urls = [(BASE, latest), (BASE + "articles/", latest), (BASE + "publications/", latest)] + [(a["url"], a["date"]) for a in ARTS]
+urls = [(BASE, latest), (BASE + "articles/", latest), (BASE + "publications/", latest)] + [(a["url"], a["date"]) for a in ARTS] + [(w["url"], w["date"]) for w in WPS]
 write_if_changed(SITE / "sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                  + "".join(f"  <url><loc>{u}</loc><lastmod>{d}</lastmod></url>\n" for u, d in urls) + "</urlset>\n")
 items = "".join(f"""  <item><title>{esc(a['title'])}</title><link>{a['url']}</link><guid>{a['url']}</guid>

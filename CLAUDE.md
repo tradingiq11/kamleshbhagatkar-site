@@ -33,7 +33,8 @@ Run this when asked for "today's articles" (the scheduled 7:00 IST job does this
 11. If you cannot find a topic that meets the rules, or the sources do not hold up, write only the article that does, or none, and open the PR (or an issue if there is nothing to review) explaining why. A missing article is better than a weak one.
 
 ## Publications page
-`publications/` is generated. Books are listed in `BOOKS` in `tools/build_site.py`. Videos come from `content/videos.md` and media appearances or pieces published elsewhere from `content/media.md` (one `- ` line per item, format at the top of each file). The daily task does not edit these files.
+`publications/` is generated: Whitepapers, Articles, Videos and (when present) Media. Books have their own section on the home page, not here.
+Whitepapers: put the PDF in `downloads/whitepapers/` and add `content/whitepapers/<slug>.md` with front matter `title`, `date`, `pages`, `summary`, `pdf` (the file name) and the abstract as the body. The build makes a landing page with Google Scholar citation tags. Videos come from `content/videos.md` and media appearances or pieces published elsewhere from `content/media.md` (one `- ` line per item, format at the top of each file). The daily task does not edit these files.
 
 ## Editing an existing article
 Edit its `.md` file and push or open a PR. The build regenerates the page and its PDF.
