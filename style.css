@@ -213,7 +213,7 @@ footer a:hover{color:#fff}
 /* Nineteen Days stack: black cover, red accent */
 .stack.nd{--cover:url(images/nineteen-days.jpg)}
 .nd .sp{background:linear-gradient(180deg,#2a2c32 0%,#16171b 55%,#0c0d0f 100%);border-top-color:rgba(200,50,31,.75)}
-.nd .sp b{color:#e0452f}
+.nd .sp b{color:#ff6b52}
 .nd .b3d .s{background:linear-gradient(90deg,#0c0d0f,#24262c 50%,#0c0d0f)}
 .nd:before{background:radial-gradient(ellipse at center,rgba(0,0,0,.6),transparent 70%)}
 .band.has-stack .wrap{grid-template-columns:240px 1fr 300px;gap:48px}
