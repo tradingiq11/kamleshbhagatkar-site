@@ -247,7 +247,24 @@ PAGE = """<!doctype html>
 </html>
 """
 
+# ---------------------------------------------------------------- security policy (CSP) on every page
+# GitHub Pages cannot send headers, so the policy goes in a <meta> tag. Inline scripts are allowed by exact
+# SHA-256 hash only; JSON-LD blocks are data, not executed, so they need no hash.
+import base64
+CSP_RE = re.compile(r'\n?<meta http-equiv="Content-Security-Policy"[^>]*>')
+def with_csp(t):
+    t = CSP_RE.sub("", t)
+    hashes = sorted({"'sha256-" + base64.b64encode(hashlib.sha256(m.encode()).digest()).decode() + "'"
+                     for m in re.findall(r"<script>(.*?)</script>", t, re.S)})
+    policy = "; ".join([
+        "default-src 'self'", "script-src 'self' " + " ".join(hashes), "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+        "font-src https://fonts.gstatic.com", "img-src 'self' data: https://i.ytimg.com", "frame-src https://www.youtube-nocookie.com",
+        "connect-src 'self'", "object-src 'none'", "base-uri 'self'", "form-action 'self'", "upgrade-insecure-requests"])
+    return t.replace('<meta charset="utf-8">', f'<meta charset="utf-8">\n<meta http-equiv="Content-Security-Policy" content="{policy}">', 1)
+
 def write_if_changed(path, text):
+    if path.suffix == ".html":
+        text = with_csp(text)
     path.parent.mkdir(parents=True, exist_ok=True)
     if not path.exists() or path.read_text() != text:
         path.write_text(text)
