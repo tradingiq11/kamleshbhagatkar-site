@@ -174,7 +174,7 @@ def card_art(a):
         if name == "India" or name in hi or not visible(name):
             continue
         g.append(f'<path d="{path(name)}" fill="#fff" fill-opacity=".055" stroke="#fff" stroke-opacity=".16" stroke-width=".7"/>')
-    for name in hi:
+    for name in sorted(hi):
         if name in WORLD and visible(name):
             g.append(f'<path d="{path(name)}" fill="#C9A45C" fill-opacity=".42" stroke="#E6C580" stroke-width="1"/>')
     g.append(f'<path d="{path("India")}" fill="url(#in)" stroke="#F7D58C" stroke-width="1.3"/>')
@@ -228,7 +228,7 @@ PAGE = """<!doctype html>
 <body>
 <nav class="nav" aria-label="Main"><div class="wrap">
   <a class="brand" href="../">Kamlesh Bhagatkar</a>
-  <ul><li><a href="../#books">Books</a></li><li><a href="./">Articles</a></li><li><a href="../#about">About</a></li><li><a href="../#contact">Contact</a></li></ul>
+  <ul><li><a href="../#books">Books</a></li><li><a href="./">Articles</a></li><li><a href="../publications/">Publications</a></li><li><a href="../#about">About</a></li><li><a href="../#contact">Contact</a></li></ul>
 </div></nav>
 <header class="article-head"><div class="wrap">
   <p class="art-meta"><span class="tag-pill">{cat}</span> {nice_date} · {mins} min read</p>
@@ -242,7 +242,7 @@ PAGE = """<!doctype html>
 <p class="author-box">{author_box}</p>
 <p class="dl-end"><a class="btn primary dl-btn" href="../downloads/{slug}.pdf" download>{icon} Download PDF</a> <a class="dl" href="./">All articles</a></p>
 </article></main>
-<footer><div class="wrap">© {year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="./">Articles</a> · <a href="https://www.amazon.com/dp/B0F6JMSHDH" rel="noopener">Buy the book</a></div></footer>
+<footer><div class="wrap"><span>© {year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="./">Articles</a> · <a href="https://www.amazon.com/dp/B0F6JMSHDH" rel="noopener">Buy the book</a></span></div></footer>
 </body>
 </html>
 """
@@ -317,7 +317,7 @@ ARCHIVE = f"""<!doctype html>
 <body>
 <nav class="nav" aria-label="Main"><div class="wrap">
   <a class="brand" href="../">Kamlesh Bhagatkar</a>
-  <ul><li><a href="../#books">Books</a></li><li><a href="./">Articles</a></li><li><a href="../#about">About</a></li><li><a href="../#contact">Contact</a></li></ul>
+  <ul><li><a href="../#books">Books</a></li><li><a href="./">Articles</a></li><li><a href="../publications/">Publications</a></li><li><a href="../#about">About</a></li><li><a href="../#contact">Contact</a></li></ul>
 </div></nav>
 <header class="article-head"><div class="wrap">
   <h1>Articles</h1>
@@ -332,7 +332,7 @@ ARCHIVE = f"""<!doctype html>
 {chr(10).join(card(a, "../").replace('<article class="card reveal">', f'<article class="card" data-cat="{esc(a["category"])}">') for a in ARTS)}
   </div>
 </div></section></main>
-<footer><div class="wrap">© {datetime.date.today().year} Kamlesh Bhagatkar · <a href="../">Home</a></div></footer>
+<footer><div class="wrap"><span>© {datetime.date.today().year} Kamlesh Bhagatkar · <a href="../">Home</a></span></div></footer>
 <script>
 document.querySelectorAll('.chip').forEach(function(b){{b.addEventListener('click',function(){{
   var c=b.dataset.cat;document.querySelectorAll('.chip').forEach(function(x){{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)}});
@@ -343,9 +343,124 @@ document.querySelectorAll('.chip').forEach(function(b){{b.addEventListener('clic
 """
 write_if_changed(SITE / "articles/index.html", ARCHIVE)
 
+# ---------------------------------------------------------------- publications page (books, articles, videos, media)
+def entries(path, n):
+    """Lines '- f1 | f2 | ...' from a content list file; returns lists of n fields (newest first)."""
+    out = []
+    f = SITE / path
+    for line in (f.read_text().splitlines() if f.exists() else []):
+        if line.startswith("- ") and "|" in line:
+            parts = [x.strip() for x in line[2:].split("|")]
+            if len(parts) == n:
+                out.append(parts)
+            else:
+                print(f"note: {path}: skipped line with {len(parts)} fields: {line[:60]}")
+    return out
+
+def yt_id(url):
+    m = re.search(r"(?:v=|youtu\.be/|shorts/|embed/)([A-Za-z0-9_-]{11})", url)
+    return m[1] if m else None
+
+VIDEOS = [(d, t, yt_id(u)) for d, t, u in entries("content/videos.md", 3) if yt_id(u)]
+MEDIA = entries("content/media.md", 5)
+assert yt_id("https://youtu.be/abcdefghijk") == yt_id("https://www.youtube.com/watch?v=abcdefghijk&t=3") == "abcdefghijk"
+
+BOOKS = [
+    ("RSS: 100 Years of Selfless Service", "Engineers of Glorious Bharat · Paperback, 2025 · ISBN 9798281394369",
+     "The story of the Sangh's first century, told for readers aged 10 to 18, with sewa at its centre.",
+     "images/rss-book.jpg", "https://www.amazon.com/dp/B0F6JMSHDH", "Buy on Amazon"),
+    ("Nineteen Days", "Pahalgam, Operation Sindoor and the Answer of Bharat · Coming soon",
+     "From the Pahalgam attack of 22 April 2025 to the ceasefire of 10 May: the families, the decisions and the doctrine.",
+     "images/nineteen-days.jpg", "../#contact", "Publishers & media: get in touch"),
+]
+
+def video_card(d, t, vid):
+    return (f'<article class="vcard"><button type="button" class="vplay" data-id="{vid}" aria-label="Play video: {esc(t)}">'
+            f'<img src="https://i.ytimg.com/vi/{vid}/hqdefault.jpg" alt="" loading="lazy"><span class="vbtn" aria-hidden="true"></span></button>'
+            f'<div class="vbody"><span class="tag">{nice(datetime.date.fromisoformat(d))}</span><h3>{esc(t)}</h3>'
+            f'<a class="more" href="https://www.youtube.com/watch?v={vid}" rel="noopener">Watch on YouTube →</a></div></article>')
+
+counts = {c: sum(a["category"] == c for a in ARTS) for c in CATEGORIES}
+pub_books = "".join(
+    f'\n    <article class="pbook"><img src="../{img}" alt="Cover of {esc(t)}" loading="lazy">'
+    f'<div><h3>{esc(t)}</h3><p class="meta">{esc(sub)}</p><p>{esc(blurb)}</p><a class="btn primary" href="{url}" rel="noopener">{esc(cta)} →</a></div></article>'
+    for t, sub, blurb, img, url, cta in BOOKS)
+pub_articles = "".join(f'<li><a href="../articles/{a["slug"]}.html">{esc(a["title"])}</a> <span class="meta">{esc(a["category"])} · {nice(a["date_obj"])}</span></li>' for a in ARTS[:8])
+pub_counts = " · ".join(f"{n} {c}" for c, n in counts.items() if n)
+if VIDEOS:
+    pub_videos = '<div class="vgrid">' + "".join(video_card(d, t, v) for d, t, v in VIDEOS) + "</div>"
+else:
+    pub_videos = ('<div class="vsoon"><span class="vbtn" aria-hidden="true"></span><div><h3>Video explainers are coming</h3>'
+                  "<p>Short videos on the day's geopolitics and current affairs, from Nagpur. They will appear here as they are published.</p></div></div>")
+pub_media = "" if not MEDIA else ('<section class="pub-sec" id="media"><h2>Media &amp; published elsewhere</h2><ul class="plist">' + "".join(
+    f'<li><a href="{esc(u)}" rel="noopener">{esc(t)}</a> <span class="meta">{esc(kind)} · {esc(outlet)} · {nice(datetime.date.fromisoformat(d))}</span></li>'
+    for d, kind, outlet, t, u in MEDIA) + "</ul></section>")
+pub_ld = json.dumps({"@context": "https://schema.org", "@graph": [
+    {"@type": "VideoObject", "name": t, "uploadDate": d, "thumbnailUrl": f"https://i.ytimg.com/vi/{v}/hqdefault.jpg",
+     "embedUrl": f"https://www.youtube-nocookie.com/embed/{v}", "contentUrl": f"https://www.youtube.com/watch?v={v}",
+     "description": t, "creator": {"@id": BASE + "#person"}} for d, t, v in VIDEOS]}, ensure_ascii=False).replace("</", "<\\/")
+ld_tag = f'<script type="application/ld+json">{pub_ld}</script>' if VIDEOS else ""
+media_jump = '<a href="#media">Media</a>' if MEDIA else ""
+counts_txt = (": " + pub_counts) if pub_counts else ""
+
+PUBS = f"""<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Publications | Kamlesh Bhagatkar</title>
+<meta name="description" content="Books, articles and videos by Kamlesh Bhagatkar, author and geopolitical analyst from Nagpur.">
+<link rel="canonical" href="{BASE}publications/">
+{FONTS}
+<link rel="stylesheet" href="../style.css">
+{ld_tag}
+</head>
+<body>
+<nav class="nav" aria-label="Main"><div class="wrap">
+  <a class="brand" href="../">Kamlesh Bhagatkar</a>
+  <ul><li><a href="../#books">Books</a></li><li><a href="../articles/">Articles</a></li><li><a href="./">Publications</a></li><li><a href="../#about">About</a></li><li><a href="../#contact">Contact</a></li></ul>
+</div></nav>
+<header class="article-head"><div class="wrap">
+  <h1>Publications</h1>
+  <p class="by">Books, articles and videos by Kamlesh Bhagatkar.</p>
+  <p class="pub-jump"><a href="#books">Books</a><a href="#articles">Articles</a><a href="#videos">Videos</a>{media_jump}</p>
+</div></header>
+<main><div class="wrap">
+<section class="pub-sec" id="books"><h2>Books</h2><div class="pbooks">{pub_books}
+</div></section>
+<section class="pub-sec" id="articles"><h2>Articles</h2><p class="sub">{len(ARTS)} articles on this site{counts_txt}.</p>
+  <ul class="plist">{pub_articles}</ul><p><a class="btn dark" href="../articles/">All articles →</a></p></section>
+<section class="pub-sec" id="videos"><h2>Videos</h2>{pub_videos}</section>
+{pub_media}
+</div></main>
+<footer><div class="wrap"><span>© {datetime.date.today().year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="../articles/">Articles</a></span></div></footer>
+<script>
+document.querySelectorAll('.vplay').forEach(function(b){{b.addEventListener('click',function(){{
+  var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+b.dataset.id+'?autoplay=1';
+  f.title=b.getAttribute('aria-label');f.allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';f.allowFullscreen=true;
+  b.replaceWith(f);}})}});
+</script>
+</body>
+</html>
+"""
+write_if_changed(SITE / "publications/index.html", PUBS)
+
+# home-page summary tiles
+tiles = f"""
+    <div class="ptiles">
+      <a class="ptile" href="publications/#books"><b>{len(BOOKS)}</b><span>Books</span></a>
+      <a class="ptile" href="articles/"><b>{len(ARTS)}</b><span>Articles</span></a>
+      <a class="ptile" href="publications/#videos"><b>{len(VIDEOS) or 'Soon'}</b><span>Videos</span></a>
+    </div>
+    <p class="all-link reveal"><a class="btn dark" href="publications/">All publications →</a></p>
+    """
+h2 = home.read_text()
+assert "<!-- PUBS:START -->" in h2, "index.html needs the PUBS markers"
+write_if_changed(home, re.sub(r"(<!-- PUBS:START -->).*?(<!-- PUBS:END -->)", lambda m: m[1] + tiles + m[2], h2, flags=re.S))
+
 # ---------------------------------------------------------------- sitemap + RSS
 latest = ARTS[0]["date"] if ARTS else datetime.date.today().isoformat()
-urls = [(BASE, latest), (BASE + "articles/", latest)] + [(a["url"], a["date"]) for a in ARTS]
+urls = [(BASE, latest), (BASE + "articles/", latest), (BASE + "publications/", latest)] + [(a["url"], a["date"]) for a in ARTS]
 write_if_changed(SITE / "sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                  + "".join(f"  <url><loc>{u}</loc><lastmod>{d}</lastmod></url>\n" for u, d in urls) + "</urlset>\n")
 items = "".join(f"""  <item><title>{esc(a['title'])}</title><link>{a['url']}</link><guid>{a['url']}</guid>
