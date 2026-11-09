@@ -15,7 +15,7 @@ Run this when asked for "today's articles" (the scheduled 7:00 IST job does this
 3. **Avoid repeats.** Read the titles of the 15 newest files in `content/articles/`. Do not cover the same story again unless there is a real new development, and then say what is new.
 4. **Research.** Search the news of the last 36 hours. Pick:
    - **A. Geopolitics:** India's foreign or security relations, or a world event and what it means for Bharat.
-   - **B. Current Affairs:** a domestic story of national importance (policy, economy, governance, infrastructure, science and space, a court ruling already delivered).
+   - **B. Current Affairs (India only):** an Indian story of national importance: something that happened in India or was decided by an Indian authority (Union or state government, Parliament, RBI, ISRO, an Indian court, an Indian regulator or institution). Topics: policy, economy, governance, infrastructure, science and space, a court ruling already delivered. Never a foreign or world story, even one with an India angle; world events belong in Geopolitics.
    Every fact, number, date, name and quote must come from a source you actually opened. Prefer primary sources (PIB, MEA, ministries, RBI, ISRO, Parliament, UN, foreign governments), then established outlets. A key claim needs two independent sources, or one primary source.
 5. **Write** each article in 750 to 1,000 words, following `content/WRITING-RULES.md`. End with `## Sources`, a list of `[Outlet: headline](url)` for every source used.
 6. **Fact-check pass.** List every factual claim in the draft and check it against the opened source. Delete or soften any claim you cannot match. Opinions must read as opinions.

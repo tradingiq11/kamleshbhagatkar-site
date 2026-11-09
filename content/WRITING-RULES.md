@@ -10,6 +10,10 @@ Voice samples: the three essays already in `content/articles/` (dated 2026-11-09
 - Plain words, varied sentence length, short paragraphs. Readers are educated non-specialists: business owners, students, families of soldiers.
 - One clear argument per article. Open with the concrete news, not with background. Close on the last concrete fact or a specific thing to watch, not a slogan.
 
+## Topics
+- **Geopolitics:** India's foreign and security relations, or a world event and what it means for Bharat.
+- **Current Affairs:** India only. The story must have happened in India or been decided by an Indian authority, and must matter to people in India. No foreign or world stories in this category, even with an India angle.
+
 ## Structure (750 to 1,000 words)
 1. Two or three paragraphs: what happened, when, who said what (with numbers).
 2. Two or three sections with `##` headings in sentence case: context, what it means for Bharat, what to watch next.
