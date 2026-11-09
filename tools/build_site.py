@@ -89,7 +89,7 @@ def load(path):
     meta["url"] = f"{BASE}articles/{meta['slug']}.html"
     return meta
 
-ARTS = sorted((load(p) for p in (SITE / "content/articles").glob("*.md")), key=lambda a: (a["date_obj"], a["slug"]), reverse=True)
+ARTS = sorted((load(p) for p in (SITE / "content/articles").glob("*.md")), key=lambda a: (a["date_obj"], a["slug"][:1].isdigit(), a["slug"]), reverse=True)
 if "--check" in sys.argv:
     print(f"OK: {len(ARTS)} articles valid"); sys.exit()
 
