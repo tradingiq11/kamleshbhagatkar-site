@@ -185,7 +185,7 @@ footer a:hover{color:#fff}
 
 /* ---------- 3D book stack (Books section, right side) ---------- */
 .book.has-stack{grid-template-columns:240px 1fr 300px;max-width:none}
-.stack{position:relative;height:430px;perspective:1600px}
+.stack{--cover:url(images/rss-book.jpg);position:relative;height:430px;perspective:1600px}
 .pile{position:absolute;left:50%;bottom:0;transform:translateX(-50%);display:flex;flex-direction:column-reverse;width:280px}
 .sp{height:30px;margin-top:-1px;transform:translateX(var(--x)) rotate(var(--r));display:flex;align-items:center;justify-content:space-between;gap:14px;padding:0 14px;
  background:linear-gradient(180deg,#4a140b 0%,#2c0b06 55%,#1c0604 100%);border-top:1px solid rgba(217,178,106,.55);border-bottom:1px solid #120302;
@@ -197,7 +197,7 @@ footer a:hover{color:#fff}
  transform-style:preserve-3d;transform:rotateY(28deg) rotateX(2deg);transition:transform .8s var(--ease)}
 .stack:hover .b3d{transform:rotateY(14deg) rotateX(2deg)}
 .b3d>div{position:absolute}
-.b3d .f{inset:0;background:url(images/rss-book.jpg) center/cover;transform:translateZ(calc(var(--t)/2));border-radius:1px 3px 3px 1px;
+.b3d .f{inset:0;background:var(--cover) center/cover;transform:translateZ(calc(var(--t)/2));border-radius:1px 3px 3px 1px;
  box-shadow:inset 3px 0 6px rgba(0,0,0,.35)}
 .b3d .s{top:0;height:100%;width:var(--t);left:calc((var(--w) - var(--t))/2);background:linear-gradient(90deg,#1c0604,#3a0f08 50%,#1c0604);
  transform:rotateY(-90deg) translateZ(calc(var(--w)/2))}
@@ -209,3 +209,14 @@ footer a:hover{color:#fff}
  background:radial-gradient(ellipse at center,rgba(0,0,0,.4),transparent 70%)}
 @media (max-width:820px){.book.has-stack{grid-template-columns:1fr}.stack{height:400px;max-width:320px}}
 @media (prefers-reduced-motion:reduce){.b3d{transition:none}}
+
+/* Nineteen Days stack: black cover, red accent */
+.stack.nd{--cover:url(images/nineteen-days.jpg)}
+.nd .sp{background:linear-gradient(180deg,#2a2c32 0%,#16171b 55%,#0c0d0f 100%);border-top-color:rgba(200,50,31,.75)}
+.nd .sp b{color:#e0452f}
+.nd .b3d .s{background:linear-gradient(90deg,#0c0d0f,#24262c 50%,#0c0d0f)}
+.nd:before{background:radial-gradient(ellipse at center,rgba(0,0,0,.6),transparent 70%)}
+.band.has-stack .wrap{grid-template-columns:240px 1fr 300px;gap:48px}
+.band.has-stack:before{display:none}
+@media (max-width:900px){.band.has-stack .wrap{grid-template-columns:200px 1fr}.band.has-stack .stack{grid-column:1/-1;justify-self:center;width:320px}}
+@media (max-width:820px){.band.has-stack .wrap{grid-template-columns:1fr}}
