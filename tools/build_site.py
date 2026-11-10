@@ -209,7 +209,7 @@ PAGE = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title} | Kamlesh Bhagatkar</title>
+<title>{page_title}</title>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="{url}">
 <meta name="author" content="Kamlesh Bhagatkar">
@@ -221,6 +221,8 @@ PAGE = """<!doctype html>
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@KBhagatkar">
+<meta name="twitter:creator" content="@KBhagatkar">
 <meta property="article:author" content="{base}">
 <meta property="article:published_time" content="{date}">
 <link rel="alternate" type="application/rss+xml" title="Kamlesh Bhagatkar: articles" href="{base}feed.xml">
@@ -287,6 +289,15 @@ for stale in [*(SITE / "articles").glob("*.html"), *(SITE / "downloads").glob("*
     if stale.stem not in live and stale.name != "index.html":  # article was deleted: remove its page and PDF
         stale.unlink(); print("removed", stale.relative_to(SITE))
 
+def social(title, desc, url):
+    """Open Graph + X card tags for listing pages (articles use the fuller PAGE template)."""
+    img = BASE + "images/kamlesh-bhagatkar.jpg"
+    return "\n".join([f'<meta property="og:type" content="website">', f'<meta property="og:title" content="{esc(title)}">',
+                      f'<meta property="og:description" content="{esc(desc)}">', f'<meta property="og:url" content="{url}">',
+                      f'<meta property="og:image" content="{img}">', '<meta name="twitter:card" content="summary_large_image">',
+                      '<meta name="twitter:site" content="@KBhagatkar">'])
+
+
 def share_bar(a):
     """Share links for one article; plain URLs, no third-party scripts or trackers."""
     from urllib.parse import quote
@@ -313,6 +324,8 @@ for a in ARTS:
         {"@type": "ListItem", "position": 3, "name": a["title"], "item": a["url"]}]}, ensure_ascii=False).replace("</", "<\\/")
     ld = ld + '</script>\n<script type="application/ld+json">' + crumbs
     write_if_changed(SITE / "articles" / f"{a['slug']}.html", PAGE.format(
+        # Google shows ~60 characters; keep the name suffix only when it fits
+        page_title=esc(a["title"] + " | Kamlesh Bhagatkar" if len(a["title"]) <= 40 else a["title"]),
         title=esc(a["title"]), desc=esc(a["description"]), url=a["url"], og_image=og, base=BASE, date=a["date"], fonts=FONTS,
         ld=ld, cat=esc(a["category"]), nice_date=nice(a["date_obj"]), mins=max(1, round(a["words"] / 220)),
         slug=a["slug"], icon=ICON, body=a["body"], author_box=AUTHOR_BOX, year=a["date_obj"].year, share=share_bar(a)))
@@ -358,6 +371,7 @@ ARCHIVE = f"""<!doctype html>
 <title>Articles | Kamlesh Bhagatkar</title>
 <meta name="description" content="Articles by Kamlesh Bhagatkar, author and geopolitical analyst from Nagpur, on geopolitics, current affairs, defence and Bharat.">
 <link rel="canonical" href="{BASE}articles/">
+{social("Articles | Kamlesh Bhagatkar", "Articles by Kamlesh Bhagatkar on geopolitics, current affairs, defence and Bharat.", BASE + "articles/")}
 <link rel="alternate" type="application/rss+xml" title="Kamlesh Bhagatkar: articles" href="{BASE}feed.xml">
 {FONTS}
 <link rel="stylesheet" href="../style.css">
@@ -531,6 +545,7 @@ PUBS = f"""<!doctype html>
 <title>Publications | Kamlesh Bhagatkar</title>
 <meta name="description" content="Whitepapers, articles and videos by Kamlesh Bhagatkar, author and geopolitical analyst from Nagpur.">
 <link rel="canonical" href="{BASE}publications/">
+{social("Publications | Kamlesh Bhagatkar", "Whitepapers, articles and videos by Kamlesh Bhagatkar, author and geopolitical analyst from Nagpur.", BASE + "publications/")}
 {FONTS}
 <link rel="stylesheet" href="../style.css">
 {ld_tag}
