@@ -238,12 +238,14 @@ PAGE = """<!doctype html>
   <h1>{title}</h1>
   <p class="by">By <a href="../" style="color:inherit">Kamlesh Bhagatkar</a>, author &amp; geopolitical analyst</p>
   <a class="btn primary dl-btn" href="../downloads/{slug}.pdf" download>{icon} Download PDF</a>
+  {share}
 </div></header>
 <main><article class="prose">
 {body}
 
 <p class="author-box">{author_box}</p>
 <p class="dl-end"><a class="btn primary dl-btn" href="../downloads/{slug}.pdf" download>{icon} Download PDF</a> <a class="dl" href="./">All articles</a></p>
+{share}
 </article></main>
 <footer><div class="wrap"><span>© {year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="./">Articles</a> · <a href="https://www.amazon.com/dp/B0F6JMSHDH" rel="noopener">Buy the book</a></span></div></footer>
 </body>
@@ -284,6 +286,21 @@ for stale in [*(SITE / "articles").glob("*.html"), *(SITE / "downloads").glob("*
     if stale.stem not in live and stale.name != "index.html":  # article was deleted: remove its page and PDF
         stale.unlink(); print("removed", stale.relative_to(SITE))
 
+def share_bar(a):
+    """Share links for one article; plain URLs, no third-party scripts or trackers."""
+    from urllib.parse import quote
+    u, t = quote(a["url"], safe=""), quote(a["title"])
+    links = [("WhatsApp", f"https://wa.me/?text={t}%20{u}"),
+             ("X", f"https://twitter.com/intent/tweet?text={t}&url={u}&via=KBhagatkar"),
+             ("Facebook", f"https://www.facebook.com/sharer/sharer.php?u={u}"),
+             ("LinkedIn", f"https://www.linkedin.com/sharing/share-offsite/?url={u}"),
+             ("Telegram", f"https://t.me/share/url?url={u}&text={t}")]
+    items = "".join(f'<a href="{esc(h)}" target="_blank" rel="noopener" aria-label="Share on {n}">{n}</a>' for n, h in links)
+    copy = (f'<button type="button" onclick="navigator.clipboard.writeText(\'{a["url"]}\')'
+            f'.then(()=>this.textContent=\'Copied\')">Copy link</button>')
+    return f'<p class="share"><span>Share</span>{items}{copy}</p>'
+
+
 for a in ARTS:
     og = BASE + f"images/og/{a['slug']}.png"
     ld = json.dumps({"@context": "https://schema.org", "@type": "Article", "headline": a["title"], "description": a["description"],
@@ -298,7 +315,7 @@ for a in ARTS:
     write_if_changed(SITE / "articles" / f"{a['slug']}.html", PAGE.format(
         title=esc(a["title"]), desc=esc(a["description"]), url=a["url"], og_image=og, base=BASE, date=a["date"], fonts=FONTS,
         ld=ld, cat=esc(a["category"]), nice_date=nice(a["date_obj"]), mins=max(1, round(a["words"] / 220)),
-        slug=a["slug"], icon=ICON, body=a["body"], author_box=AUTHOR_BOX, year=a["date_obj"].year))
+        slug=a["slug"], icon=ICON, body=a["body"], author_box=AUTHOR_BOX, year=a["date_obj"].year, share=share_bar(a)))
 
 # ---------------------------------------------------------------- cards (home + archive)
 def card(a, prefix):

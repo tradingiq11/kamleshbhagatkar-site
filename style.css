@@ -228,6 +228,12 @@ footer a:hover{color:#fff}
 .dl:hover,.dl:focus-visible{color:#fff;background:var(--ink);border-color:var(--ink)}
 .dl-btn{margin-top:22px;gap:10px}
 .dl-end{margin-top:28px}
+/* share links: inherit the colour of their section, so they work on the dark header and the light article */
+.share{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:18px 0 0}
+.share span{font:600 12px var(--cond);letter-spacing:.2em;text-transform:uppercase;opacity:.7;margin-right:4px}
+.share a,.share button{font:600 12px var(--cond);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:inherit;
+ background:none;border:1px solid currentColor;padding:7px 12px;cursor:pointer;opacity:.85;transition:opacity .2s,background .2s}
+.share a:hover,.share a:focus-visible,.share button:hover,.share button:focus-visible{opacity:1;background:rgba(127,127,127,.18)}
 
 /* ---------- article system: typographic cards, archive filters, meta line ---------- */
 .card-typo{display:flex;flex-direction:column;justify-content:space-between;padding:22px 24px;text-decoration:none;color:#f4efe4;
