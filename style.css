@@ -50,6 +50,12 @@ img{max-width:100%;display:block}
 @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 .hero-photo img{animation:zoom 1.6s var(--ease) both}
 @keyframes zoom{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
+/* hero name: letters rise in one by one, then a gold glint runs across (reduced-motion rule below turns both off) */
+.name .w{display:inline-block;white-space:nowrap}
+.name .w span{display:inline-block;animation:letter .7s var(--ease) both,glint .8s ease-in-out both;
+ animation-delay:calc(.2s + var(--i) * .05s),calc(1.4s + var(--i) * .06s)}
+@keyframes letter{from{opacity:0;transform:translateY(.4em);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+@keyframes glint{45%{color:var(--gold)}}
 
 /* ---------- fact strip ---------- */
 .facts{background:var(--ink-2);color:var(--cream);border-top:1px solid var(--ink-3)}
