@@ -66,3 +66,22 @@ jobs:
           except Exception as e:
               print("IndexNow failed (site is still live):", e)
           PY
+
+      # After deploy, so every link is live. Each platform is skipped until its secrets are set.
+      - name: Post new articles to Telegram and Blogger
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+        run: |
+          status=0; python3 tools/syndicate.py || status=$?
+          git add content/syndicated.json
+          if ! git diff --cached --quiet; then   # record what was posted even if one platform failed
+            git commit -m "Record syndicated articles"
+            git push
+          fi
+          exit $status
