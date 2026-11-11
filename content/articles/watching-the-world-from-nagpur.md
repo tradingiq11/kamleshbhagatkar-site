@@ -14,7 +14,7 @@ I pass it often. And I sometimes think it is a good place from which to watch th
 
 ## How I started
 
-I run an IT business. My days are spent on clients, code and deadlines. About seven years ago I started reading about geopolitics out of curiosity, mainly to understand why fuel prices, the rupee and our exports moved the way they did.
+I run an IT business. My days are spent on clients, code and deadlines. About ten years ago I started reading about geopolitics out of curiosity, mainly to understand why fuel prices, the rupee and our exports moved the way they did.
 
 I quickly found that every one of those questions led somewhere else. To a war in West Asia. To a shipping lane near the Horn of Africa. To a decision in Washington or Beijing. Once I saw that, I could not stop reading.
 
