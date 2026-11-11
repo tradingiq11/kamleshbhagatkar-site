@@ -464,8 +464,11 @@ for w in WPS:
     fig = (f'<a class="wpfig" href="{pdf}"><img src="../{img}" alt="Cover of the whitepaper {esc(w["title"])}"></a>\n'
            if (SITE / img).exists() else "")
     cite = f"Kamlesh Bhagatkar ({w['date_obj'].year}). {w['title']}. Whitepaper, {w['pages']} pp. kamleshbhagatkar.com."
+    doi = w.get("doi", "")  # optional front matter, e.g. 10.5281/zenodo.123
+    cite += f" https://doi.org/{doi}" if doi else ""
     ld = json.dumps({"@context": "https://schema.org", "@type": "Report", "name": w["title"], "abstract": w["summary"],
                      "datePublished": w["date"], "numberOfPages": w["pages"], "url": w["url"], "inLanguage": "en-IN",
+                     **({"identifier": f"https://doi.org/{doi}", "sameAs": f"https://doi.org/{doi}"} if doi else {}),
                      "encoding": {"@type": "MediaObject", "contentUrl": BASE + f"downloads/whitepapers/{w['pdf']}", "encodingFormat": "application/pdf"},
                      "author": {"@type": "Person", "@id": BASE + "#person", "name": "Kamlesh Bhagatkar", "url": BASE}},
                     ensure_ascii=False).replace("</", "<\\/")
@@ -480,7 +483,7 @@ for w in WPS:
 <meta name="citation_title" content="{esc(w['title'])}">
 <meta name="citation_author" content="Bhagatkar, Kamlesh">
 <meta name="citation_publication_date" content="{w['date_obj']:%Y/%m/%d}">
-<meta name="citation_pdf_url" content="{BASE}downloads/whitepapers/{esc(w['pdf'])}">
+<meta name="citation_pdf_url" content="{BASE}downloads/whitepapers/{esc(w['pdf'])}">{f'\n<meta name="citation_doi" content="{esc(doi)}">' if doi else ''}
 <meta property="og:type" content="article">
 <meta property="og:title" content="{esc(w['title'])}">
 <meta property="og:description" content="{esc(w['summary'])}">

@@ -4,6 +4,7 @@ date: 2026-11-11
 pages: 50
 summary: How India's national security policy changed in twelve years: Pakistan, China, the borders, defence reform, internal security and diplomacy.
 pdf: india-national-security-policy-2014-2026.pdf
+doi: 10.5281/zenodo.24136315
 ---
 In May 2014 a new government took office in New Delhi with a single-party majority, the first in thirty years. This paper asks what that government did with India's national security policy over the twelve years that followed, from 26 May 2014 to November 2026.
 
