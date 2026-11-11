@@ -526,6 +526,7 @@ if WPS:
     pub_wps = '<div class="wpgrid">' + "".join(
         f'<article class="wpcard">{wp_cover(w, "../")}<div class="vbody"><span class="tag">{nice(w["date_obj"])} · {esc(w["pages"])} pages</span>'
         f'<h3><a href="../whitepapers/{w["slug"]}.html">{esc(w["title"])}</a></h3><p>{esc(w["summary"])}</p>'
+        + (f'<p class="wpdoi">DOI: <a href="https://doi.org/{esc(w["doi"])}" rel="noopener">{esc(w["doi"])}</a></p>' if w.get("doi") else "") +
         f'<div class="card-actions"><a class="more" href="../whitepapers/{w["slug"]}.html">Abstract →</a>'
         f'<a class="dl" href="../downloads/whitepapers/{esc(w["pdf"])}" download>{ICON}PDF</a></div></div></article>' for w in WPS) + "</div>"
 else:
