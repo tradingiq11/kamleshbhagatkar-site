@@ -37,7 +37,7 @@ AUTHOR_BOX = ('Kamlesh Bhagatkar is an author and geopolitical analyst from Nagp
 # ---------------------------------------------------------------- markdown subset
 def inline(t):
     t = html.escape(t, quote=False)
-    t = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", lambda m: f'<a href="{html.escape(m[2])}" rel="noopener">{m[1]}</a>', t)
+    t = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", lambda m: f'<a href="{m[2].replace(chr(34), "&quot;")}" rel="noopener">{m[1]}</a>', t)  # t is already escaped; only quotes are left
     t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
     t = re.sub(r"(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])", r"<i>\1</i>", t)
     return t
@@ -61,6 +61,7 @@ def markdown(md):
 
 assert markdown("## Head\n\nA *b* **c** [d](https://e.f)\n\n- x\n- y") == \
     '<p class="h">Head</p>\n\n<p>A <i>b</i> <strong>c</strong> <a href="https://e.f" rel="noopener">d</a></p>\n\n<ul><li>x</li><li>y</li></ul>'
+assert markdown('[s](https://e.f/?a=1&b=2"x)') == '<p><a href="https://e.f/?a=1&amp;b=2&quot;x" rel="noopener">s</a></p>'  # & once, quote closed off
 assert markdown("Tom & Jerry <script>") == "<p>Tom &amp; Jerry &lt;script&gt;</p>"  # raw HTML in articles is never trusted
 
 # ---------------------------------------------------------------- load articles
@@ -459,7 +460,7 @@ def wp_cover(w, prefix):
             f'<span class="wpm">{esc(w["pages"])} pages · {w["date_obj"]:%B %Y}</span><span class="wpa">Kamlesh Bhagatkar</span></a>')
 
 for w in WPS:
-    pdf = f"../downloads/whitepapers/{w['pdf']}"
+    pdf = f"../downloads/whitepapers/{esc(w['pdf'])}"
     img = f"images/whitepapers/{w['slug']}.jpg"
     og = (f'\n<meta property="og:url" content="{w["url"]}">\n<meta property="og:image" content="{BASE}images/og/whitepaper-{w["slug"]}.png">'
           '\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">'
