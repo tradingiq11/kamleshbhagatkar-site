@@ -461,6 +461,10 @@ def wp_cover(w, prefix):
 for w in WPS:
     pdf = f"../downloads/whitepapers/{w['pdf']}"
     img = f"images/whitepapers/{w['slug']}.jpg"
+    og = (f'\n<meta property="og:url" content="{w["url"]}">\n<meta property="og:image" content="{BASE}images/og/whitepaper-{w["slug"]}.png">'
+          '\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">'
+          '\n<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:site" content="@KBhagatkar">'
+          if (SITE / img).exists() else "")
     fig = (f'<a class="wpfig" href="{pdf}"><img src="../{img}" alt="Cover of the whitepaper {esc(w["title"])}"></a>\n'
            if (SITE / img).exists() else "")
     cite = f"Kamlesh Bhagatkar ({w['date_obj'].year}). {w['title']}. Whitepaper, {w['pages']} pp. kamleshbhagatkar.com."
@@ -486,7 +490,7 @@ for w in WPS:
 <meta name="citation_pdf_url" content="{BASE}downloads/whitepapers/{esc(w['pdf'])}">{f'\n<meta name="citation_doi" content="{esc(doi)}">' if doi else ''}
 <meta property="og:type" content="article">
 <meta property="og:title" content="{esc(w['title'])}">
-<meta property="og:description" content="{esc(w['summary'])}">
+<meta property="og:description" content="{esc(w['summary'])}">{og}
 {FONTS}
 <link rel="stylesheet" href="../style.css">
 <script type="application/ld+json">{ld}</script>
@@ -716,7 +720,12 @@ for a in ARTS:
     manifest[a["slug"]] = digest
     print("built", pdf.relative_to(SITE))
 OG_DIR = SITE / "images/og"
-for a in ARTS:
+# whitepapers with a cover get a share image too, as images/og/whitepaper-<slug>.png
+WP_OG = [dict(slug="whitepaper-" + w["slug"], image=f"images/whitepapers/{w['slug']}.jpg", category="Whitepaper", title=w["title"],
+              # the cover stands whole on the right instead of being cropped behind the title
+              css=".bg{inset:auto;right:64px;top:42px;width:auto;height:536px;box-shadow:0 14px 44px rgba(0,0,0,.55)}"
+                  ".shade{display:none}.box{width:650px}h1{font-size:54px}") for w in WPS if (SITE / f"images/whitepapers/{w['slug']}.jpg").exists()]
+for a in ARTS + WP_OG:
     bg = SITE / (a["image"] if a.get("image") else f"images/cards/{a['slug']}.svg")
     pos = a.get("image_position", "50% 35%")
     doc = f"""<!doctype html><html><head><meta charset="utf-8">{FONTS}<style>
@@ -729,7 +738,7 @@ h1{{font:700 58px/1.05 Oswald;text-transform:uppercase;margin:28px 0 0}}
 .by{{margin-top:auto;font:500 24px Oswald;letter-spacing:.22em;text-transform:uppercase;color:#c9a45c}}
 .by b{{color:#f4efe4;font-weight:600}}
 .bar{{position:absolute;left:0;bottom:0;width:100%;height:10px;background:#c8321f}}
-</style></head><body><img class="bg" src="{bg.as_uri()}" alt=""><div class="shade"></div>
+{a.get('css', '')}</style></head><body><img class="bg" src="{bg.as_uri()}" alt=""><div class="shade"></div>
 <div class="box"><span class="cat">{esc(a['category'])}</span><h1>{esc(a['title'])}</h1>
 <p class="by"><b>Kamlesh Bhagatkar</b> · kamleshbhagatkar.com</p></div><div class="bar"></div></body></html>"""
     digest = hashlib.sha256(doc.replace(SITE.as_uri(), "").encode() + bg.read_bytes()).hexdigest()[:16]
@@ -746,6 +755,6 @@ h1{{font:700 58px/1.05 Oswald;text-transform:uppercase;margin:28px 0 0}}
     manifest["og:" + a["slug"]] = digest
     print("built", png.relative_to(SITE))
 for stale in OG_DIR.glob("*.png") if OG_DIR.exists() else []:
-    if stale.stem not in live:
+    if stale.stem not in live | {a["slug"] for a in WP_OG}:
         stale.unlink(); print("removed", stale.relative_to(SITE))
 manifest_path.write_text(json.dumps(manifest, indent=1, sort_keys=True) + "\n")
