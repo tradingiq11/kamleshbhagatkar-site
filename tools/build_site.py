@@ -460,6 +460,9 @@ def wp_cover(w, prefix):
 
 for w in WPS:
     pdf = f"../downloads/whitepapers/{w['pdf']}"
+    img = f"images/whitepapers/{w['slug']}.jpg"
+    fig = (f'<a class="wpfig" href="{pdf}"><img src="../{img}" alt="Cover of the whitepaper {esc(w["title"])}"></a>\n'
+           if (SITE / img).exists() else "")
     cite = f"Bhagatkar, K. ({w['date_obj'].year}). {w['title']}. Whitepaper, {w['pages']} pp. kamleshbhagatkar.com."
     ld = json.dumps({"@context": "https://schema.org", "@type": "Report", "name": w["title"], "abstract": w["summary"],
                      "datePublished": w["date"], "numberOfPages": w["pages"], "url": w["url"], "inLanguage": "en-IN",
@@ -498,7 +501,7 @@ for w in WPS:
 </div></header>
 <main><article class="prose">
 <p class="h">Abstract</p>
-{w['abstract']}
+{fig}{w['abstract']}
 <div class="cite"><p class="h">Cite as</p><p>{esc(cite)}</p></div>
 <p class="dl-end"><a class="btn primary dl-btn" href="{pdf}" download>{ICON} Download PDF</a> <a class="dl" href="../publications/">All publications</a></p>
 </article></main>
