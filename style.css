@@ -59,7 +59,7 @@ img{max-width:100%;display:block}
 
 /* ---------- fact strip ---------- */
 .facts{background:var(--ink-2);color:var(--cream);border-top:1px solid var(--ink-3)}
-.facts .wrap{display:grid;grid-template-columns:repeat(3,1fr)}
+.facts .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
 .fact{padding:28px 20px;text-align:center;border-left:1px solid var(--ink-3)}
 .fact:first-child{border-left:0}
 .fact b{display:block;font:700 40px/1 var(--cond);color:#fff}
@@ -175,6 +175,9 @@ footer a:hover{color:#fff}
   .hero .role{font-size:22px}
   .fact b{font-size:30px}
   .fact{padding:22px 8px}
+  .facts .wrap{grid-template-columns:repeat(2,1fr)}
+  .fact:nth-child(3){border-left:0}
+  .fact:nth-child(n+3){border-top:1px solid var(--ink-3)}
   .fact span{font-size:11px;letter-spacing:.12em}
   section{padding:60px 0}
   .book,.band .wrap,.two,.cards{grid-template-columns:1fr}
