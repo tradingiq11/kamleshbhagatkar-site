@@ -450,6 +450,10 @@ for stale in (SITE / "whitepapers").glob("*.html") if (SITE / "whitepapers").exi
         stale.unlink(); print("removed", stale.relative_to(SITE))
 
 def wp_cover(w, prefix):
+    img = f"images/whitepapers/{w['slug']}.jpg"  # real cover (page 1 of the PDF) when present, else the text cover
+    if (SITE / img).exists():
+        return (f'<a class="wpcover wpimg" href="{prefix}whitepapers/{w["slug"]}.html" tabindex="-1" aria-hidden="true">'
+                f'<img src="{prefix}{img}" alt="" loading="lazy"></a>')
     return (f'<a class="wpcover" href="{prefix}whitepapers/{w["slug"]}.html" tabindex="-1" aria-hidden="true">'
             f'<span class="wpk">Whitepaper</span><span class="wpt">{esc(w["title"])}</span>'
             f'<span class="wpm">{esc(w["pages"])} pages · {w["date_obj"]:%B %Y}</span><span class="wpa">Kamlesh Bhagatkar</span></a>')
