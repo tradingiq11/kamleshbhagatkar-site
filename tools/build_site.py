@@ -31,7 +31,7 @@ ICON = ('<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="cur
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
          '<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">')
 AUTHOR_BOX = ('Kamlesh Bhagatkar is an author and geopolitical analyst from Nagpur. His first book, <i>RSS: 100 Years of Selfless Service – '
-              'Engineers of Glorious Bharat</i> (2025), returns soon in a <a href="../#books">new edition</a>. '
+              'Engineers of Glorious Bharat</i> (2025), is available on <a href="https://www.amazon.com/dp/B0F6JMSHDH" rel="noopener">Amazon</a>. '
               'His next book, <i>Nineteen Days</i>, on Pahalgam and Operation Sindoor, is coming soon.')
 
 # ---------------------------------------------------------------- markdown subset
@@ -250,7 +250,7 @@ PAGE = """<!doctype html>
 <p class="dl-end"><a class="btn primary dl-btn" href="../downloads/{slug}.pdf" download>{icon} Download PDF</a> <a class="dl" href="./">All articles</a></p>
 {share}
 </article></main>
-<footer><div class="wrap"><span>© {year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="./">Articles</a> · <a href="../#books">Books</a></span></div></footer>
+<footer><div class="wrap"><span>© {year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="./">Articles</a> · <a href="https://www.amazon.com/dp/B0F6JMSHDH" rel="noopener">Buy the book</a></span></div></footer>
 <script>document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>navigator.clipboard.writeText(b.dataset.copy).then(()=>b.textContent='Copied')))</script>
 </body>
 </html>
