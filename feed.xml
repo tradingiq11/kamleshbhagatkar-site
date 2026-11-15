@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"><channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
   <title>Kamlesh Bhagatkar: articles</title><link>https://kamleshbhagatkar.com/</link>
+  <atom:link href="https://kamleshbhagatkar.com/feed.xml" rel="self" type="application/rss+xml"/>
+  <lastBuildDate>Sun, 15 Nov 2026 07:00:00 +0530</lastBuildDate>
   <description>Geopolitics and current affairs from Nagpur, by author and geopolitical analyst Kamlesh Bhagatkar.</description>
   <language>en-in</language>
   <item><title>Qatar and Türkiye Sign a Defence Pact. What It Means for Bharat</title><link>https://kamleshbhagatkar.com/articles/2026-11-15-qatar-turkiye-defence-pact-india.html</link><guid>https://kamleshbhagatkar.com/articles/2026-11-15-qatar-turkiye-defence-pact-india.html</guid>

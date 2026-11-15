@@ -152,8 +152,15 @@ def card_art(a):
         extra = (w_deg * H_ / W_ - h_deg) / 2; lat0 -= extra; lat1 += extra
     s = W_ / ((lon1 - lon0) * k)
     P = lambda lon, lat: ((lon - lon0) * k * s, (lat1 - lat) * s)
+    def thin(ring):
+        pts, last = [], None
+        for q in ring:
+            x, y = P(*q)
+            if last is None or abs(x - last[0]) + abs(y - last[1]) >= 3:
+                pts.append((x, y)); last = (x, y)
+        return pts if len(pts) >= 4 else []  # tiny islands vanish at card size
     def path(name):
-        return " ".join("M" + " L".join(f"{x:.1f},{y:.1f}" for x, y in (P(*q) for q in ring)) + "Z" for ring in WORLD[name]["r"])
+        return " ".join("M" + " L".join(f"{x:.0f},{y:.0f}" for x, y in pts) + "Z" for pts in map(thin, WORLD[name]["r"]) if pts)
     def visible(name):
         return any(lon0 - 5 < q[0] < lon1 + 5 and lat0 - 5 < q[1] < lat1 + 5 for ring in WORLD[name]["r"] for q in ring[::5])
     hi = {n for e in ents for n in e[1]}
@@ -214,7 +221,9 @@ PAGE = """<!doctype html>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="{url}">
 <meta name="author" content="Kamlesh Bhagatkar">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="article">
+<meta property="og:site_name" content="Kamlesh Bhagatkar">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{url}">
@@ -234,12 +243,12 @@ PAGE = """<!doctype html>
 <body>
 <nav class="nav" aria-label="Main"><div class="wrap">
   <a class="brand" href="../">Kamlesh Bhagatkar</a>
-  <ul><li><a href="../#books">Books</a></li><li><a href="./">Articles</a></li><li><a href="../publications/">Publications</a></li><li><a href="../#about">About</a></li><li><a href="../#contact">Contact</a></li></ul>
+  <ul><li><a href="../#books">Books</a></li><li><a href="./">Articles</a></li><li><a href="../publications/">Publications</a></li><li><a href="../about/">About</a></li><li><a href="../#contact">Contact</a></li></ul>
 </div></nav>
 <header class="article-head"><div class="wrap">
   <p class="art-meta"><span class="tag-pill">{cat}</span> {nice_date} · {mins} min read</p>
   <h1>{title}</h1>
-  <p class="by">By <a href="../" style="color:inherit">Kamlesh Bhagatkar</a>, author &amp; geopolitical analyst</p>
+  <p class="by">By <a href="../about/" rel="author" style="color:inherit">Kamlesh Bhagatkar</a>, author &amp; geopolitical analyst</p>
   <a class="btn primary dl-btn" href="../downloads/{slug}.pdf" download>{icon} Download PDF</a>
   {share}
 </div></header>
@@ -250,7 +259,7 @@ PAGE = """<!doctype html>
 <p class="dl-end"><a class="btn primary dl-btn" href="../downloads/{slug}.pdf" download>{icon} Download PDF</a> <a class="dl" href="./">All articles</a></p>
 {share}
 </article></main>
-<footer><div class="wrap"><span>© {year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="./">Articles</a> · <a href="https://www.amazon.com/dp/B0F6JMSHDH" target="_blank" rel="noopener">Buy the book</a></span></div></footer>
+<footer><div class="wrap"><span>© {year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="../about/">About</a> · <a href="./">Articles</a> · <a href="https://www.amazon.com/dp/B0F6JMSHDH" target="_blank" rel="noopener">Buy the book</a></span></div></footer>
 <script>document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>navigator.clipboard.writeText(b.dataset.copy).then(()=>b.textContent='Copied')))</script>
 </body>
 </html>
@@ -293,10 +302,23 @@ for stale in [*(SITE / "articles").glob("*.html"), *(SITE / "downloads").glob("*
 def social(title, desc, url):
     """Open Graph + X card tags for listing pages (articles use the fuller PAGE template)."""
     img = BASE + "images/kamlesh-bhagatkar.jpg"
-    return "\n".join([f'<meta property="og:type" content="website">', f'<meta property="og:title" content="{esc(title)}">',
+    return "\n".join([f'<meta property="og:type" content="website">', '<meta property="og:site_name" content="Kamlesh Bhagatkar">', f'<meta property="og:title" content="{esc(title)}">',
                       f'<meta property="og:description" content="{esc(desc)}">', f'<meta property="og:url" content="{url}">',
                       f'<meta property="og:image" content="{img}">', '<meta name="twitter:card" content="summary_large_image">',
                       '<meta name="twitter:site" content="@KBhagatkar">'])
+
+ABOUT = BASE + "about/"
+AUTHOR_LD = {"@type": "Person", "@id": BASE + "#person", "name": "Kamlesh Bhagatkar", "url": ABOUT}
+
+def crumbs(*trail):
+    """BreadcrumbList JSON (Home first), ready to sit inside a ld+json script tag."""
+    items = [("Home", BASE), *trail]
+    return json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": i, "name": n, "item": u} for i, (n, u) in enumerate(items, 1)]},
+        ensure_ascii=False).replace("</", "<\\/")
+
+def ld_tag(*blocks):
+    return "\n".join(f'<script type="application/ld+json">{b}</script>' for b in blocks)
 
 
 def share_bar(a):
@@ -316,17 +338,13 @@ def share_bar(a):
 for a in ARTS:
     og = BASE + f"images/og/{a['slug']}.png"
     ld = json.dumps({"@context": "https://schema.org", "@type": "Article", "headline": a["title"], "description": a["description"],
-                     "url": a["url"], "datePublished": a["date"], "image": og, "inLanguage": "en-IN", "articleSection": a["category"],
-                     "author": {"@type": "Person", "@id": BASE + "#person", "name": "Kamlesh Bhagatkar", "url": BASE},
-                     "publisher": {"@id": BASE + "#person"}, "mainEntityOfPage": a["url"]}, ensure_ascii=False).replace("</", "<\\/")
-    crumbs = json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Home", "item": BASE},
-        {"@type": "ListItem", "position": 2, "name": "Articles", "item": BASE + "articles/"},
-        {"@type": "ListItem", "position": 3, "name": a["title"], "item": a["url"]}]}, ensure_ascii=False).replace("</", "<\\/")
-    ld = ld + '</script>\n<script type="application/ld+json">' + crumbs
+                     "url": a["url"], "datePublished": a["date"], "dateModified": a.get("updated", a["date"]),
+                     "image": {"@type": "ImageObject", "url": og, "width": 1200, "height": 630}, "inLanguage": "en-IN",
+                     "articleSection": a["category"], "wordCount": a["words"], "author": AUTHOR_LD,
+                     "publisher": {"@id": BASE + "#person"}, "isPartOf": {"@id": BASE + "#website"}, "mainEntityOfPage": a["url"]}, ensure_ascii=False).replace("</", "<\\/")
+    ld = ld + '</script>\n<script type="application/ld+json">' + crumbs(("Articles", BASE + "articles/"), (a["title"], a["url"]))
     write_if_changed(SITE / "articles" / f"{a['slug']}.html", PAGE.format(
-        # Google shows ~60 characters; keep the name suffix only when it fits
-        page_title=esc(a["title"] + " | Kamlesh Bhagatkar" if len(a["title"]) <= 40 else a["title"]),
+        page_title=esc(a["title"] + " | Kamlesh Bhagatkar"),  # the name is what people search; Google may cut the tail
         title=esc(a["title"]), desc=esc(a["description"]), url=a["url"], og_image=og, base=BASE, date=a["date"], fonts=FONTS,
         ld=ld, cat=esc(a["category"]), nice_date=nice(a["date_obj"]), mins=max(1, round(a["words"] / 220)),
         slug=a["slug"], icon=ICON, body=a["body"], author_box=AUTHOR_BOX, year=a["date_obj"].year, share=share_bar(a)))
@@ -340,7 +358,7 @@ def card(a, prefix):
     else:
         art = f"images/cards/{a['slug']}.svg"
         write_if_changed(SITE / art, card_art(a))
-        img = (f'<img class="card-art" src="{prefix}{art}" alt="" loading="lazy">'
+        img = (f'<img class="card-art" src="{prefix}{art}" alt="" width="800" height="500" loading="lazy">'
                f'<span class="typo-cat">{esc(a["category"])}</span><span class="typo-date">{nice(a["date_obj"])}</span>')
         cls = f"card-img card-typo has-art {cat_class(a['category'])}"
     link = f"{prefix}articles/{a['slug']}.html"
@@ -376,11 +394,15 @@ ARCHIVE = f"""<!doctype html>
 <link rel="alternate" type="application/rss+xml" title="Kamlesh Bhagatkar: articles" href="{BASE}feed.xml">
 {FONTS}
 <link rel="stylesheet" href="../style.css">
+{ld_tag(json.dumps({"@context": "https://schema.org", "@type": "CollectionPage", "name": "Articles by Kamlesh Bhagatkar", "url": BASE + "articles/",
+                    "author": AUTHOR_LD, "isPartOf": {"@id": BASE + "#website"}, "mainEntity": {"@type": "ItemList", "itemListElement": [
+                        {"@type": "ListItem", "position": i, "url": a["url"], "name": a["title"]} for i, a in enumerate(ARTS, 1)]}},
+                   ensure_ascii=False).replace("</", "<\\/"), crumbs(("Articles", BASE + "articles/")))}
 </head>
 <body>
 <nav class="nav" aria-label="Main"><div class="wrap">
   <a class="brand" href="../">Kamlesh Bhagatkar</a>
-  <ul><li><a href="../#books">Books</a></li><li><a href="./">Articles</a></li><li><a href="../publications/">Publications</a></li><li><a href="../#about">About</a></li><li><a href="../#contact">Contact</a></li></ul>
+  <ul><li><a href="../#books">Books</a></li><li><a href="./">Articles</a></li><li><a href="../publications/">Publications</a></li><li><a href="../about/">About</a></li><li><a href="../#contact">Contact</a></li></ul>
 </div></nav>
 <header class="article-head"><div class="wrap">
   <h1>Articles</h1>
@@ -395,7 +417,7 @@ ARCHIVE = f"""<!doctype html>
 {chr(10).join(card(a, "../").replace('<article class="card reveal">', f'<article class="card" data-cat="{esc(a["category"])}">') for a in ARTS)}
   </div>
 </div></section></main>
-<footer><div class="wrap"><span>© {datetime.date.today().year} Kamlesh Bhagatkar · <a href="../">Home</a></span></div></footer>
+<footer><div class="wrap"><span>© {datetime.date.today().year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="../about/">About</a></span></div></footer>
 <script>
 document.querySelectorAll('.chip').forEach(function(b){{b.addEventListener('click',function(){{
   var c=b.dataset.cat;document.querySelectorAll('.chip').forEach(function(x){{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)}});
@@ -462,10 +484,10 @@ def wp_cover(w, prefix):
 for w in WPS:
     pdf = f"../downloads/whitepapers/{esc(w['pdf'])}"
     img = f"images/whitepapers/{w['slug']}.jpg"
-    og = (f'\n<meta property="og:url" content="{w["url"]}">\n<meta property="og:image" content="{BASE}images/og/whitepaper-{w["slug"]}.png">'
-          '\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">'
-          '\n<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:site" content="@KBhagatkar">'
-          if (SITE / img).exists() else "")
+    og_img = (f'{BASE}images/og/whitepaper-{w["slug"]}.png">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630'
+              if (SITE / img).exists() else BASE + "images/kamlesh-bhagatkar.jpg")
+    og = (f'\n<meta property="og:site_name" content="Kamlesh Bhagatkar">\n<meta property="og:url" content="{w["url"]}">\n<meta property="og:image" content="{og_img}">'
+          '\n<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:site" content="@KBhagatkar">')
     fig = (f'<a class="wpfig" href="{pdf}"><img src="../{img}" alt="Cover of the whitepaper {esc(w["title"])}"></a>\n'
            if (SITE / img).exists() else "")
     cite = f"Kamlesh Bhagatkar ({w['date_obj'].year}). {w['title']}. Whitepaper, {w['pages']} pp. kamleshbhagatkar.com."
@@ -475,8 +497,9 @@ for w in WPS:
                      "datePublished": w["date"], "numberOfPages": w["pages"], "url": w["url"], "inLanguage": "en-IN",
                      **({"identifier": f"https://doi.org/{doi}", "sameAs": f"https://doi.org/{doi}"} if doi else {}),
                      "encoding": {"@type": "MediaObject", "contentUrl": BASE + f"downloads/whitepapers/{w['pdf']}", "encodingFormat": "application/pdf"},
-                     "author": {"@type": "Person", "@id": BASE + "#person", "name": "Kamlesh Bhagatkar", "url": BASE}},
+                     "author": AUTHOR_LD, "publisher": {"@id": BASE + "#person"}, "isPartOf": {"@id": BASE + "#website"}},
                     ensure_ascii=False).replace("</", "<\\/")
+    ld += '</script>\n<script type="application/ld+json">' + crumbs(("Publications", BASE + "publications/"), (w["title"], w["url"]))
     write_if_changed(SITE / "whitepapers" / f"{w['slug']}.html", f"""<!doctype html>
 <html lang="en-IN">
 <head>
@@ -499,12 +522,12 @@ for w in WPS:
 <body>
 <nav class="nav" aria-label="Main"><div class="wrap">
   <a class="brand" href="../">Kamlesh Bhagatkar</a>
-  <ul><li><a href="../#books">Books</a></li><li><a href="../articles/">Articles</a></li><li><a href="../publications/">Publications</a></li><li><a href="../#about">About</a></li><li><a href="../#contact">Contact</a></li></ul>
+  <ul><li><a href="../#books">Books</a></li><li><a href="../articles/">Articles</a></li><li><a href="../publications/">Publications</a></li><li><a href="../about/">About</a></li><li><a href="../#contact">Contact</a></li></ul>
 </div></nav>
 <header class="article-head"><div class="wrap">
   <p class="art-meta"><span class="tag-pill">Whitepaper</span> {nice(w['date_obj'])} · {esc(w['pages'])} pages</p>
   <h1>{esc(w['title'])}</h1>
-  <p class="by">By <a href="../" style="color:inherit">Kamlesh Bhagatkar</a>, author &amp; geopolitical analyst</p>
+  <p class="by">By <a href="../about/" rel="author" style="color:inherit">Kamlesh Bhagatkar</a>, author &amp; geopolitical analyst</p>
   <a class="btn primary dl-btn" href="{pdf}" download>{ICON} Download PDF ({esc(w['pages'])} pages)</a>
 </div></header>
 <main><article class="prose">
@@ -549,7 +572,7 @@ pub_ld = json.dumps({"@context": "https://schema.org", "@graph": [
     {"@type": "VideoObject", "name": t, "uploadDate": d, "thumbnailUrl": f"https://i.ytimg.com/vi/{v}/hqdefault.jpg",
      "embedUrl": f"https://www.youtube-nocookie.com/embed/{v}", "contentUrl": f"https://www.youtube.com/watch?v={v}",
      "description": t, "creator": {"@id": BASE + "#person"}} for d, t, v in VIDEOS]}, ensure_ascii=False).replace("</", "<\\/")
-ld_tag = f'<script type="application/ld+json">{pub_ld}</script>' if VIDEOS else ""
+pub_ld_tag = ld_tag(*([pub_ld] if VIDEOS else []), crumbs(("Publications", BASE + "publications/")))
 media_jump = '<a href="#media">Media</a>' if MEDIA else ""
 counts_txt = (": " + pub_counts) if pub_counts else ""
 
@@ -564,12 +587,12 @@ PUBS = f"""<!doctype html>
 {social("Publications | Kamlesh Bhagatkar", "Whitepapers, articles and videos by Kamlesh Bhagatkar, author and geopolitical analyst from Nagpur.", BASE + "publications/")}
 {FONTS}
 <link rel="stylesheet" href="../style.css">
-{ld_tag}
+{pub_ld_tag}
 </head>
 <body>
 <nav class="nav" aria-label="Main"><div class="wrap">
   <a class="brand" href="../">Kamlesh Bhagatkar</a>
-  <ul><li><a href="../#books">Books</a></li><li><a href="../articles/">Articles</a></li><li><a href="./">Publications</a></li><li><a href="../#about">About</a></li><li><a href="../#contact">Contact</a></li></ul>
+  <ul><li><a href="../#books">Books</a></li><li><a href="../articles/">Articles</a></li><li><a href="./">Publications</a></li><li><a href="../about/">About</a></li><li><a href="../#contact">Contact</a></li></ul>
 </div></nav>
 <header class="article-head"><div class="wrap">
   <h1>Publications</h1>
@@ -583,7 +606,7 @@ PUBS = f"""<!doctype html>
 <section class="pub-sec" id="videos"><h2>Videos</h2>{pub_videos}</section>
 {pub_media}
 </div></main>
-<footer><div class="wrap"><span>© {datetime.date.today().year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="../articles/">Articles</a></span></div></footer>
+<footer><div class="wrap"><span>© {datetime.date.today().year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="../articles/">Articles</a> · <a href="../about/">About</a></span></div></footer>
 <script>
 document.querySelectorAll('.vplay').forEach(function(b){{b.addEventListener('click',function(){{
   var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+b.dataset.id+'?autoplay=1';
@@ -606,7 +629,68 @@ tiles = f"""
     """
 h2 = home.read_text()
 assert "<!-- PUBS:START -->" in h2, "index.html needs the PUBS markers"
-write_if_changed(home, re.sub(r"(<!-- PUBS:START -->).*?(<!-- PUBS:END -->)", lambda m: m[1] + tiles + m[2], h2, flags=re.S))
+h2 = re.sub(r"(<!-- PUBS:START -->).*?(<!-- PUBS:END -->)", lambda m: m[1] + tiles + m[2], h2, flags=re.S)
+write_if_changed(home, re.sub(r'(<b data-count="articles">)\d+(</b>)', lambda m: f"{m[1]}{len(ARTS)}{m[2]}", h2))
+
+# ---------------------------------------------------------------- about page (entity home: who he is, his books, his profiles)
+ABOUT_DATE = "2026-11-15"  # bump when the About text below changes
+ld_blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', home.read_text(), re.S)
+PERSON = next(n for b in ld_blocks for n in json.loads(b).get("@graph", []) if n.get("@type") == "Person")  # single source: index.html
+LABELS = {"x.com": "X (Twitter)", "facebook.com": "Facebook", "amazon.": "Amazon author page", "linkedin.com": "LinkedIn",
+          "goodreads.com": "Goodreads", "youtube.com": "YouTube", "orcid.org": "ORCID", "medium.com": "Medium", "instagram.com": "Instagram"}
+def label(u): return next((v for k, v in LABELS.items() if k in u), u.split("/")[2])
+profiles = "".join(f'<li><a href="{esc(u)}" rel="me noopener" target="_blank">{label(u)}</a></li>' for u in PERSON.get("sameAs", []))
+about_ld = json.dumps({"@context": "https://schema.org", "@type": "ProfilePage", "url": ABOUT, "name": "About Kamlesh Bhagatkar",
+                       "dateModified": ABOUT_DATE, "isPartOf": {"@id": BASE + "#website"}, "mainEntity": PERSON}, ensure_ascii=False).replace("</", "<\\/")
+latest_li = "".join(f'<li><a href="../articles/{a["slug"]}.html">{esc(a["title"])}</a></li>' for a in ARTS[:5])
+wp_li = "".join(f'<li><a href="../whitepapers/{w["slug"]}.html">{esc(w["title"])}</a> ({w["date_obj"].year})</li>' for w in WPS)
+write_if_changed(SITE / "about/index.html", f"""<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About Kamlesh Bhagatkar | Author &amp; Geopolitical Analyst, Nagpur</title>
+<meta name="description" content="Kamlesh Bhagatkar is an author and geopolitical analyst from Nagpur, author of RSS: 100 Years of Selfless Service and the upcoming Nineteen Days on Operation Sindoor.">
+<link rel="canonical" href="{ABOUT}">
+<meta name="robots" content="index,follow,max-image-preview:large">
+{social("About Kamlesh Bhagatkar", "Author and geopolitical analyst from Nagpur. Books, writing and profiles.", ABOUT).replace('content="website"', 'content="profile"')}
+{FONTS}
+<link rel="stylesheet" href="../style.css">
+{ld_tag(about_ld, crumbs(("About", ABOUT)))}
+</head>
+<body>
+<nav class="nav" aria-label="Main"><div class="wrap">
+  <a class="brand" href="../">Kamlesh Bhagatkar</a>
+  <ul><li><a href="../#books">Books</a></li><li><a href="../articles/">Articles</a></li><li><a href="../publications/">Publications</a></li><li><a href="./">About</a></li><li><a href="../#contact">Contact</a></li></ul>
+</div></nav>
+<header class="article-head"><div class="wrap">
+  <p class="art-meta"><span class="tag-pill">About</span> Nagpur · Bharat</p>
+  <h1>Kamlesh Bhagatkar</h1>
+  <p class="by">Author &amp; Geopolitical Analyst</p>
+</div></header>
+<main><article class="prose">
+<p><img src="../images/kamlesh-bhagatkar-800.webp" alt="Portrait of Kamlesh Bhagatkar, author and geopolitical analyst from Nagpur" width="800" height="1000" style="width:100%;max-width:360px;height:auto;float:right;margin:0 0 18px 24px"></p>
+<p>Kamlesh Bhagatkar is an author and geopolitical analyst from Nagpur, Maharashtra. For the past ten years he has studied geopolitics, national security and India's strategic choices, and he writes about them in plain language, from an Indian point of view.</p>
+<p>His first book, <i>RSS: 100 Years of Selfless Service – Engineers of Glorious Bharat</i> (2025), tells the story of the Sangh's first century for young readers. His next book, <i>Nineteen Days: Pahalgam, Operation Sindoor and the Answer of Bharat</i>, is a narrative account of India's response to the Pahalgam terror attack.</p>
+<p>He publishes analysis on geopolitics and India's foreign and security policy on this site, and long-form research as whitepapers. Alongside his writing, he runs an IT business with offices in Nagpur and Bengaluru.</p>
+<p class="h">Books</p>
+<ul><li><a href="https://www.amazon.com/dp/B0F6JMSHDH" rel="noopener" target="_blank"><i>RSS: 100 Years of Selfless Service</i></a> (2025, paperback, ISBN 9798281394369)</li>
+<li><a href="../#nineteen-days"><i>Nineteen Days</i></a> (coming soon)</li></ul>
+{"<p class='h'>Whitepapers</p><ul>" + wp_li + "</ul>" if WPS else ""}
+<p class="h">Latest articles</p>
+<ul>{latest_li}</ul>
+<p><a href="../articles/">All {len(ARTS)} articles →</a></p>
+<p class="h">Writes and speaks on</p>
+<ul><li>India's national security and deterrence</li><li>Operation Sindoor and India–Pakistan relations</li><li>Defence self-reliance: weapons made in Bharat</li><li>India in the Indian Ocean and the wider world</li><li>The RSS and a century of social service</li></ul>
+<p class="h">Find Kamlesh Bhagatkar online</p>
+<ul>{profiles}</ul>
+<p class="h">Contact</p>
+<p>For books, interviews, talks and publishing enquiries, see the <a href="../#contact">contact section</a>. Journalists and organisers can use the bios in the <a href="../#media">media kit</a>.</p>
+</article></main>
+<footer><div class="wrap"><span>© {datetime.date.today().year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="../articles/">Articles</a> · <a href="../publications/">Publications</a></span></div></footer>
+</body>
+</html>
+""")
 
 # ---------------------------------------------------------------- 404 page (GitHub Pages serves /404.html)
 write_if_changed(SITE / "404.html", f"""<!doctype html>
@@ -622,7 +706,7 @@ write_if_changed(SITE / "404.html", f"""<!doctype html>
 <body>
 <nav class="nav" aria-label="Main"><div class="wrap">
   <a class="brand" href="/">Kamlesh Bhagatkar</a>
-  <ul><li><a href="/#books">Books</a></li><li><a href="/articles/">Articles</a></li><li><a href="/publications/">Publications</a></li><li><a href="/#contact">Contact</a></li></ul>
+  <ul><li><a href="/#books">Books</a></li><li><a href="/articles/">Articles</a></li><li><a href="/publications/">Publications</a></li><li><a href="/about/">About</a></li><li><a href="/#contact">Contact</a></li></ul>
 </div></nav>
 <header class="article-head"><div class="wrap">
   <p class="art-meta"><span class="tag-pill">404</span></p>
@@ -641,15 +725,17 @@ write_if_changed(SITE / "404.html", f"""<!doctype html>
 
 # ---------------------------------------------------------------- sitemap + RSS
 latest = ARTS[0]["date"] if ARTS else datetime.date.today().isoformat()
-urls = [(BASE, latest), (BASE + "articles/", latest), (BASE + "publications/", latest)] + [(a["url"], a["date"]) for a in ARTS] + [(w["url"], w["date"]) for w in WPS]
+urls = [(BASE, latest), (ABOUT, ABOUT_DATE), (BASE + "articles/", latest), (BASE + "publications/", latest)] + [(a["url"], a["date"]) for a in ARTS] + [(w["url"], w["date"]) for w in WPS]
 write_if_changed(SITE / "sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                  + "".join(f"  <url><loc>{u}</loc><lastmod>{d}</lastmod></url>\n" for u, d in urls) + "</urlset>\n")
 items = "".join(f"""  <item><title>{esc(a['title'])}</title><link>{a['url']}</link><guid>{a['url']}</guid>
     <pubDate>{email.utils.format_datetime(datetime.datetime.combine(a['date_obj'], datetime.time(7, 0), datetime.timezone(datetime.timedelta(hours=5, minutes=30))))}</pubDate>
     <category>{esc(a['category'])}</category><description>{esc(a['summary'])}</description></item>\n""" for a in ARTS[:30])
 write_if_changed(SITE / "feed.xml", f"""<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"><channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
   <title>Kamlesh Bhagatkar: articles</title><link>{BASE}</link>
+  <atom:link href="{BASE}feed.xml" rel="self" type="application/rss+xml"/>
+  <lastBuildDate>{email.utils.format_datetime(datetime.datetime.combine(ARTS[0]['date_obj'] if ARTS else datetime.date.today(), datetime.time(7, 0), datetime.timezone(datetime.timedelta(hours=5, minutes=30))))}</lastBuildDate>
   <description>Geopolitics and current affairs from Nagpur, by author and geopolitical analyst Kamlesh Bhagatkar.</description>
   <language>en-in</language>
 {items}</channel></rss>

@@ -49,7 +49,7 @@ img{max-width:100%;display:block}
 .d1{animation-delay:.08s}.d2{animation-delay:.18s}.d3{animation-delay:.28s}.d4{animation-delay:.38s}.d5{animation-delay:.5s}
 @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 .hero-photo img{animation:zoom 1.6s var(--ease) both}
-@keyframes zoom{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
+@keyframes zoom{from{transform:scale(1.06)}to{transform:none}}  /* no opacity fade: it delayed Google's LCP timing */
 /* hero name: letters rise in one by one, then a gold glint runs across (reduced-motion rule below turns both off) */
 .name .w{display:inline-block;white-space:nowrap}
 .name .w span{display:inline-block;animation:letter .7s var(--ease) both,glint .8s ease-in-out both;
