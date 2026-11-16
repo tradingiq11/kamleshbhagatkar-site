@@ -229,6 +229,7 @@ footer a:hover{color:#fff}
 .stack.nd.up{--cover:url(images/up-turnaround.jpg)}
 .up .sp{border-top-color:rgba(232,130,40,.8)}
 .up .sp b{color:#f0a04b}
+#up-turnaround h2 .pre{display:block;font-size:.36em;letter-spacing:.22em;margin-bottom:.35em}
 .band.has-stack .wrap{grid-template-columns:240px 1fr 300px;gap:48px}
 .band.has-stack:before{display:none}
 @media (max-width:900px){.band.has-stack .wrap{grid-template-columns:200px 1fr}.band.has-stack .stack{grid-column:1/-1;justify-self:center;width:320px}}
