@@ -1,0 +1,22 @@
+# Daily: LinkedIn key-expiry alert. Mondays: posting report. Both arrive as GitHub issues.
+name: Alerts and weekly report
+
+on:
+  schedule:
+    - cron: "15 3 * * *"   # 08:45 IST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  alerts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check keys and send the weekly report
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LINKEDIN_TOKEN_DATE: ${{ vars.LINKEDIN_TOKEN_DATE }}
+        run: python3 tools/alerts.py

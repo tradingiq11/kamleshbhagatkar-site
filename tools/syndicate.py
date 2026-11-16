@@ -12,6 +12,11 @@ Secrets (GitHub repo settings > Secrets and variables > Actions):
     MASTODON_INSTANCE, MASTODON_TOKEN                        (e.g. https://mastodon.social)
     TUMBLR_BLOG, TUMBLR_CONSUMER_KEY, TUMBLR_CONSUMER_SECRET, TUMBLR_TOKEN, TUMBLR_TOKEN_SECRET
     WPCOM_SITE, WPCOM_TOKEN                                  (e.g. kamleshbhagatkar.wordpress.com)
+    WRITEAS_COLLECTION, WRITEAS_TOKEN                        (blog alias, e.g. kamleshbhagatkar)
+    FACEBOOK_PAGE_ID, FACEBOOK_PAGE_TOKEN                    (long-lived Page token; posts to the Page, not a profile)
+    PINTEREST_BOARD_ID, PINTEREST_CLIENT_ID, PINTEREST_CLIENT_SECRET, PINTEREST_REFRESH_TOKEN
+    ZENODO_TOKEN                                             (new whitepapers become Zenodo DRAFTS; he publishes by hand)
+Repo variable (not secret) SYNDICATION_PAUSED=true stops all posting.
 
 Usage:  python3 tools/syndicate.py            (post)
         python3 tools/syndicate.py --dry-run  (show what would be posted; no network, no state change)
@@ -45,6 +50,14 @@ def extract_body(page):
 
 
 assert extract_body('<x><article class="prose">\n<p>Hi</p>\n<p class="author-box">a</p>') == "<p>Hi</p>"
+
+
+def call(method, url, data=None, headers=None, body=None):
+    """JSON request with any method; body= sends raw bytes instead (file uploads)."""
+    req = urllib.request.Request(url, method=method, data=body if body is not None else (json.dumps(data).encode() if data is not None else None),
+                                 headers={"Content-Type": "application/octet-stream" if body is not None else "application/json", **(headers or {})})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        return json.load(r)
 
 
 def post_json(url, data, headers=None, form=False, raw=False):
@@ -150,6 +163,60 @@ def wpcom(a, _):
               {"Authorization": f"Bearer {os.environ['WPCOM_TOKEN']}"})
 
 
+def md_body(slug):
+    t = (SITE / "content/articles" / f"{slug}.md").read_text(encoding="utf-8")
+    return re.sub(r"\A---\n.*?\n---\n", "", t, flags=re.S).strip()
+
+
+def writeas(a, _):
+    post_json(f"https://write.as/api/collections/{os.environ['WRITEAS_COLLECTION']}/posts",
+              {"title": a["title"], "body": f"*Originally published at [kamleshbhagatkar.com]({a['url']}).*\n\n" + md_body(a["slug"])},
+              {"Authorization": f"Token {os.environ['WRITEAS_TOKEN']}"})
+
+
+def facebook(a, _):
+    post_json(f"https://graph.facebook.com/{os.environ['FACEBOOK_PAGE_ID']}/feed",  # unversioned: uses the app's default Graph version
+              {"message": f"{a['title']}\n\n{a['summary']}", "link": a["url"], "access_token": os.environ["FACEBOOK_PAGE_TOKEN"]}, form=True)
+
+
+def pinterest_token():
+    basic = base64.b64encode(f"{os.environ['PINTEREST_CLIENT_ID']}:{os.environ['PINTEREST_CLIENT_SECRET']}".encode()).decode()
+    return post_json("https://api.pinterest.com/v5/oauth/token", {"grant_type": "refresh_token", "refresh_token": os.environ["PINTEREST_REFRESH_TOKEN"]},
+                     {"Authorization": f"Basic {basic}"}, form=True)["access_token"]
+
+
+def pinterest(a, token):
+    post_json("https://api.pinterest.com/v5/pins", {"board_id": os.environ["PINTEREST_BOARD_ID"], "title": a["title"][:100],
+              "description": a["summary"][:500], "link": a["url"], "alt_text": a["title"][:500],
+              "media_source": {"source_type": "image_url", "url": f"{BASE}images/og/{a['slug']}.png"}}, {"Authorization": f"Bearer {token}"})
+
+
+def zenodo_drafts(state):
+    """Whitepapers without a DOI become Zenodo drafts (never published here: a DOI is permanent). Prints ZENODO_DRAFT lines for the workflow."""
+    if DRY or not os.environ.get("ZENODO_TOKEN"):
+        return
+    auth = {"Authorization": f"Bearer {os.environ['ZENODO_TOKEN']}"}
+    done = set(state.get("zenodo", []))
+    for p in sorted((SITE / "content/whitepapers").glob("*.md")):
+        m = re.match(r"---\n(.*?)\n---\n(.*)", p.read_text(encoding="utf-8"), re.S)
+        meta = {k.strip(): v.strip() for k, v in (l.split(":", 1) for l in m[1].splitlines() if ":" in l)}
+        if meta.get("doi") or p.stem in done:
+            continue
+        try:
+            d = call("POST", "https://zenodo.org/api/deposit/depositions", {}, auth)
+            pdf = SITE / "downloads/whitepapers" / meta["pdf"]
+            call("PUT", f"{d['links']['bucket']}/{urllib.parse.quote(meta['pdf'])}", headers=auth, body=pdf.read_bytes())
+            call("PUT", f"https://zenodo.org/api/deposit/depositions/{d['id']}", {"metadata": {
+                "upload_type": "publication", "publication_type": "report", "title": meta["title"], "publication_date": meta["date"],
+                "creators": [{"name": "Bhagatkar, Kamlesh", "affiliation": "Independent researcher"}], "access_right": "open",
+                "description": html.escape(m[2].strip()).replace("\n\n", "<br><br>"), "keywords": ["India", "national security", "geopolitics"],
+                "related_identifiers": [{"identifier": f"{BASE}whitepapers/{p.stem}.html", "relation": "isIdenticalTo"}]}}, auth)
+            done.add(p.stem); print(f"ZENODO_DRAFT {p.stem} {d['links']['html']}")
+        except Exception as e:
+            print(f"zenodo: failed {p.stem}: {e}")
+    state["zenodo"] = sorted(done)
+
+
 PLATFORMS = {
     "telegram": (("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"), lambda: None, lambda a, _: telegram(a)),
     "blogger": (("BLOGGER_BLOG_ID", "BLOGGER_CLIENT_ID", "BLOGGER_CLIENT_SECRET", "BLOGGER_REFRESH_TOKEN"), blogger_token, blogger),
@@ -158,10 +225,15 @@ PLATFORMS = {
     "mastodon": (("MASTODON_INSTANCE", "MASTODON_TOKEN"), lambda: None, mastodon),
     "tumblr": (("TUMBLR_BLOG", "TUMBLR_CONSUMER_KEY", "TUMBLR_CONSUMER_SECRET", "TUMBLR_TOKEN", "TUMBLR_TOKEN_SECRET"), lambda: None, tumblr),
     "wpcom": (("WPCOM_SITE", "WPCOM_TOKEN"), lambda: None, wpcom),
+    "writeas": (("WRITEAS_COLLECTION", "WRITEAS_TOKEN"), lambda: None, writeas),
+    "facebook": (("FACEBOOK_PAGE_ID", "FACEBOOK_PAGE_TOKEN"), lambda: None, facebook),
+    "pinterest": (("PINTEREST_BOARD_ID", "PINTEREST_CLIENT_ID", "PINTEREST_CLIENT_SECRET", "PINTEREST_REFRESH_TOKEN"), pinterest_token, pinterest),
 }
 
 
 def main():
+    if os.environ.get("SYNDICATION_PAUSED", "").strip().lower() in ("1", "true", "yes", "on"):
+        print("syndication paused (repo variable SYNDICATION_PAUSED)"); return
     state = json.loads(STATE.read_text()) if STATE.exists() else {}
     today = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=5, minutes=30))).date()  # IST
     recent = [a for a in articles() if (today - datetime.date.fromisoformat(a["date"])).days <= RECENT_DAYS]
@@ -187,6 +259,7 @@ def main():
             except Exception as e:  # one failure must not block the rest; it retries on the next run
                 print(f"{name}: failed {a['slug']}: {e}"); failed = True
         state[name] = sorted(done)
+    zenodo_drafts(state)
     if not DRY:
         STATE.write_text(json.dumps(state, indent=1) + "\n")
     sys.exit(1 if failed else 0)

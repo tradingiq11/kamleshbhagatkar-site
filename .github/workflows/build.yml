@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
   pages: write
   id-token: write
 
@@ -68,7 +69,7 @@ jobs:
           PY
 
       # After deploy, so every link is live. Each platform is skipped until its secrets are set.
-      - name: Post new articles to Telegram, Blogger, LinkedIn, Bluesky, Mastodon, Tumblr, WordPress.com
+      - name: Post new articles to every connected site (Zenodo whitepapers as drafts)
         continue-on-error: true
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -90,8 +91,24 @@ jobs:
           TUMBLR_TOKEN_SECRET: ${{ secrets.TUMBLR_TOKEN_SECRET }}
           WPCOM_SITE: ${{ secrets.WPCOM_SITE }}
           WPCOM_TOKEN: ${{ secrets.WPCOM_TOKEN }}
+          WRITEAS_COLLECTION: ${{ secrets.WRITEAS_COLLECTION }}
+          WRITEAS_TOKEN: ${{ secrets.WRITEAS_TOKEN }}
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_PAGE_TOKEN: ${{ secrets.FACEBOOK_PAGE_TOKEN }}
+          PINTEREST_BOARD_ID: ${{ secrets.PINTEREST_BOARD_ID }}
+          PINTEREST_CLIENT_ID: ${{ secrets.PINTEREST_CLIENT_ID }}
+          PINTEREST_CLIENT_SECRET: ${{ secrets.PINTEREST_CLIENT_SECRET }}
+          PINTEREST_REFRESH_TOKEN: ${{ secrets.PINTEREST_REFRESH_TOKEN }}
+          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+          SYNDICATION_PAUSED: ${{ vars.SYNDICATION_PAUSED }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          status=0; python3 tools/syndicate.py || status=$?
+          status=0; python3 tools/syndicate.py > syndicate.log 2>&1 || status=$?; cat syndicate.log  # no pipe, so a failure is not hidden
+          grep '^ZENODO_DRAFT ' syndicate.log | while read -r _ slug url; do   # a DOI is permanent: he reviews and publishes by hand
+            gh issue create --title "Zenodo draft ready: $slug" --body "A draft for the whitepaper **$slug** is on Zenodo: $url
+
+          Check the title, licence and abstract, then click **Publish** to get the DOI. After that, add the DOI to content/whitepapers/$slug.md as doi: 10.5281/zenodo.NNN" || true
+          done
           git add content/syndicated.json
           if ! git diff --cached --quiet; then   # record what was posted even if one platform failed
             git commit -m "Record syndicated articles"
