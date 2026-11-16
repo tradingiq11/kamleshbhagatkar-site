@@ -257,7 +257,8 @@ def main():
                 send(a, token)
                 done.add(a["slug"]); print(f"{name}: posted {a['slug']}")
             except Exception as e:  # one failure must not block the rest; it retries on the next run
-                print(f"{name}: failed {a['slug']}: {e}"); failed = True
+                detail = e.read().decode(errors="replace")[:300] if hasattr(e, "read") else ""  # the site's own reason, e.g. API disabled
+                print(f"{name}: failed {a['slug']}: {e} {detail}"); failed = True
         state[name] = sorted(done)
     zenodo_drafts(state)
     if not DRY:
