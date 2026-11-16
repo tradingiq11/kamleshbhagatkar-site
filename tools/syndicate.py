@@ -255,6 +255,7 @@ def main():
                 print(f"{name}: would post {a['slug']}"); continue
             try:
                 send(a, token)
+                time.sleep(5)  # Blogger returned 429 after 5 quick posts in a row
                 done.add(a["slug"]); print(f"{name}: posted {a['slug']}")
             except Exception as e:  # one failure must not block the rest; it retries on the next run
                 detail = e.read().decode(errors="replace")[:300] if hasattr(e, "read") else ""  # the site's own reason, e.g. API disabled
