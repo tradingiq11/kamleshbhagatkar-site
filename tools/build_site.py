@@ -841,6 +841,38 @@ h1{{font:700 58px/1.05 Oswald;text-transform:uppercase;margin:28px 0 0}}
     src.unlink()
     manifest["og:" + a["slug"]] = digest
     print("built", png.relative_to(SITE))
+# square 1080x1080 cards for Facebook/Instagram posts: images/social/<slug>.png
+SQ_DIR = SITE / "images/social"
+for a in ARTS:
+    bg = SITE / (a["image"] if a.get("image") else f"images/cards/{a['slug']}.svg")
+    doc = f"""<!doctype html><html><head><meta charset="utf-8">{FONTS}<style>
+html,body{{margin:0;width:1080px;height:1080px;overflow:hidden;background:#121316}}
+.bg{{position:absolute;left:0;top:0;width:1080px;height:675px;object-fit:cover;object-position:{a.get('image_position', '50% 35%')}}}
+.fade{{position:absolute;left:0;top:375px;width:100%;height:300px;background:linear-gradient(180deg,rgba(18,19,22,0),#121316)}}
+.box{{position:absolute;left:72px;right:72px;top:470px;bottom:72px;display:flex;flex-direction:column;color:#f4efe4;font-family:Oswald,sans-serif}}
+.cat{{align-self:flex-start;background:#c8321f;color:#fff;font:600 24px Oswald;letter-spacing:.2em;text-transform:uppercase;padding:6px 16px}}
+h1{{font:700 62px/1.06 Oswald;text-transform:uppercase;margin:26px 0 0}}
+.by{{margin-top:auto;font:500 26px Oswald;letter-spacing:.2em;text-transform:uppercase;color:#c9a45c}}
+.by b{{color:#f4efe4;font-weight:600}}
+.bar{{position:absolute;left:0;bottom:0;width:100%;height:12px;background:#c8321f}}</style></head><body>
+<img class="bg" src="{bg.as_uri()}" alt=""><div class="fade"></div><div class="box"><span class="cat">{esc(a['category'])}</span>
+<h1>{esc(a['title'])}</h1><p class="by"><b>Kamlesh Bhagatkar</b> · kamleshbhagatkar.com</p></div><div class="bar"></div></body></html>"""
+    digest = hashlib.sha256(doc.replace(SITE.as_uri(), "").encode() + bg.read_bytes()).hexdigest()[:16]
+    png = SQ_DIR / f"{a['slug']}.png"
+    if png.exists() and manifest.get("sq:" + a["slug"]) == digest:
+        continue
+    SQ_DIR.mkdir(parents=True, exist_ok=True)
+    src = OUT / f".sq-{a['slug']}.html"
+    src.write_text(doc)
+    subprocess.run([chrome, "--headless", "--disable-gpu", "--no-sandbox", "--hide-scrollbars", "--force-device-scale-factor=1", "--window-size=1080,1080",
+                    "--virtual-time-budget=8000", "--allow-file-access-from-files", f"--screenshot={png}", src.as_uri()],
+                   check=True, capture_output=True, timeout=180)
+    src.unlink()
+    manifest["sq:" + a["slug"]] = digest
+    print("built", png.relative_to(SITE))
+for stale in SQ_DIR.glob("*.png") if SQ_DIR.exists() else []:
+    if stale.stem not in live:
+        stale.unlink(); print("removed", stale.relative_to(SITE))
 for stale in OG_DIR.glob("*.png") if OG_DIR.exists() else []:
     if stale.stem not in live | {a["slug"] for a in WP_OG}:
         stale.unlink(); print("removed", stale.relative_to(SITE))

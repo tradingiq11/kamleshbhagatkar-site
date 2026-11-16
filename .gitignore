@@ -8,3 +8,4 @@ TRACKER.md
 .impeccable/
 .DS_Store
 downloads/.*
+__pycache__/
