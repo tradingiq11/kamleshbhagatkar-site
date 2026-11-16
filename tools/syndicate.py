@@ -7,7 +7,7 @@ before the accounts are set up. Every copy links back to kamleshbhagatkar.com as
 Secrets (GitHub repo settings > Secrets and variables > Actions):
     TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID                     (e.g. @kamleshbhagatkar or -100123...)
     BLOGGER_BLOG_ID, BLOGGER_CLIENT_ID, BLOGGER_CLIENT_SECRET, BLOGGER_REFRESH_TOKEN
-    LINKEDIN_ACCESS_TOKEN, LINKEDIN_PERSON_URN               (urn:li:person:xxxx; token lasts 60 days, then renew)
+    LINKEDIN_ACCESS_TOKEN                                    (scopes openid profile w_member_social; lasts 60 days, then renew)
     BLUESKY_HANDLE, BLUESKY_APP_PASSWORD                     (an app password, never the main password)
     MASTODON_INSTANCE, MASTODON_TOKEN                        (e.g. https://mastodon.social)
     TUMBLR_BLOG, TUMBLR_CONSUMER_KEY, TUMBLR_CONSUMER_SECRET, TUMBLR_TOKEN, TUMBLR_TOKEN_SECRET
@@ -104,9 +104,16 @@ assert len(teaser({"title": "T" * 400, "summary": "s", "url": "https://x.y/z"}, 
 LINKEDIN_VERSION = "202510"  # LinkedIn API version header (YYYYMM); versions retire after about a year, bump if posts fail with 426
 
 
-def linkedin(a, _):
+def linkedin_login():
+    """The member URN comes from the token itself, so only one secret is needed."""
+    req = urllib.request.Request("https://api.linkedin.com/v2/userinfo", headers={"Authorization": f"Bearer {os.environ['LINKEDIN_ACCESS_TOKEN']}"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return "urn:li:person:" + json.load(r)["sub"]
+
+
+def linkedin(a, urn):
     post_json("https://api.linkedin.com/rest/posts", {
-        "author": os.environ["LINKEDIN_PERSON_URN"], "commentary": f"{a['title']}\n\n{a['summary']}", "visibility": "PUBLIC",
+        "author": urn, "commentary": f"{a['title']}\n\n{a['summary']}", "visibility": "PUBLIC",
         "distribution": {"feedDistribution": "MAIN_FEED", "targetEntities": [], "thirdPartyDistributionChannels": []},
         "content": {"article": {"source": a["url"], "title": a["title"], "description": a["summary"]}},
         "lifecycleState": "PUBLISHED", "isReshareDisabledByAuthor": False},
@@ -220,7 +227,7 @@ def zenodo_drafts(state):
 PLATFORMS = {
     "telegram": (("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"), lambda: None, lambda a, _: telegram(a)),
     "blogger": (("BLOGGER_BLOG_ID", "BLOGGER_CLIENT_ID", "BLOGGER_CLIENT_SECRET", "BLOGGER_REFRESH_TOKEN"), blogger_token, blogger),
-    "linkedin": (("LINKEDIN_ACCESS_TOKEN", "LINKEDIN_PERSON_URN"), lambda: None, linkedin),
+    "linkedin": (("LINKEDIN_ACCESS_TOKEN",), linkedin_login, linkedin),
     "bluesky": (("BLUESKY_HANDLE", "BLUESKY_APP_PASSWORD"), bluesky_login, bluesky),
     "mastodon": (("MASTODON_INSTANCE", "MASTODON_TOKEN"), lambda: None, mastodon),
     "tumblr": (("TUMBLR_BLOG", "TUMBLR_CONSUMER_KEY", "TUMBLR_CONSUMER_SECRET", "TUMBLR_TOKEN", "TUMBLR_TOKEN_SECRET"), lambda: None, tumblr),
