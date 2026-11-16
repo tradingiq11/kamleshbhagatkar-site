@@ -674,7 +674,7 @@ write_if_changed(SITE / "about/index.html", f"""<!doctype html>
 <p>His first book, <i>RSS: 100 Years of Selfless Service – Engineers of Glorious Bharat</i> (2025), tells the story of the Sangh's first century for young readers. His next book, <i>Nineteen Days: Pahalgam, Operation Sindoor and the Answer of Bharat</i>, is a narrative account of India's response to the Pahalgam terror attack.</p>
 <p>He publishes analysis on geopolitics and India's foreign and security policy on this site, and long-form research as whitepapers. Alongside his writing, he runs an IT business with offices in Nagpur and Bengaluru.</p>
 <p class="h">Books</p>
-<ul><li><a href="https://www.amazon.com/dp/B0F6JMSHDH" rel="noopener" target="_blank"><i>RSS: 100 Years of Selfless Service</i></a> (2025, paperback, ISBN 9798281394369)</li>
+<ul><li><a href="https://www.amazon.com/dp/B0F6JMSHDH" rel="noopener" target="_blank"><i>RSS: 100 Years of Selfless Service</i></a> (2025, paperback, ISBN 9798281394369) · <a href="https://play.google.com/store/books/details?id=Ik5aEQAAQBAJ" rel="noopener" target="_blank">Google Play ebook</a></li>
 <li><a href="../#nineteen-days"><i>Nineteen Days</i></a> (coming soon)</li></ul>
 {"<p class='h'>Whitepapers</p><ul>" + wp_li + "</ul>" if WPS else ""}
 <p class="h">Latest articles</p>
