@@ -1,6 +1,6 @@
 # kamleshbhagatkar.com: instructions for Claude
 
-Static author website for Kamlesh Bhagatkar, author and geopolitical analyst (Nagpur, Bharat).
+Static author website for Kamlesh Bhagatkar, politician, author and geopolitical analyst (Nagpur, Bharat).
 Articles are Markdown files in `content/articles/`. `tools/build_site.py` turns them into pages, PDFs, home cards, the archive, the sitemap and the RSS feed.
 A GitHub Action (`.github/workflows/build.yml`) runs the build and deploys the site on every push to `main`.
 

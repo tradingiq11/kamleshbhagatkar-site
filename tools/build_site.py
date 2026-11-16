@@ -30,7 +30,7 @@ ICON = ('<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="cur
         'stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>')
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
          '<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">')
-AUTHOR_BOX = ('Kamlesh Bhagatkar is an author and geopolitical analyst from Nagpur. His first book, <i>RSS: 100 Years of Selfless Service – '
+AUTHOR_BOX = ('Kamlesh Bhagatkar is a politician, author and geopolitical analyst from Nagpur. His first book, <i>RSS: 100 Years of Selfless Service – '
               'Engineers of Glorious Bharat</i> (2025), is available on <a href="https://www.amazon.com/dp/B0F6JMSHDH" target="_blank" rel="noopener">Amazon</a>. '
               'His next book, <i>Nineteen Days</i>, on Pahalgam and Operation Sindoor, is coming soon.')
 
@@ -248,7 +248,7 @@ PAGE = """<!doctype html>
 <header class="article-head"><div class="wrap">
   <p class="art-meta"><span class="tag-pill">{cat}</span> {nice_date} · {mins} min read</p>
   <h1>{title}</h1>
-  <p class="by">By <a href="../about/" rel="author" style="color:inherit">Kamlesh Bhagatkar</a>, author &amp; geopolitical analyst</p>
+  <p class="by">By <a href="../about/" rel="author" style="color:inherit">Kamlesh Bhagatkar</a>, politician, author &amp; geopolitical analyst</p>
   <a class="btn primary dl-btn" href="../downloads/{slug}.pdf" download>{icon} Download PDF</a>
   {share}
 </div></header>
@@ -388,7 +388,7 @@ ARCHIVE = f"""<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Articles | Kamlesh Bhagatkar</title>
-<meta name="description" content="Articles by Kamlesh Bhagatkar, author and geopolitical analyst from Nagpur, on geopolitics, current affairs, defence and Bharat.">
+<meta name="description" content="Articles by Kamlesh Bhagatkar, politician, author and geopolitical analyst from Nagpur, on geopolitics, current affairs, defence and Bharat.">
 <link rel="canonical" href="{BASE}articles/">
 {social("Articles | Kamlesh Bhagatkar", "Articles by Kamlesh Bhagatkar on geopolitics, current affairs, defence and Bharat.", BASE + "articles/")}
 <link rel="alternate" type="application/rss+xml" title="Kamlesh Bhagatkar: articles" href="{BASE}feed.xml">
@@ -527,7 +527,7 @@ for w in WPS:
 <header class="article-head"><div class="wrap">
   <p class="art-meta"><span class="tag-pill">Whitepaper</span> {nice(w['date_obj'])} · {esc(w['pages'])} pages</p>
   <h1>{esc(w['title'])}</h1>
-  <p class="by">By <a href="../about/" rel="author" style="color:inherit">Kamlesh Bhagatkar</a>, author &amp; geopolitical analyst</p>
+  <p class="by">By <a href="../about/" rel="author" style="color:inherit">Kamlesh Bhagatkar</a>, politician, author &amp; geopolitical analyst</p>
   <a class="btn primary dl-btn" href="{pdf}" download>{ICON} Download PDF ({esc(w['pages'])} pages)</a>
 </div></header>
 <main><article class="prose">
@@ -582,9 +582,9 @@ PUBS = f"""<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Publications | Kamlesh Bhagatkar</title>
-<meta name="description" content="Whitepapers, articles and videos by Kamlesh Bhagatkar, author and geopolitical analyst from Nagpur.">
+<meta name="description" content="Whitepapers, articles and videos by Kamlesh Bhagatkar, politician, author and geopolitical analyst from Nagpur.">
 <link rel="canonical" href="{BASE}publications/">
-{social("Publications | Kamlesh Bhagatkar", "Whitepapers, articles and videos by Kamlesh Bhagatkar, author and geopolitical analyst from Nagpur.", BASE + "publications/")}
+{social("Publications | Kamlesh Bhagatkar", "Whitepapers, articles and videos by Kamlesh Bhagatkar, politician, author and geopolitical analyst from Nagpur.", BASE + "publications/")}
 {FONTS}
 <link rel="stylesheet" href="../style.css">
 {pub_ld_tag}
@@ -649,11 +649,11 @@ write_if_changed(SITE / "about/index.html", f"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About Kamlesh Bhagatkar | Author &amp; Geopolitical Analyst, Nagpur</title>
-<meta name="description" content="Kamlesh Bhagatkar is an author and geopolitical analyst from Nagpur, author of RSS: 100 Years of Selfless Service and the upcoming Nineteen Days on Operation Sindoor.">
+<title>About Kamlesh Bhagatkar | Politician, Author &amp; Geopolitical Analyst, Nagpur</title>
+<meta name="description" content="Kamlesh Bhagatkar is a politician, author and geopolitical analyst from Nagpur, author of RSS: 100 Years of Selfless Service and the upcoming Nineteen Days on Operation Sindoor.">
 <link rel="canonical" href="{ABOUT}">
 <meta name="robots" content="index,follow,max-image-preview:large">
-{social("About Kamlesh Bhagatkar", "Author and geopolitical analyst from Nagpur. Books, writing and profiles.", ABOUT).replace('content="website"', 'content="profile"')}
+{social("About Kamlesh Bhagatkar", "Politician, author and geopolitical analyst from Nagpur. Books, writing and profiles.", ABOUT).replace('content="website"', 'content="profile"')}
 {FONTS}
 <link rel="stylesheet" href="../style.css">
 {ld_tag(about_ld, crumbs(("About", ABOUT)))}
@@ -666,11 +666,11 @@ write_if_changed(SITE / "about/index.html", f"""<!doctype html>
 <header class="article-head"><div class="wrap">
   <p class="art-meta"><span class="tag-pill">About</span> Nagpur · Bharat</p>
   <h1>Kamlesh Bhagatkar</h1>
-  <p class="by">Author &amp; Geopolitical Analyst</p>
+  <p class="by">Politician, Author &amp; Geopolitical Analyst</p>
 </div></header>
 <main><article class="prose">
-<p><img src="../images/kamlesh-bhagatkar-800.webp" alt="Portrait of Kamlesh Bhagatkar, author and geopolitical analyst from Nagpur" width="800" height="1000" style="width:100%;max-width:360px;height:auto;float:right;margin:0 0 18px 24px"></p>
-<p>Kamlesh Bhagatkar is an author and geopolitical analyst from Nagpur, Maharashtra. For the past ten years he has studied geopolitics, national security and India's strategic choices, and he writes about them in plain language, from an Indian point of view.</p>
+<p><img src="../images/kamlesh-bhagatkar-800.webp" alt="Portrait of Kamlesh Bhagatkar, politician, author and geopolitical analyst from Nagpur" width="800" height="1000" style="width:100%;max-width:360px;height:auto;float:right;margin:0 0 18px 24px"></p>
+<p>Kamlesh Bhagatkar is a politician, author and geopolitical analyst from Nagpur, Maharashtra. For the past ten years he has studied geopolitics, national security and India's strategic choices, and he writes about them in plain language, from an Indian point of view.</p>
 <p>His first book, <i>RSS: 100 Years of Selfless Service – Engineers of Glorious Bharat</i> (2025), tells the story of the Sangh's first century for young readers. His next book, <i>Nineteen Days: Pahalgam, Operation Sindoor and the Answer of Bharat</i>, is a narrative account of India's response to the Pahalgam terror attack.</p>
 <p>He publishes analysis on geopolitics and India's foreign and security policy on this site, and long-form research as whitepapers. Alongside his writing, he runs an IT business with offices in Nagpur and Bengaluru.</p>
 <p class="h">Books</p>
@@ -736,7 +736,7 @@ write_if_changed(SITE / "feed.xml", f"""<?xml version="1.0" encoding="UTF-8"?>
   <title>Kamlesh Bhagatkar: articles</title><link>{BASE}</link>
   <atom:link href="{BASE}feed.xml" rel="self" type="application/rss+xml"/>
   <lastBuildDate>{email.utils.format_datetime(datetime.datetime.combine(ARTS[0]['date_obj'] if ARTS else datetime.date.today(), datetime.time(7, 0), datetime.timezone(datetime.timedelta(hours=5, minutes=30))))}</lastBuildDate>
-  <description>Geopolitics and current affairs from Nagpur, by author and geopolitical analyst Kamlesh Bhagatkar.</description>
+  <description>Geopolitics and current affairs from Nagpur, by politician, author and geopolitical analyst Kamlesh Bhagatkar.</description>
   <language>en-in</language>
 {items}</channel></rss>
 """)
@@ -751,7 +751,7 @@ if not chrome:
 
 PDF_CSS = """
 @page { size: A4; margin: 20mm 0 22mm;
-  @bottom-left { content: 'Kamlesh Bhagatkar · Author & Geopolitical Analyst'; margin-left: 22mm; font: 500 7.5pt 'Oswald', sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #8a857a }
+  @bottom-left { content: 'Kamlesh Bhagatkar · Politician, Author & Geopolitical Analyst'; margin-left: 22mm; font: 500 7.5pt 'Oswald', sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #8a857a }
   @bottom-right { content: 'kamleshbhagatkar.com  ·  ' counter(page); margin-right: 22mm; font: 500 7.5pt 'Oswald', sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #8a857a } }
 @page :first { margin-top: 0 }
 * { box-sizing: border-box }
@@ -789,10 +789,10 @@ for a in ARTS:
 {FONTS}<style>{PDF_CSS}</style></head><body>
 <header class="head"><div class="brand"><b>Kamlesh Bhagatkar</b><span>kamleshbhagatkar.com</span></div>
 <span class="tag">{esc(a['category'])}</span><h1>{esc(a['title'])}</h1>
-<p class="by">By <strong>Kamlesh Bhagatkar</strong>, Author &amp; Geopolitical Analyst &middot; {nice(a['date_obj'])}</p></header>
+<p class="by">By <strong>Kamlesh Bhagatkar</strong>, Politician, Author &amp; Geopolitical Analyst &middot; {nice(a['date_obj'])}</p></header>
 {hero}<div class="body">{a['body']}</div>
 <aside class="author"><img src="{(SITE / 'images/kamlesh-bhagatkar.jpg').as_uri()}" alt="">
-<div><p class="who">Kamlesh Bhagatkar</p><p>Author and geopolitical analyst from Nagpur. Author of <em>RSS: 100 Years of Selfless Service</em> (2025); his next book, <em>Nineteen Days</em>, tells the story of Pahalgam and Operation Sindoor.</p>
+<div><p class="who">Kamlesh Bhagatkar</p><p>Politician, author and geopolitical analyst from Nagpur. Author of <em>RSS: 100 Years of Selfless Service</em> (2025); his next book, <em>Nineteen Days</em>, tells the story of Pahalgam and Operation Sindoor.</p>
 <p class="site">kamleshbhagatkar.com</p></div></aside></body></html>"""
     digest = hashlib.sha256(doc.replace(SITE.as_uri(), "").encode()).hexdigest()[:16]  # path-independent, so CI and Mac agree
     pdf = OUT / f"{a['slug']}.pdf"

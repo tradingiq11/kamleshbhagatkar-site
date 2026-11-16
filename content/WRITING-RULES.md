@@ -1,6 +1,6 @@
 # Writing rules for kamleshbhagatkar.com articles
 
-Binding for every article. Author: Kamlesh Bhagatkar, author and geopolitical analyst from Nagpur.
+Binding for every article. Author: Kamlesh Bhagatkar, politician, author and geopolitical analyst from Nagpur.
 Voice samples: the three essays already in `content/articles/` (dated 2026-11-09). Match their sentence length, plainness and first-person tone.
 
 ## Voice
