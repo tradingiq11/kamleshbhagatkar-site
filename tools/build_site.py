@@ -637,7 +637,7 @@ ABOUT_DATE = "2026-11-15"  # bump when the About text below changes
 ld_blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', home.read_text(), re.S)
 PERSON = next(n for b in ld_blocks for n in json.loads(b).get("@graph", []) if n.get("@type") == "Person")  # single source: index.html
 LABELS = {"x.com": "X (Twitter)", "facebook.com": "Facebook", "amazon.": "Amazon author page", "linkedin.com": "LinkedIn",
-          "goodreads.com": "Goodreads", "youtube.com": "YouTube", "orcid.org": "ORCID", "medium.com": "Medium", "instagram.com": "Instagram"}
+          "goodreads.com": "Goodreads", "youtube.com": "YouTube", "orcid.org": "ORCID", "medium.com": "Medium", "instagram.com": "Instagram", "mastodon.": "Mastodon"}
 def label(u): return next((v for k, v in LABELS.items() if k in u), u.split("/")[2])
 profiles = "".join(f'<li><a href="{esc(u)}" rel="me noopener" target="_blank">{label(u)}</a></li>' for u in PERSON.get("sameAs", []))
 about_ld = json.dumps({"@context": "https://schema.org", "@type": "ProfilePage", "url": ABOUT, "name": "About Kamlesh Bhagatkar",
