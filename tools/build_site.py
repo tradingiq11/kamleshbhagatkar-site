@@ -572,7 +572,12 @@ pub_ld = json.dumps({"@context": "https://schema.org", "@graph": [
     {"@type": "VideoObject", "name": t, "uploadDate": d, "thumbnailUrl": f"https://i.ytimg.com/vi/{v}/hqdefault.jpg",
      "embedUrl": f"https://www.youtube-nocookie.com/embed/{v}", "contentUrl": f"https://www.youtube.com/watch?v={v}",
      "description": t, "creator": {"@id": BASE + "#person"}} for d, t, v in VIDEOS]}, ensure_ascii=False).replace("</", "<\\/")
-pub_ld_tag = ld_tag(*([pub_ld] if VIDEOS else []), crumbs(("Publications", BASE + "publications/")))
+pub_items = [(w["url"], w["title"]) for w in WPS] + [(a["url"], a["title"]) for a in ARTS[:8]]  # what the page lists
+pub_coll = json.dumps({"@context": "https://schema.org", "@type": "CollectionPage", "name": "Publications by Kamlesh Bhagatkar", "url": BASE + "publications/",
+                       "author": AUTHOR_LD, "isPartOf": {"@id": BASE + "#website"}, "mainEntity": {"@type": "ItemList", "itemListElement": [
+                           {"@type": "ListItem", "position": i, "url": u, "name": t} for i, (u, t) in enumerate(pub_items, 1)]}},
+                      ensure_ascii=False).replace("</", "<\\/")
+pub_ld_tag = ld_tag(pub_coll, *([pub_ld] if VIDEOS else []), crumbs(("Publications", BASE + "publications/")))
 media_jump = '<a href="#media">Media</a>' if MEDIA else ""
 counts_txt = (": " + pub_counts) if pub_counts else ""
 
