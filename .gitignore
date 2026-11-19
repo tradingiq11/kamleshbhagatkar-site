@@ -9,3 +9,4 @@ TRACKER.md
 .DS_Store
 downloads/.*
 __pycache__/
+_site/
