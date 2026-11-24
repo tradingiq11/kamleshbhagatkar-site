@@ -1,0 +1,37 @@
+# Every 6 hours: add new YouTube uploads to content/videos.md and, if any were added,
+# start "Build and deploy site" (a push made with the built-in token does not start it by itself).
+name: Sync YouTube videos
+
+on:
+  schedule:
+    - cron: "20 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: sync-videos
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Add new videos from the channel feed
+        run: python3 tools/sync_videos.py
+
+      - name: Commit and publish if anything was added
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet content/videos.md; then echo "No new videos"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/videos.md
+          git commit -m "Add new YouTube videos"
+          git push
+          gh workflow run build.yml --ref main
