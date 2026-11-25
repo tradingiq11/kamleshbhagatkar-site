@@ -48,7 +48,15 @@ img{max-width:100%;display:block}
 .rise{animation:rise .9s var(--ease) both}
 .d1{animation-delay:.08s}.d2{animation-delay:.18s}.d3{animation-delay:.28s}.d4{animation-delay:.38s}.d5{animation-delay:.5s}
 @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-.hero-photo img{animation:zoom 1.6s var(--ease) both}
+.hero-photo{overflow:hidden;animation:zoom 1.6s var(--ease) both}
+/* hero slideshow: six photos, 5s each, sliding left in a loop; with reduced motion only the first shows */
+.hero-photo img{position:absolute;inset:0;animation:slide 30s var(--ease) -.8s infinite}  /* -.8s: first photo starts already in place */
+.hero-photo img+img{transform:translateX(100%);animation-delay:4.2s}
+.hero-photo img:nth-child(3){animation-delay:9.2s;object-position:50% 45%}
+.hero-photo img:nth-child(4){animation-delay:14.2s;object-position:50% 45%}
+.hero-photo img:nth-child(5){animation-delay:19.2s}
+.hero-photo img:nth-child(6){animation-delay:24.2s;object-position:50% 30%}
+@keyframes slide{0%{transform:translateX(100%)}2.67%,16.67%{transform:none}19.33%{transform:translateX(-100%)}19.34%,100%{transform:translateX(100%)}}
 @keyframes zoom{from{transform:scale(1.06)}to{transform:none}}  /* no opacity fade: it delayed Google's LCP timing */
 /* hero name: letters rise in one by one, then a gold glint runs across (reduced-motion rule below turns both off) */
 .name .w{display:inline-block;white-space:nowrap}
