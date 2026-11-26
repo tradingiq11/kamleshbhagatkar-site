@@ -2,9 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
   <title>Kamlesh Bhagatkar: articles</title><link>https://kamleshbhagatkar.com/</link>
   <atom:link href="https://kamleshbhagatkar.com/feed.xml" rel="self" type="application/rss+xml"/>
-  <lastBuildDate>Wed, 25 Nov 2026 07:00:00 +0530</lastBuildDate>
+  <lastBuildDate>Thu, 26 Nov 2026 07:00:00 +0530</lastBuildDate>
   <description>Geopolitics and current affairs from Nagpur, by politician, author and geopolitical analyst Kamlesh Bhagatkar.</description>
   <language>en-in</language>
+  <item><title>The US Proposes a 25% Tariff on India Over &quot;Excess Capacity&quot;. Why the 17% Offer Is the Real Message</title><link>https://kamleshbhagatkar.com/articles/2026-11-26-us-section-301-tariff-india-excess-capacity.html</link><guid>https://kamleshbhagatkar.com/articles/2026-11-26-us-section-301-tariff-india-excess-capacity.html</guid>
+    <pubDate>Thu, 26 Nov 2026 07:00:00 +0530</pubDate>
+    <category>Geopolitics</category><description>Washington proposes tariffs of up to 25% on Indian goods, or 17% with a trade deal. India rejects the excess capacity charge.</description></item>
   <item><title>RBI&#x27;s Stop Switch and Trusted Person Plan: More Control Over Your Bank Account</title><link>https://kamleshbhagatkar.com/articles/2026-11-25-rbi-stop-switch-digital-fraud.html</link><guid>https://kamleshbhagatkar.com/articles/2026-11-25-rbi-stop-switch-digital-fraud.html</guid>
     <pubDate>Wed, 25 Nov 2026 07:00:00 +0530</pubDate>
     <category>Current Affairs</category><description>RBI&#x27;s draft rules would let customers freeze all outgoing debits, set their own limits and name a trusted person to approve large transfers.</description></item>
@@ -92,7 +95,4 @@
   <item><title>Watching the World from the Centre of India</title><link>https://kamleshbhagatkar.com/articles/watching-the-world-from-nagpur.html</link><guid>https://kamleshbhagatkar.com/articles/watching-the-world-from-nagpur.html</guid>
     <pubDate>Mon, 09 Nov 2026 07:00:00 +0530</pubDate>
     <category>Geopolitics</category><description>Why geopolitics matters to anyone who runs a business, buys petrol or has a child in the army.</description></item>
-  <item><title>Nineteen Days: What Operation Sindoor Changed for India</title><link>https://kamleshbhagatkar.com/articles/operation-sindoor-nineteen-days.html</link><guid>https://kamleshbhagatkar.com/articles/operation-sindoor-nineteen-days.html</guid>
-    <pubDate>Mon, 09 Nov 2026 07:00:00 +0530</pubDate>
-    <category>Defence</category><description>Terror now has an address and a price. Four lessons from the nineteen days between Pahalgam and the ceasefire.</description></item>
 </channel></rss>
