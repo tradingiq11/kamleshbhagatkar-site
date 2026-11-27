@@ -7,6 +7,8 @@ One video per line, newest first, starting with "- " at the very start of the li
 Short links (https://youtu.be/VIDEO_ID) and Shorts links also work.
 Lines that do not start with "- " are ignored.
 
+- 2026-11-27 | मैं सिखाने गया था, सीखकर लौटा — Guest Lecture, Wainganga College Nagpur #shorts | https://www.youtube.com/shorts/UrFfJI7vGTo
+- 2026-11-27 | काकड़ीघाट: स्वामी विवेकानंद की तपोस्थली — Kakrighat Dham — Kamlesh Bhagatkar #shorts | https://www.youtube.com/shorts/0N1nMcP78BE
 - 2026-11-26 | ॐ नमो नारायणाय — तिरुमला दर्शन — कमलेश भगतकर #shorts | https://www.youtube.com/shorts/Y65dZyLMUcw
 - 2026-11-25 | आस्था की गूँज — हर घंटी… एक प्रार्थना 🔔🙏 #shorts | https://www.youtube.com/shorts/uIC3_LUeZSQ
 - 2026-11-25 | वैथीस्वरन कोइल से माँ गंगा तक — दक्षिण से उत्तर 🙏 हर हर महादेव #shorts | https://www.youtube.com/shorts/rhCHaIHfbbA
