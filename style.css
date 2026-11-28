@@ -364,3 +364,5 @@ footer a:hover{color:#fff}
 .wpfull .note,.wpfull .src{font-size:16px;color:var(--muted)}
 .wpfull .sig{font-style:italic}
 @media(max-width:640px){.wptoc ol{columns:1}}
+.sig{display:block;width:220px;max-width:60%;height:auto}
+.quote .sig{margin:6px auto 0}
