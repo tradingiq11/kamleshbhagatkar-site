@@ -3,7 +3,7 @@ title: The RSS at 100: What the Sangh Is and How It Works
 seo_title: RSS at 100: what the Sangh is and how it works
 date: 2026-11-28
 category: RSS at 100
-summary: The RSS is a volunteer organisation founded in Nagpur in 1925. How it is organised, what a shakha does, its bans, critics and centenary.
+summary: The RSS is a volunteer organisation founded in Nagpur in 1925. How it is organised, what a shakha does, its bans and its centenary.
 place: Nagpur
 ---
 The Rashtriya Swayamsevak Sangh (RSS) is a volunteer organisation founded in Nagpur in 1925 by Dr Keshav Baliram Hedgewar. Its basic unit is the shakha, a one-hour daily gathering of volunteers called swayamsevaks, and it has no formal membership. It completed 100 years on Vijayadashami, 2 October 2025, and by its own count it was running 99,423 daily shakhas in November 2026.
@@ -83,13 +83,11 @@ On 1 October 2025, Prime Minister Narendra Modi was chief guest at a centenary f
 
 The next day, 2 October 2025, Dr Bhagwat gave the annual Vijayadashami address in Nagpur, with former President Ram Nath Kovind present. The centenary year ran until Vijayadashami 2026. The RSS says that in that year its workers visited 10,22,05,665 homes and held 65,664 Hindu Sammelans attended by 4,93,76,694 people.
 
-## What do critics say, and how does the RSS answer?
+## How does the RSS describe itself?
 
-AFP reported in October 2025 that critics accuse the RSS of "eroding the rights of India's Muslim minority and undermining the secular constitution". The historian Mridula Mukherjee told the agency that archives showed "a link between the RSS and fascist movements in Europe". The scholar Ram Puniyani told Outlook: "They now say Hindutva welcomes everyone, but you must first enter the lanes of Hindu Rashtra."
+The RSS FAQ says it uses "Hindu" for the national identity of the people of this country: "It is not a religious or sectarian identity." It adds that Christians and Muslims can become swayamsevaks if they accept that view. In his address of 2 October 2025, Dr Bhagwat said of Indians who follow religions that came from outside: "According to Bharatiya traditions, all are welcome and accepted."
 
-The RSS rejects these descriptions. "Those allegations are baseless," Dr Bhagwat told AFP. "Atrocities were never done by the RSS. And if it happens anyway, I condemn that." The RSS FAQ says it uses "Hindu" for the national identity of the people of this country: "It is not a religious or sectarian identity." It adds that Christians and Muslims can become swayamsevaks if they accept that view. In his address of 2 October 2025, Dr Bhagwat said of Indians who follow religions that came from outside: "According to Bharatiya traditions, all are welcome and accepted."
-
-My own view is that an organisation should be judged by what its ordinary volunteers do, and what I have seen of them in Nagpur is discipline and service. The critics deserve to be read in their own words, which is why I have quoted them.
+My own view is that an organisation should be judged by what its ordinary volunteers do, and what I have seen of them in Nagpur is discipline and service.
 
 ## Where does the RSS stand in November 2026?
 
@@ -111,5 +109,4 @@ The thing to watch is the next annual report at the Pratinidhi Sabha. It will sh
 - [Organiser: Every Swayamsevak of the Sangh thinks with a holistic perspective for entire Bharat: Dattatreya Hosabale](https://organiser.org/2026/03/15/344187/bharat/every-swayamsevak-of-the-sangh-thinks-with-a-holistic-perspective-for-entire-bharat-dattatreya-hosabale-ji/)
 - [ThePrint (PTI): Those who have benefitted from society should contribute to welfare of others: RSS leader Hosabale](https://theprint.in/india/those-who-have-benefitted-from-society-should-contribute-to-welfare-of-others-rss-leader-hosabale/3082100/)
 - [Malay Mail (AFP): From Gandhi's critics to Modi's allies: How India's century-old Hindu nationalist force RSS still shapes politics 100 years on](https://www.malaymail.com/news/world/2025/10/30/from-gandhis-critics-to-modis-allies-how-indias-century-old-hindu-nationalist-force-rss-still-shapes-politics-100-years-on/196448)
-- [Outlook: After a 100 years, can the RSS sing a different tune?](https://www.outlookindia.com/national/after-a-100-years-can-the-rss-sing-a-different-tune)
 - [Carnegie Endowment for International Peace: Parivar's Diversity in Unity](https://carnegieendowment.org/posts/2014/12/parivars-diversity-in-unity?lang=en)
