@@ -12,14 +12,19 @@ cover_alt: Cover of RSS: 100 Year’s of Selfless Service by Kamlesh Bhagatkar, 
 buy: https://www.amazon.com/dp/B0F6JMSHDH
 ebook: https://play.google.com/store/books/details?id=Ik5aEQAAQBAJ
 ---
-The story of the Sangh's first century, told for readers aged 10 to 18, with *sewa*, or selfless service, at its centre: nation-building, cultural preservation and social reform across India.
+In 1925 a doctor in Nagpur gathered a small group of volunteers on a playground. A hundred years later the organisation he founded, the Rashtriya Swayamsevak Sangh, is one of the largest voluntary bodies in the world. This book tells how that happened.
+
+*RSS: 100 Years of Selfless Service* follows the Sangh through its first century with one idea at the centre: *sewa*, or selfless service. It shows how ordinary people, giving an hour a day, built a network that reaches villages, schools and disaster zones across Bharat. It covers relief work after floods and earthquakes, the schools known as Saraswati Shishu Mandirs, work among communities that others overlooked, and the early push for swadeshi industry and self-reliance.
+
+The book is written for readers aged 10 to 18, in plain language, for a generation that has heard the name but not the story. It is a history told through what volunteers did, and it leaves the reader to judge the result.
 
 ## Book details
 
 - **Full title:** RSS: 100 Years of Selfless Service, Engineers of Glorious Bharat
 - **Author:** Kamlesh Bhagatkar
 - **Published:** 25 April 2025
-- **Formats:** Paperback, and ebook on Google Play
+- **Formats:** Paperback, hardcover and Kindle on Amazon; ebook on Google Play
+- **Pages:** 240
 - **ISBN:** 9798281394369
 - **Readers:** ages 10 to 18
 
