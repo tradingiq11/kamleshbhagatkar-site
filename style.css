@@ -29,8 +29,13 @@ img{max-width:100%;display:block}
 .nav ul a:after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
 .nav a:hover,.nav a:focus-visible{opacity:1}
 .nav ul a:hover:after,.nav ul a:focus-visible:after{transform:scaleX(1)}
-/* nine menu items: tighten on small laptops so the row does not wrap */
-@media (min-width:821px) and (max-width:1100px){.nav ul{gap:14px}.nav a{font-size:13px;letter-spacing:.06em}}
+/* book titles drop down under Books; the transparent top border keeps the hover alive across the gap to the bar's edge */
+.nav .has-sub{position:relative}
+.nav .sub{display:none;position:absolute;top:100%;left:-18px;flex-direction:column;flex-wrap:nowrap;gap:0;padding:8px 0;min-width:240px;
+ background:#16171b padding-box;border-top:20px solid transparent}
+.nav .has-sub:hover .sub,.nav .has-sub:focus-within .sub{display:flex}
+.nav .sub a{display:block;padding:9px 18px;white-space:nowrap}
+.nav .sub a:after{display:none}
 .menu-btn{display:none;background:none;border:1px solid rgba(255,255,255,.25);color:var(--cream);font:500 14px var(--cond);letter-spacing:.12em;text-transform:uppercase;padding:8px 12px;cursor:pointer}
 
 /* ---------- hero ---------- */
@@ -186,6 +191,8 @@ footer a:hover{color:#fff}
   .has-menu ul{display:none;width:100%;flex-direction:column;gap:0;padding:6px 0 14px}
   .has-menu.open ul{display:flex}
   .has-menu ul a{display:block;padding:10px 0;font-size:16px}
+  .has-menu .sub{position:static;width:auto;min-width:0;padding:0 0 0 18px;background:none;border:0;box-shadow:none}
+  .has-menu .sub a{padding:8px 0;font-size:15px;white-space:normal}
   .hero{min-height:auto;flex-direction:column;align-items:stretch}
   .hero-photo{position:relative;width:100%;height:62vh;max-height:560px}
   .hero-photo:after{background:linear-gradient(0deg,var(--ink) 0%,rgba(18,19,22,.4) 30%,rgba(18,19,22,0) 60%)}
