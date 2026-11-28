@@ -293,9 +293,17 @@ def with_csp(t):
         icons += '\n<meta name="theme-color" content="#121316">'
     return t.replace('<meta charset="utf-8">', f'<meta charset="utf-8">\n<meta http-equiv="Content-Security-Policy" content="{policy}">{icons}', 1)
 
+# Generated pages get the same phone menu as the home page: a Menu button that opens the links (the home page has its own copy in index.html).
+NAV_RE = re.compile(r'<nav class="nav" aria-label="Main">(<div class="wrap">\s*<a class="brand"[^>]*>.*?</a>)\s*<ul>')
+MENU_JS = ("<script>var nav=document.querySelector('.has-menu'),btn=nav.querySelector('.menu-btn');"
+           "btn.addEventListener('click',function(){var o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o)})</script>")
+def with_menu(t):
+    t, n = NAV_RE.subn(r'<nav class="nav has-menu" aria-label="Main">\1\n  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">☰ Menu</button>\n  <ul id="menu">', t)
+    return t.replace("</body>", MENU_JS + "\n</body>", 1) if n else t
+
 def write_if_changed(path, text):
     if path.suffix == ".html":
-        text = with_csp(text)
+        text = with_csp(with_menu(text))
     path.parent.mkdir(parents=True, exist_ok=True)
     if not path.exists() or path.read_text() != text:
         path.write_text(text)
