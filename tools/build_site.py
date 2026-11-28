@@ -747,7 +747,7 @@ for k in BOOKS:
 </html>
 """)
 LABELS = {"x.com": "X (Twitter)", "facebook.com": "Facebook", "amazon.": "Amazon author page", "linkedin.com": "LinkedIn",
-          "goodreads.com": "Goodreads", "youtube.com": "YouTube", "orcid.org": "ORCID", "medium.com": "Medium", "instagram.com": "Instagram", "mastodon.": "Mastodon"}
+          "goodreads.com": "Goodreads", "wikidata.org": "Wikidata", "youtube.com": "YouTube", "orcid.org": "ORCID", "medium.com": "Medium", "instagram.com": "Instagram", "mastodon.": "Mastodon"}
 def label(u): return next((v for k, v in LABELS.items() if k in u), u.split("/")[2])
 profiles = "".join(f'<li><a href="{esc(u)}" rel="me noopener" target="_blank">{label(u)}</a></li>' for u in PERSON.get("sameAs", []))
 about_ld = json.dumps({"@context": "https://schema.org", "@type": "ProfilePage", "url": ABOUT, "name": "About Kamlesh Bhagatkar",
