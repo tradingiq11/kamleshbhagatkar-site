@@ -75,7 +75,7 @@ The first ban came in February 1948, after the assassination of Mahatma Gandhi o
 
 The second ban came on 4 July 1975, days after the Emergency was imposed on 25 June 1975. Deoras was arrested. The ban was lifted on 22 March 1977.
 
-The third came on 10 December 1992, after the demolition of the Babri mosque in Ayodhya. The Bahri Tribunal found the ban unjustified, and it was lifted on 4 June 1993.
+The third came on 10 December 1992, after the demolition of the disputed structure in Ayodhya. The Bahri Tribunal found the ban unjustified, and it was lifted on 4 June 1993.
 
 ## How was the centenary marked?
 
