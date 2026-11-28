@@ -2,7 +2,7 @@
 <html lang="en-IN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' ; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com; frame-src https://www.youtube-nocookie.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-gy1DESxAPqOqJQAT8rUBXjQ2QvbA5KKi4Zqu69y5kos='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com; frame-src https://www.youtube-nocookie.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -16,9 +16,10 @@
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<nav class="nav" aria-label="Main"><div class="wrap">
+<nav class="nav has-menu" aria-label="Main"><div class="wrap">
   <a class="brand" href="/">Kamlesh Bhagatkar</a>
-  <ul><li><a href="/#books">Books</a></li><li><a href="/articles/">Articles</a></li><li><a href="/publications/">Publications</a></li><li><a href="/about/">About</a></li><li><a href="/#contact">Contact</a></li></ul>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">☰ Menu</button>
+  <ul id="menu"><li><a href="/#books">Books</a></li><li><a href="/articles/">Articles</a></li><li><a href="/publications/">Publications</a></li><li><a href="/about/">About</a></li><li><a href="/#contact">Contact</a></li></ul>
 </div></nav>
 <header class="article-head"><div class="wrap">
   <p class="art-meta"><span class="tag-pill">404</span></p>
@@ -31,5 +32,6 @@
 <h2 class='h'>Latest</h2><ul><li><a href="/articles/2026-11-28-rbi-money-mule-debit-hold-rules.html">RBI&#x27;s Final Money Mule Rules: When Your Bank Can Put a Debit Hold, and for How Long</a></li><li><a href="/articles/2026-11-28-iora-delhi-communique-indian-ocean.html">The IORA Council of Ministers Meets in Delhi: What the Delhi Communiqué Gives Bharat</a></li><li><a href="/articles/2026-11-26-us-section-301-tariff-india-excess-capacity.html">The US Proposes a 25% Tariff on India Over &quot;Excess Capacity&quot;. Why the 17% Offer Is the Real Message</a></li></ul>
 </div></main>
 <footer><div class="wrap"><span>© 2026 Kamlesh Bhagatkar · <a href="/">Home</a></span></div></footer>
+<script>var nav=document.querySelector('.has-menu'),btn=nav.querySelector('.menu-btn');btn.addEventListener('click',function(){var o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o)})</script>
 </body>
 </html>

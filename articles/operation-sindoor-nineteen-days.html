@@ -2,7 +2,7 @@
 <html lang="en-IN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-mWi4D38H1c31Y5343afpv/G3OSlHStHksVbgHSFM5gI='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com; frame-src https://www.youtube-nocookie.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-gy1DESxAPqOqJQAT8rUBXjQ2QvbA5KKi4Zqu69y5kos=' 'sha256-mWi4D38H1c31Y5343afpv/G3OSlHStHksVbgHSFM5gI='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com; frame-src https://www.youtube-nocookie.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -36,9 +36,10 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://kamleshbhagatkar.com/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://kamleshbhagatkar.com/articles/"}, {"@type": "ListItem", "position": 3, "name": "Nineteen Days: What Operation Sindoor Changed for India", "item": "https://kamleshbhagatkar.com/articles/operation-sindoor-nineteen-days.html"}]}</script>
 </head>
 <body>
-<nav class="nav" aria-label="Main"><div class="wrap">
+<nav class="nav has-menu" aria-label="Main"><div class="wrap">
   <a class="brand" href="../">Kamlesh Bhagatkar</a>
-  <ul><li><a href="../#books">Books</a></li><li><a href="./">Articles</a></li><li><a href="../publications/">Publications</a></li><li><a href="../about/">About</a></li><li><a href="../#contact">Contact</a></li></ul>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">☰ Menu</button>
+  <ul id="menu"><li><a href="../#books">Books</a></li><li><a href="./">Articles</a></li><li><a href="../publications/">Publications</a></li><li><a href="../about/">About</a></li><li><a href="../#contact">Contact</a></li></ul>
 </div></nav>
 <header class="article-head"><div class="wrap">
   <p class="art-meta"><span class="tag-pill">Defence</span> <time datetime="2026-11-09">9 November 2026</time> · 2 min read</p>
@@ -90,5 +91,6 @@
 </article></main>
 <footer><div class="wrap"><span>© 2026 Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="../about/">About</a> · <a href="./">Articles</a> · <a href="https://www.amazon.com/dp/B0F6JMSHDH" target="_blank" rel="noopener">Buy the book</a></span></div></footer>
 <script>document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>navigator.clipboard.writeText(b.dataset.copy).then(()=>b.textContent='Copied')))</script>
+<script>var nav=document.querySelector('.has-menu'),btn=nav.querySelector('.menu-btn');btn.addEventListener('click',function(){var o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o)})</script>
 </body>
 </html>
