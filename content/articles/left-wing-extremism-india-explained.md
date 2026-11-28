@@ -72,19 +72,9 @@ On 15 October 2025, Akashvani News reported, Politburo member Mallojula Venugopa
 
 Deccan Herald, which visited in December 2025, quoted District Collector Avishyant Panda: "Gadchiroli is like any other district today." I hope he is proved right. I wrote in [Watching the World from the Centre of India](https://kamleshbhagatkar.com/articles/watching-the-world-from-nagpur.html) that security begins at home, and for Vidarbha home includes Gadchiroli.
 
-## What do critics say, and how has the government replied?
-
-The People's Union for Civil Liberties (PUCL), in a statement of 27 May 2025, alleged "a disturbing pattern of indiscriminate killings in Bastar since January 2024". It asked that every death in police action be followed by an FIR and a magisterial inquiry, as National Human Rights Commission guidelines require.
-
-The police reject such charges. When the banned party alleged in March 2024 that an encounter in Bijapur had been staged, the Inspector General of Police for Bastar Range, Sundarraj P, told PTI: "It is the typical modus operandi of Naxals to level allegations against the security forces to puncture the credibility of security forces."
-
-To those who asked for talks, Shah's reply in the Lok Sabha was that "dialogue is held only with those who surrender their weapons, but those who fire bullets are answered with bullets". On 1 November 2025 PUCL's Chhattisgarh unit asked that security camps be removed from areas declared free of Naxalism, and that the Forest Rights Act be fully implemented.
-
-My view is that the campaign was necessary, because no state can leave territory and citizens to an armed party. I also think specific complaints should go through the inquiry procedure that already exists. A state that has prevailed loses nothing by checking its own conduct.
-
 ## What remains?
 
-The first task is watchfulness in the 38 listed districts. Sundarraj P said on 22 May 2026 that the next challenges were to consolidate the gains and "to de-mine the entire region".
+The first task is watchfulness in the 38 listed districts. The Inspector General of Police for Bastar Range, Sundarraj P, said on 22 May 2026 that the next challenges were to consolidate the gains and "to de-mine the entire region".
 
 The second is rehabilitation. The PIB backgrounder counts 3,927 surrenders between 2024 and March 2026; Shah gave the Lok Sabha a higher figure of 4,839. Outlook reported on 29 July 2026 that Bastar's Superintendent of Police called rehabilitation a major challenge.
 
@@ -112,9 +102,6 @@ I would watch whether West Singhbhum leaves the District of Concern category, wh
 - [The Tribune: Amit Shah: Naxalism to be completely eradicated before March 2026](https://www.tribuneindia.com/news/india/amit-shah-naxalism-to-be-completely-eradicated-before-march-2026)
 - [Akashvani News: 61 Senior Naxal Cadres Surrender in Gadchiroli, Maharashtra; CM Fadnavis Welcomes Them](https://www.newsonair.gov.in/61-senior-naxal-cadres-surrender-in-gadchiroli-maharashtra-cm-fadnavis-welcomes-them)
 - [Deccan Herald: Red corridor to factory floor: The story of Gadchiroli's former Maoists](https://www.deccanherald.com/india/maharashtra/red-corridor-to-factory-floor-the-story-of-gadchirolis-former-maoists-3849907)
-- [PUCL: PUCL Condemns the Extrajudicial Killing of Nambala Keshava Rao and 26 Others in Chhattisgarh](https://pucl.org/?p=3127)
-- [PUCL: A New Phase in Bastar: PUCL Demands Full Restoration of Democratic Freedoms and Adivasi Rights](https://pucl.org/?p=3276)
-- [ThePrint (PTI): Chhattisgarh police reject Maoist group's claim on encounter in Bijapur](https://theprint.in/india/chhattisgarh-police-reject-maoist-groups-claim-on-encounter-in-bijapur/2020588)
 - [NewKerala (ANI): "Bastar is free from naxal activities": IG Sundarraj terms de-mining and development as next key challenges](https://www.newkerala.com/news/a/bastar-free-from-naxal-activities-ig-sundarraj-terms-898.htm)
 - [Outlook: Beyond Surrender: The Long Road Back for Former Naxals in Chhattisgarh](https://www.outlookindia.com/national/indepth-how-naxals-were-compelled-to-bid-farewell-to-arms)
 - [Down To Earth: As anti-Maoist operations in Chhattisgarh intensified, so did the backlog of pending FRA claims, analysis shows](https://www.downtoearth.org.in/forests/as-anti-maoist-operations-in-chhattisgarh-intensified-so-did-the-backlog-of-pending-fra-claims-analysis-shows)
