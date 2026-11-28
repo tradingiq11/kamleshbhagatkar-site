@@ -1,6 +1,7 @@
 ---
 title: From restraint to resolve: India's national security policy, 2014 to 2026
 date: 2026-11-11
+updated: 2026-11-28
 pages: 50
 summary: How India's national security policy changed in twelve years: Pakistan, China, the borders, defence reform, internal security and diplomacy.
 pdf: india-national-security-policy-2014-2026.pdf

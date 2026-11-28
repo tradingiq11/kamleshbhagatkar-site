@@ -458,6 +458,25 @@ MEDIA = entries("content/media.md", 5)
 assert yt_id("https://youtu.be/abcdefghijk") == yt_id("https://www.youtube.com/watch?v=abcdefghijk&t=3") == "abcdefghijk"
 
 # Whitepapers: content/whitepapers/<slug>.md (front matter + abstract) and the PDF in downloads/whitepapers/<pdf>
+def wp_full(path):
+    """Optional content/whitepapers/<slug>.html, the paper's own HTML (the PDF source): the full text for the web page, with a contents list."""
+    if not path.exists():
+        return ""
+    t = path.read_text()
+    bad = re.search(r"<\s*(script|style|img|iframe|object|form|link|meta)\b|\son\w+\s*=|javascript:", t, re.I)
+    if bad:
+        raise SystemExit(f"{path.name}: '{bad[0].strip()}' is not allowed in a whitepaper's full text")
+    toc = []
+    def head(m):
+        toc.append((m[1], m[2]))
+        return f'<h2 class="h" id="s{len(toc)}"><span class="wpnum">{m[1]}</span>{m[2]}</h2>'
+    t = re.sub(r'<p class="num">(.*?)</p>\s*<h2>(.*?)</h2>', head, t)
+    t = t.replace("<h2>", '<h2 class="h">')
+    t = re.sub(r"<section\b[^>]*>", '<div class="wpsec">', t).replace("</section>", "</div>")  # the site styles <section> as a full-width band
+    t = t.replace("<table", '<div class="tscroll"><table').replace("</table>", "</table></div>")
+    lis = "".join(f'<li><a href="#s{i}"><span class="wpnum">{k}</span>{h}</a></li>' for i, (k, h) in enumerate(toc, 1))
+    return f'<div class="wpfull"><h2 class="h" id="full-text">Full text</h2>\n<nav class="wptoc" aria-label="Contents"><ol>{lis}</ol></nav>\n{t}</div>'
+
 def load_wp(path):
     m = re.match(r"---\n(.*?)\n---\n(.*)", path.read_text(), re.S)
     if not m:
@@ -468,6 +487,7 @@ def load_wp(path):
         raise SystemExit(f"{path.name}: missing {', '.join(missing)}")
     meta["date_obj"] = datetime.date.fromisoformat(meta["date"])
     meta["slug"], meta["abstract"] = path.stem, markdown(m[2])
+    meta["full"] = wp_full(path.with_suffix(".html"))
     meta["url"] = f"{BASE}whitepapers/{meta['slug']}.html"
     if not (SITE / "downloads/whitepapers" / meta["pdf"]).exists():
         print(f"WARNING: {path.name}: downloads/whitepapers/{meta['pdf']} not found")
@@ -501,7 +521,7 @@ for w in WPS:
     doi = w.get("doi", "")  # optional front matter, e.g. 10.5281/zenodo.123
     cite += f" https://doi.org/{doi}" if doi else ""
     ld = json.dumps({"@context": "https://schema.org", "@type": "Report", "name": w["title"], "abstract": w["summary"],
-                     "datePublished": w["date"], "numberOfPages": w["pages"], "url": w["url"], "inLanguage": "en-IN",
+                     "datePublished": w["date"], "dateModified": w.get("updated", w["date"]), "numberOfPages": w["pages"], "url": w["url"], "inLanguage": "en-IN",
                      **({"identifier": f"https://doi.org/{doi}", "sameAs": f"https://doi.org/{doi}"} if doi else {}),
                      "encoding": {"@type": "MediaObject", "contentUrl": BASE + f"downloads/whitepapers/{w['pdf']}", "encodingFormat": "application/pdf"},
                      "author": AUTHOR_LD, "publisher": {"@id": BASE + "#person"}, "isPartOf": {"@id": BASE + "#website"}},
@@ -541,6 +561,7 @@ for w in WPS:
 <h2 class="h">Abstract</h2>
 {fig}{w['abstract']}
 <div class="cite"><h2 class="h">Cite as</h2><p>{esc(cite)}</p></div>
+{w['full']}
 <p class="dl-end"><a class="btn primary dl-btn" href="{pdf}" download>{ICON} Download PDF</a> <a class="dl" href="../publications/">All publications</a></p>
 </article></main>
 <footer><div class="wrap"><span>© {w['date_obj'].year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="../publications/">Publications</a></span></div></footer>
@@ -645,7 +666,7 @@ h2 = re.sub(r"(<!-- PUBS:START -->).*?(<!-- PUBS:END -->)", lambda m: m[1] + til
 write_if_changed(home, re.sub(r'(<b data-count="articles">)\d+(</b>)', lambda m: f"{m[1]}{len(ARTS)}{m[2]}", h2))
 
 # ---------------------------------------------------------------- about page (entity home: who he is, his books, his profiles)
-ABOUT_DATE = "2026-11-15"  # bump when the About text below changes
+ABOUT_DATE = "2026-11-28"  # bump when the About text below changes
 ld_blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', home.read_text(), re.S)
 PERSON = next(n for b in ld_blocks for n in json.loads(b).get("@graph", []) if n.get("@type") == "Person")  # single source: index.html
 
@@ -748,17 +769,23 @@ write_if_changed(SITE / "about/index.html", f"""<!doctype html>
 <main><article class="prose">
 <p><img src="../images/kamlesh-bhagatkar-800.webp" alt="Portrait of Kamlesh Bhagatkar, politician, author and geopolitical analyst from Nagpur" width="800" height="1000" style="width:100%;max-width:360px;height:auto;float:right;margin:0 0 18px 24px"></p>
 <p>Kamlesh Bhagatkar is a politician, author and geopolitical analyst from Nagpur, Maharashtra. For the past ten years he has studied geopolitics, national security and India's strategic choices, and he writes about them in plain language, from an Indian point of view.</p>
-<p>His first book, <i>RSS: 100 Years of Selfless Service – Engineers of Glorious Bharat</i> (2025), tells the story of the Sangh's first century for young readers. His next book, <i>Nineteen Days: Pahalgam, Operation Sindoor and the Answer of Bharat</i>, is a narrative account of India's response to the Pahalgam terror attack.</p>
-<p>He publishes analysis on geopolitics and India's foreign and security policy on this site, and long-form research as whitepapers. Alongside his writing, he runs an IT business with offices in Nagpur and Bengaluru.</p>
 <h2 class="h">Books</h2>
+<p>His first book, <a href="../books/rss-100-years-of-selfless-service/"><i>RSS: 100 Years of Selfless Service – Engineers of Glorious Bharat</i></a> (2025), tells the story of the Sangh's first century for readers aged 10 to 18. His next, <a href="../books/nineteen-days/"><i>Nineteen Days: Pahalgam, Operation Sindoor and the Answer of Bharat</i></a>, is a narrative account of the nineteen days from the Pahalgam terror attack of 22 April 2025 to the ceasefire of 10 May. After it comes <a href="../books/the-uttar-pradesh-turnaround/"><i>The Uttar Pradesh Turnaround</i></a>, on how Yogi Adityanath set out to remake India's most populous state after 2017.</p>
 <ul><li><a href="https://www.amazon.com/dp/B0F6JMSHDH" rel="noopener" target="_blank"><i>RSS: 100 Years of Selfless Service</i></a> (2025, paperback, ISBN 9798281394369) · <a href="https://play.google.com/store/books/details?id=Ik5aEQAAQBAJ" rel="noopener" target="_blank">Google Play ebook</a></li>
-<li><a href="../#nineteen-days"><i>Nineteen Days</i></a> (coming soon)</li></ul>
+<li><a href="../books/nineteen-days/"><i>Nineteen Days</i></a> (coming soon)</li>
+<li><a href="../books/the-uttar-pradesh-turnaround/"><i>The Uttar Pradesh Turnaround</i></a> (coming soon)</li></ul>
+<h2 class="h">What he writes here</h2>
+<p>Articles on this site are of two kinds. Geopolitics covers India's foreign and security relations and what world events mean for Bharat. Current Affairs covers Indian decisions of national importance, from the RBI to Parliament. Every news article ends with its sources and can be downloaded as a PDF. Longer research is published as whitepapers; the first, <i>From restraint to resolve: India's national security policy, 2014 to 2026</i>, runs to 50 pages and has a DOI.</p>
 {"<h2 class='h'>Whitepapers</h2><ul>" + wp_li + "</ul>" if WPS else ""}
 <h2 class="h">Latest articles</h2>
 <ul>{latest_li}</ul>
 <p><a href="../articles/">All {len(ARTS)} articles →</a></p>
 <h2 class="h">Writes and speaks on</h2>
 <ul><li>India's national security and deterrence</li><li>Operation Sindoor and India–Pakistan relations</li><li>Defence self-reliance: weapons made in Bharat</li><li>India in the Indian Ocean and the wider world</li><li>The RSS and a century of social service</li></ul>
+<h2 class="h">Available for</h2>
+<ul><li>TV and podcast interviews</li><li>Talks at colleges, clubs and conferences</li><li>Opinion pieces and expert comment</li><li>Book events and literature festivals</li></ul>
+<h2 class="h">Outside writing</h2>
+<p>He runs an IT business with offices in Nagpur and Bengaluru.</p>
 <h2 class="h">Find Kamlesh Bhagatkar online</h2>
 <ul>{profiles}</ul>
 <h2 class="h">Contact</h2>
@@ -802,7 +829,7 @@ write_if_changed(SITE / "404.html", f"""<!doctype html>
 
 # ---------------------------------------------------------------- sitemap + RSS
 latest = ARTS[0]["date"] if ARTS else datetime.date.today().isoformat()
-urls = [(BASE, latest), (ABOUT, ABOUT_DATE), (BASE + "articles/", latest), (BASE + "publications/", latest)] + [(a["url"], a["date"]) for a in ARTS] + [(w["url"], w["date"]) for w in WPS] + [(k["url"], k["date"]) for k in BOOKS]
+urls = [(BASE, latest), (ABOUT, ABOUT_DATE), (BASE + "articles/", latest), (BASE + "publications/", latest)] + [(a["url"], a["date"]) for a in ARTS] + [(w["url"], w.get("updated", w["date"])) for w in WPS] + [(k["url"], k["date"]) for k in BOOKS]
 write_if_changed(SITE / "sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                  + "".join(f"  <url><loc>{u}</loc><lastmod>{d}</lastmod></url>\n" for u, d in urls) + "</urlset>\n")
 items = "".join(f"""  <item><title>{esc(a['title'])}</title><link>{a['url']}</link><guid>{a['url']}</guid>
