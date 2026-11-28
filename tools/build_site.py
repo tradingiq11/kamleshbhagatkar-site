@@ -896,6 +896,7 @@ blockquote { margin: 4mm 0; padding-left: 4mm; border-left: 1mm solid #c9a45c; f
 .author .who { font: 600 12pt 'Oswald', sans-serif; letter-spacing: .04em; margin-bottom: 1mm }
 .author .site { font: 500 9pt 'Oswald', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #c8321f; margin-top: 2mm }
 a { color: inherit; text-decoration: none }
+.body a { text-decoration: underline; text-decoration-color: #c8321f; text-decoration-thickness: .25mm; text-underline-offset: .7mm }
 """
 OUT = SITE / "downloads"
 manifest_path = OUT / "manifest.json"
@@ -904,13 +905,13 @@ for a in ARTS:
     hero = f'<figure class="hero"><img src="{(SITE / a["image"]).as_uri()}" alt=""></figure>' if a.get("image") else ""
     doc = f"""<!doctype html><html lang="en-IN"><head><meta charset="utf-8"><title>{esc(a['title'])} | Kamlesh Bhagatkar</title>
 {PDF_FONTS}<style>{PDF_CSS}</style></head><body>
-<header class="head"><div class="brand"><b>Kamlesh Bhagatkar</b><span>kamleshbhagatkar.com</span></div>
+<header class="head"><div class="brand"><b>Kamlesh Bhagatkar</b><a href="https://kamleshbhagatkar.com/">kamleshbhagatkar.com</a></div>
 <span class="tag">{esc(a['category'])}</span><h1>{esc(a['title'])}</h1>
 <p class="by">By <strong>Kamlesh Bhagatkar</strong>, Politician, Author &amp; Geopolitical Analyst &middot; {nice(a['date_obj'])}</p></header>
 {hero}<div class="body">{a['body']}</div>
 <aside class="author"><img src="{(SITE / 'images/kamlesh-bhagatkar.jpg').as_uri()}" alt="">
 <div><p class="who">Kamlesh Bhagatkar</p><p>Politician, author and geopolitical analyst from Nagpur. Author of <em>RSS: 100 Years of Selfless Service</em> (2025); his next book, <em>Nineteen Days</em>, tells the story of Pahalgam and Operation Sindoor.</p>
-<p class="site">kamleshbhagatkar.com</p></div></aside></body></html>"""
+<p class="site"><a href="https://kamleshbhagatkar.com/">kamleshbhagatkar.com</a></p></div></aside></body></html>"""
     digest = hashlib.sha256(doc.replace(SITE.as_uri(), "").encode()).hexdigest()[:16]  # path-independent, so CI and Mac agree
     pdf = OUT / f"{a['slug']}.pdf"
     if pdf.exists() and manifest.get(a["slug"]) == digest:
