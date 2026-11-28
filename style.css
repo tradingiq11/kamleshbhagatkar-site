@@ -161,7 +161,7 @@ footer a:hover{color:#fff}
 .prose{max-width:700px;margin:0 auto;padding:56px 20px 72px;font-size:19px}
 .prose p{margin:0 0 20px}
 .prose>p:first-child:first-letter{float:left;font:700 64px/.85 var(--cond);color:var(--red);margin:6px 10px 0 0}
-.prose p.h{font:600 24px var(--cond);letter-spacing:.02em;margin:40px 0 12px}
+.prose .h{font:600 24px var(--cond);text-transform:none;letter-spacing:.02em;margin:40px 0 12px}
 .author-box{border-top:3px solid var(--red);margin-top:44px;padding-top:20px;font-size:16px;color:var(--muted);font-style:italic}
 
 /* ---------- responsive ---------- */
@@ -343,6 +343,6 @@ footer a:hover{color:#fff}
 .cite{margin-top:36px;padding:18px 22px;background:#fff;border:1px solid var(--line);font-size:16px}
 .cite .h{margin-top:0}
 @media (max-width:820px){.wpgrid{grid-template-columns:1fr}}
-.prose>p.h:first-child:first-letter{float:none;font:inherit;color:inherit;margin:0}
-.prose>p.h:first-child+p:first-letter{float:left;font:700 64px/.85 var(--cond);color:var(--red);margin:6px 10px 0 0}
-.prose .cite p.h{margin-top:0}
+.prose>.h:first-child:first-letter{float:none;font:inherit;color:inherit;margin:0}
+.prose>.h:first-child+p:first-letter{float:left;font:700 64px/.85 var(--cond);color:var(--red);margin:6px 10px 0 0}
+.prose .cite .h{margin-top:0}

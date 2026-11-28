@@ -11,7 +11,8 @@ Article file format (content/articles/<slug>.md):
     date: 2026-11-10
     category: Geopolitics            (Geopolitics | Current Affairs | Defence | RSS at 100)
     summary: One line for the card.
-    description: One sentence for Google (optional, defaults to summary)
+    seo_title: Short title for Google (optional, at most 60 characters; the headline on the page stays the full title)
+    description: One sentence for Google (optional, defaults to summary; at most 155 characters, lead with the topic)
     image: images/x.jpg              (optional; cards without one get a typographic panel)
     image_position: 50% 30%          (optional)
     countries: EU, USA               (optional; Geopolitics map highlights, comma-separated)
@@ -47,7 +48,7 @@ def markdown(md):
     for block in re.split(r"\n\s*\n", md.strip()):
         lines = [l.rstrip() for l in block.strip().splitlines()]
         if lines[0].startswith("## "):
-            out.append(f'<p class="h">{inline(lines[0][3:].strip())}</p>')
+            out.append(f'<h2 class="h">{inline(lines[0][3:].strip())}</h2>')
             lines = lines[1:]
             if not lines:
                 continue
@@ -60,7 +61,7 @@ def markdown(md):
     return "\n\n".join(out)
 
 assert markdown("## Head\n\nA *b* **c** [d](https://e.f)\n\n- x\n- y") == \
-    '<p class="h">Head</p>\n\n<p>A <i>b</i> <strong>c</strong> <a href="https://e.f" rel="noopener">d</a></p>\n\n<ul><li>x</li><li>y</li></ul>'
+    '<h2 class="h">Head</h2>\n\n<p>A <i>b</i> <strong>c</strong> <a href="https://e.f" rel="noopener">d</a></p>\n\n<ul><li>x</li><li>y</li></ul>'
 assert markdown('[s](https://e.f/?a=1&b=2"x)') == '<p><a href="https://e.f/?a=1&amp;b=2&quot;x" rel="noopener">s</a></p>'  # & once, quote closed off
 assert markdown("Tom & Jerry <script>") == "<p>Tom &amp; Jerry &lt;script&gt;</p>"  # raw HTML in articles is never trusted
 
@@ -83,12 +84,16 @@ def load(path):
         errors.append("news articles must end with a '## Sources' list")
     if re.search(r"[—–]", body + meta.get("title", "")):
         errors.append("contains em/en dashes (humanizer rule: use commas, colons or full stops)")
+    if len(meta.get("seo_title", "")) > 60:
+        errors.append(f"seo_title is {len(meta['seo_title'])} characters (at most 60, Google cuts the rest)")
     if errors:
         raise SystemExit(f"{path.name}: " + "; ".join(errors))
     meta["slug"] = path.stem
     meta["body"] = markdown(body)
     meta["words"] = len(re.findall(r"\w+", body))
     meta.setdefault("description", meta["summary"])
+    full = meta["title"] + " | Kamlesh Bhagatkar"  # Google shows about 60 characters; a long headline drops the name rather than lose its own tail
+    meta["page_title"] = meta.get("seo_title") or (full if len(full) <= 60 else meta["title"])
     meta["url"] = f"{BASE}articles/{meta['slug']}.html"
     return meta
 
@@ -344,7 +349,7 @@ for a in ARTS:
                      "publisher": {"@id": BASE + "#person"}, "isPartOf": {"@id": BASE + "#website"}, "mainEntityOfPage": a["url"]}, ensure_ascii=False).replace("</", "<\\/")
     ld = ld + '</script>\n<script type="application/ld+json">' + crumbs(("Articles", BASE + "articles/"), (a["title"], a["url"]))
     write_if_changed(SITE / "articles" / f"{a['slug']}.html", PAGE.format(
-        page_title=esc(a["title"] + " | Kamlesh Bhagatkar"),  # the name is what people search; Google may cut the tail
+        page_title=esc(a["page_title"]),
         title=esc(a["title"]), desc=esc(a["description"]), url=a["url"], og_image=og, base=BASE, date=a["date"], fonts=FONTS,
         ld=ld, cat=esc(a["category"]), nice_date=nice(a["date_obj"]), mins=max(1, round(a["words"] / 220)),
         slug=a["slug"], icon=ICON, body=a["body"], author_box=AUTHOR_BOX, year=a["date_obj"].year, share=share_bar(a)))
@@ -531,9 +536,9 @@ for w in WPS:
   <a class="btn primary dl-btn" href="{pdf}" download>{ICON} Download PDF ({esc(w['pages'])} pages)</a>
 </div></header>
 <main><article class="prose">
-<p class="h">Abstract</p>
+<h2 class="h">Abstract</h2>
 {fig}{w['abstract']}
-<div class="cite"><p class="h">Cite as</p><p>{esc(cite)}</p></div>
+<div class="cite"><h2 class="h">Cite as</h2><p>{esc(cite)}</p></div>
 <p class="dl-end"><a class="btn primary dl-btn" href="{pdf}" download>{ICON} Download PDF</a> <a class="dl" href="../publications/">All publications</a></p>
 </article></main>
 <footer><div class="wrap"><span>© {w['date_obj'].year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="../publications/">Publications</a></span></div></footer>
@@ -678,18 +683,18 @@ write_if_changed(SITE / "about/index.html", f"""<!doctype html>
 <p>Kamlesh Bhagatkar is a politician, author and geopolitical analyst from Nagpur, Maharashtra. For the past ten years he has studied geopolitics, national security and India's strategic choices, and he writes about them in plain language, from an Indian point of view.</p>
 <p>His first book, <i>RSS: 100 Years of Selfless Service – Engineers of Glorious Bharat</i> (2025), tells the story of the Sangh's first century for young readers. His next book, <i>Nineteen Days: Pahalgam, Operation Sindoor and the Answer of Bharat</i>, is a narrative account of India's response to the Pahalgam terror attack.</p>
 <p>He publishes analysis on geopolitics and India's foreign and security policy on this site, and long-form research as whitepapers. Alongside his writing, he runs an IT business with offices in Nagpur and Bengaluru.</p>
-<p class="h">Books</p>
+<h2 class="h">Books</h2>
 <ul><li><a href="https://www.amazon.com/dp/B0F6JMSHDH" rel="noopener" target="_blank"><i>RSS: 100 Years of Selfless Service</i></a> (2025, paperback, ISBN 9798281394369) · <a href="https://play.google.com/store/books/details?id=Ik5aEQAAQBAJ" rel="noopener" target="_blank">Google Play ebook</a></li>
 <li><a href="../#nineteen-days"><i>Nineteen Days</i></a> (coming soon)</li></ul>
 {"<p class='h'>Whitepapers</p><ul>" + wp_li + "</ul>" if WPS else ""}
-<p class="h">Latest articles</p>
+<h2 class="h">Latest articles</h2>
 <ul>{latest_li}</ul>
 <p><a href="../articles/">All {len(ARTS)} articles →</a></p>
-<p class="h">Writes and speaks on</p>
+<h2 class="h">Writes and speaks on</h2>
 <ul><li>India's national security and deterrence</li><li>Operation Sindoor and India–Pakistan relations</li><li>Defence self-reliance: weapons made in Bharat</li><li>India in the Indian Ocean and the wider world</li><li>The RSS and a century of social service</li></ul>
-<p class="h">Find Kamlesh Bhagatkar online</p>
+<h2 class="h">Find Kamlesh Bhagatkar online</h2>
 <ul>{profiles}</ul>
-<p class="h">Contact</p>
+<h2 class="h">Contact</h2>
 <p>For books, interviews, talks and publishing enquiries, see the <a href="../#contact">contact section</a>. Journalists and organisers can use the bios in the <a href="../#media">media kit</a>.</p>
 </article></main>
 <footer><div class="wrap"><span>© {datetime.date.today().year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="../articles/">Articles</a> · <a href="../publications/">Publications</a></span></div></footer>
@@ -777,7 +782,7 @@ p, li { margin: 0 0 3.4mm; text-align: justify; hyphens: auto; orphans: 3; widow
 ul { padding-left: 5mm; margin: 0 0 3.4mm } li { text-align: left; margin-bottom: 1.4mm; font-size: 10pt }
 blockquote { margin: 4mm 0; padding-left: 4mm; border-left: 1mm solid #c9a45c; font-style: italic }
 .body > p:first-of-type:first-letter { float: left; font: 700 40pt/.82 'Oswald', sans-serif; color: #c8321f; margin: 1.4mm 2.4mm 0 0 }
-p.h { font: 600 13.5pt 'Oswald', sans-serif; letter-spacing: .02em; color: #141518; margin: 6.5mm 0 2mm; text-align: left; break-after: avoid; padding-left: 3mm; border-left: 1mm solid #c8321f }
+.h { font: 600 13.5pt 'Oswald', sans-serif; letter-spacing: .02em; color: #141518; margin: 6.5mm 0 2mm; text-align: left; break-after: avoid; padding-left: 3mm; border-left: 1mm solid #c8321f }
 .author { display: flex; gap: 6mm; align-items: center; margin-top: 9mm; padding: 6mm; background: #f4efe4; break-inside: avoid; border-top: 1mm solid #c8321f }
 .author img { width: 24mm; height: 24mm; border-radius: 50%; object-fit: cover; flex: none; border: .6mm solid #c9a45c }
 .author p { margin: 0; font-size: 10pt; line-height: 1.5; text-align: left }
