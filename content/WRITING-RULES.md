@@ -19,6 +19,14 @@ Voice samples: the three essays already in `content/articles/` (dated 2026-11-09
 2. Two or three sections with `##` headings in sentence case: context, what it means for Bharat, what to watch next.
 3. `## Sources`: every source used, as `- [Outlet: headline](url)`.
 
+## Explainers (1,200 to 1,600 words)
+An explainer answers a lasting question ("What is the Indus Waters Treaty?") and is kept up to date; it is not tied to one day's news. Everything else in these rules applies, with these differences:
+1. Open with a plain two or three sentence answer to the question in the title, then give the background. Do not open with news.
+2. Use `##` headings phrased as the questions a reader would type ("What does the treaty say?", "What changed in April 2025?"), in sentence case.
+3. Give dates in full (day, month, year) so the page still reads correctly a year later. Avoid "this week", "recently", "last month".
+4. Slug without a date (for example `indus-waters-treaty-explained`). Front matter adds `seo_title` and, whenever the text is revised, `updated: YYYY-MM-DD`.
+5. Link two or three related articles on this site. Close on where things stand and what would change them.
+
 ## Sourcing (non-negotiable)
 - Every fact, number, date, name and quote comes from a source you opened during research. Quotes are verbatim.
 - A key claim needs two independent sources, or one primary source (PIB, MEA, a ministry, RBI, ISRO, Parliament, a court order, the UN, a foreign government).

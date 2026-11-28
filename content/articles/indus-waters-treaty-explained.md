@@ -1,0 +1,97 @@
+---
+title: The Indus Waters Treaty: What It Says and What "In Abeyance" Means
+seo_title: Indus Waters Treaty: what it says, what abeyance means
+date: 2026-11-28
+category: Geopolitics
+summary: The Indus Waters Treaty of 1960 divides six rivers between India and Pakistan. India has held it in abeyance since 23 April 2025.
+countries: Pakistan
+---
+The Indus Waters Treaty is the 1960 agreement that divides the six rivers of the Indus system between India and Pakistan. India has held it "in abeyance" since 23 April 2025, the day after the Pahalgam terror attack. In practice that means India has stopped performing its obligations under the treaty, without tearing it up, until Pakistan ends its support for cross-border terrorism.
+
+## What is the Indus Waters Treaty and who signed it?
+
+The treaty was signed in Karachi on 19 September 1960. Prime Minister Jawaharlal Nehru signed for India and President Mohammad Ayub Khan for Pakistan. W. A. B. Iliff signed for the World Bank. The World Bank's own fact sheet says the treaty came after nine years of negotiations, and that the Bank's role today is "limited and procedural".
+
+## How are the six rivers divided?
+
+The treaty splits the rivers into two groups. Article II gives India the "unrestricted use" of the eastern rivers: the Sutlej, the Beas and the Ravi. Article III gives Pakistan the western rivers: the Indus, the Jhelum and the Chenab.
+
+The halves are unequal. ThePrint reported in May 2025 that the western rivers carry about 80 per cent of the water in the system.
+
+## What may India do on the western rivers?
+
+The western rivers pass through Indian territory before they flow into Pakistan, so the treaty had to say what India may do with them on the way. Article III puts India "under an obligation to let flow" these waters, with four exceptions: domestic use, non-consumptive use, agricultural use within the limits of Annexure C, and the generation of hydro-electric power as set out in Annexure D.
+
+India may therefore build run-of-river power plants on the Chenab and the Jhelum. It may not build storage as it pleases. Article III says that, except as Annexures D and E allow, India "shall not store any water of, or construct any storage works on, the Western Rivers." The annexures also control the design of each plant, and the dispute now running is about design.
+
+India does not use all that the treaty allows. According to ThePrint, the western rivers could support 18,569 MW of hydropower and India has developed 3,500 MW.
+
+## How are disputes meant to be settled?
+
+Each country appoints a Commissioner for Indus Waters, and the two together form the Permanent Indus Commission. Article VIII says the Commission "shall meet regularly at least once a year, alternately in India and Pakistan".
+
+Article IX sets up three steps. A "question" goes first to the Commission. If the Commissioners cannot agree, it becomes a "difference", and technical differences go to a Neutral Expert. Anything beyond that is a "dispute" and goes to a Court of Arbitration. Both have been used before: a Neutral Expert decided the Baglihar matter in 2007, and a Court of Arbitration decided a Kishenganga case in 2013, the World Bank notes.
+
+## What is the Kishenganga and Ratle dispute?
+
+The current quarrel is over the design of two Indian plants: Kishenganga (330 MW), inaugurated in 2018, and Ratle (850 MW), on tributaries of the Jhelum and the Chenab. In August 2016 Pakistan asked for a Court of Arbitration. In October 2016 India asked for a Neutral Expert on what the Court's own press release calls "essentially identical" questions. The World Bank paused both processes in December 2016, resumed them in 2022, and in October 2022 appointed Michel Lino as Neutral Expert and Professor Sean Murphy as chairman of the Court.
+
+India took part in the Neutral Expert's proceedings and has stayed away from the Court. The Ministry of External Affairs (MEA) said on 21 January 2025 that the treaty "does not provide for parallel proceedings on the same set of issues". I think that is the stronger reading of Article IX, which lays the steps out one after another. The Court had already disagreed: on 6 July 2023 it rejected India's objections to its competence.
+
+India had also asked for the treaty itself to be reopened. ThePrint, quoting government sources, reported notices to Pakistan in January 2023 and again in 2024 under Article XII(3), the clause on modifying the treaty.
+
+## What did India announce on 23 April 2025?
+
+On 22 April 2025, terrorists attacked tourists at Pahalgam. The MEA said 25 Indians and one Nepali citizen were killed. The next day the Cabinet Committee on Security met under the Prime Minister, and Foreign Secretary Vikram Misri read out five measures. The first was this:
+
+> The Indus Waters Treaty of 1960 will be held in abeyance with immediate effect, until Pakistan credibly and irrevocably abjures its support for cross-border terrorism.
+
+Jal Shakti Secretary Debashree Mukherjee then wrote to her Pakistani counterpart, Syed Ali Murtaza. The Tribune reported that her letter cited "sustained cross-border terrorism by Pakistan targeting the Indian Union Territory of Jammu and Kashmir" and Pakistan's failure to answer India's requests for negotiations.
+
+Pakistan's top civil-military body met on 24 April 2025 under Prime Minister Shehbaz Sharif. ThePrint reported its statement that any attempt to stop or divert water belonging to Pakistan under the treaty would be considered "an Act of War".
+
+## What does "held in abeyance" mean in practice?
+
+The word does not appear in the treaty. India's own explanation came from the MEA on 27 June 2025: "Until such time that the treaty is in abeyance, India is no longer bound to perform any of its obligations under the treaty."
+
+So abeyance is a pause with a condition attached. India has not declared the treaty dead. As I read the MEA's sentence, the meetings, the data, the notices and the design limits are all switched off until Pakistan meets the condition.
+
+Three things followed on the ground. First, ThePrint reported on 5 May 2025, quoting a senior government official, that India had begun flushing silt from the Baglihar and Salal reservoirs on the Chenab. Under the treaty, the report said, flushing was allowed only in August. Second, Pakistan says India has stopped sharing routine river-flow data, according to Al Jazeera, which also reported that the Permanent Indus Commission has not met since May 2022. Third, projects that the treaty had slowed are moving. Sources told the Tribune in June 2025 that work on Ratle was being sped up and that a project report was being prepared for the Tulbul Navigation Project on the Jhelum. Jal Shakti Minister C. R. Paatil said: "Water will not go anywhere. The treaty will not be renegotiated."
+
+Abeyance has not turned off Pakistan's rivers. India's plants on the western rivers are run-of-river, and a senior official told the Tribune that such reservoirs can hold water only for about 24 to 48 hours. A hydrology expert, Hassan Abbas, was quoted by Al Jazeera on 1 September 2026: "I don't think there is an existential threat as such right now." I think Pakistan's charge that India has made water a weapon should be read against these two statements.
+
+## What has the Court of Arbitration said since?
+
+The Court carried on without India. On 27 June 2025 it held that the abeyance could not limit its competence. On 8 August 2025 it issued an award on general questions of interpretation.
+
+The largest ruling came on 31 August 2026. The Court said "abeyance" has "no technical meaning in international law", and unanimously found that the treaty "remains fully in force". It also barred India from concreting the Ratle dam wall and power intake above certain levels until 90 days after the Neutral Expert's final decision, which is expected in July 2027.
+
+India has rejected these rulings. On 27 June 2025 the MEA said India "has never recognised the existence in law of this so-called Court of Arbitration". On 31 August 2026 it called the body "illegally constituted" and said the abeyance remains in force. Pakistan's Deputy Prime Minister, Ishaq Dar, welcomed the award and said India "must fully comply with its obligations under the Treaty."
+
+The Court's best point, as I read it, is Article XII: the treaty says it continues in force until ended by another ratified treaty. India's answer, given by its Permanent Representative at the UN in March 2026, is that India signed the treaty in good faith and that Pakistan undermined it through wars and terror attacks. The Court said it took the terrorism allegation "extremely seriously" but that the treaty "does not address terrorism". I think that reasoning is too narrow. No state can be expected to keep sharing water on generous terms with a neighbour it holds responsible for attacks on its citizens.
+
+## Where do things stand in November 2026?
+
+Nothing has moved. On 18 November 2026 Pakistan raised the treaty at the UN Security Council, and India's Permanent Representative, Harish Parvathaneni, said India's position "remains consistent and clear". Two days later MEA spokesperson Randhir Jaiswal said there was "absolutely no change", as I wrote in my piece on [the Pakistani minister's visit to Delhi](https://kamleshbhagatkar.com/articles/2026-11-21-indus-treaty-pakistan-minister-delhi-sco.html). The abeyance is one of the costs India imposed after Pahalgam, which I described in [what Operation Sindoor changed for India](https://kamleshbhagatkar.com/articles/operation-sindoor-nineteen-days.html).
+
+Three things could change the picture. Pakistan could meet the condition India set on 23 April 2025. The two governments could negotiate a new treaty. And the Neutral Expert, the forum India itself asked for, is due to give his final decision on Kishenganga and Ratle around 16 July 2027.
+
+## Sources
+
+- [United Nations Treaty Series: The Indus Waters Treaty 1960 (No. 6032, volume 419)](https://treaties.un.org/doc/Publication/UNTS/Volume%20419/volume-419-I-6032-English.pdf)
+- [World Bank: Fact Sheet: The Indus Waters Treaty 1960 and the Role of the World Bank](https://www.worldbank.org/en/region/sar/brief/fact-sheet-the-indus-waters-treaty-1960-and-the-world-bank)
+- [Ministry of External Affairs (Embassy of India, Hanoi): Transcript of Special briefing by MEA, 23 April 2025](https://www.indembassyhanoi.gov.in/page/transcript-of-special-briefing-by-mea/)
+- [Permanent Court of Arbitration: Press release, Award on the Status of the Indus Waters Treaty and Order on Interim Measures, 31 August 2026](https://www.italaw.com/sites/default/files/case-documents/pca/PCA-2023-01/italaw181268432%20-%20Pakistan%20v.%20India%20-%20PCA%20Press%20Release%20-%20Award%20on%20Status%20of%20Indus%20Waters%20Treaty%20and%20Order%20on%20Interim%20Measures%2C%20August%2031%2C%202026.pdf)
+- [The Tribune: India welcomes Neutral Expert's decision on Indus Waters Treaty dispute](https://www.tribuneindia.com/news/world/india-welcomes-neutral-experts-decision-on-indus-waters-treaty-dispute)
+- [ThePrint: India seeks modification of Indus Water Treaty, sends 2nd formal notice to Pakistan in 20 months](https://theprint.in/diplomacy/india-seeks-modification-of-indus-water-treaty-sends-2nd-formal-notice-to-pakistan-in-20-months/2273135)
+- [The Tribune: Treaty held in abeyance, India writes to Pakistan](https://www.tribuneindia.com/news/india/treaty-held-in-abeyance-india-writes-to-pakistan)
+- [ThePrint: Pakistan says diverting Indus waters act of war, holds right to put Simla Agreement in abeyance](https://theprint.in/diplomacy/pakistan-says-diverting-indus-waters-act-of-war-holds-right-to-put-simla-agreement-in-abeyance/2602268)
+- [ThePrint: India starts flushing Baglihar, Salal reservoirs in move set to impact kharif sowing in Pakistan](https://theprint.in/india/india-starts-flushing-baglihar-salal-reservoirs-in-move-set-to-impact-kharif-sowing-in-pakistan/2615769)
+- [The Tribune: India rejects Court of Arbitration's ruling on Kishenganga, Ratle hydroelectric projects](https://www.tribuneindia.com/news/india/india-rejects-court-of-arbitrations-ruling-on-kishenganga-ratle-hydroelectric-projects)
+- [The Tribune: Govt won't restore IWT, plans Tulbul, 6 other projects on western Indus rivers](https://www.tribuneindia.com/news/india/govt-wont-restore-iwt-plans-tulbul-6-other-projects-on-western-indus-rivers)
+- [The Tribune: 'Lack of jurisdiction, legitimacy, competence': India rejects award issued by Court of Arbitration under Indus Waters Treaty](https://www.tribuneindia.com/news/world/lack-of-jurisdiction-legitimacy-competence-india-rejects-award-issued-by-court-of-arbitration-under-indus-waters-treaty)
+- [Outlook India: 'Illegally Constituted': India Rejects Court Of Arbitration Award On Indus Waters Treaty](https://www.outlookindia.com/national/india-rejects-court-of-arbitration-award-on-indus-waters-treaty)
+- [Al Jazeera: Pakistan wins Indus waters battle at The Hague, but India threat remains](https://www.aljazeera.com/news/2026/9/1/pakistan-wins-indus-waters-battle-at-the-hague-but-india-threat-remains)
+- [All India Radio: India says Indus Waters Treaty to remain in abeyance until Pakistan ends support to terrorism](https://www.newsonair.gov.in/india-says-indus-waters-treaty-to-remain-in-abeyance-until-pakistan-ends-support-to-terrorism)
+- [Organiser: India reaffirms clear position on Indus Waters Treaty at UN](https://organiser.org/2026/11/19/427413/world/india-reaffirms-clear-stand-on-indus-waters-treaty-at-un-security-council-rejects-pakistan-propaganda/)
+- [Daily Pioneer: India says no change in Indus Waters Treaty position amid Pakistani minister's Delhi visit](https://www.dailypioneer.com/india/india-says-no-change-in-indus-waters-treaty-position-amid-pakistani-ministers-delhi-visit)
