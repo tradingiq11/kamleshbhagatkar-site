@@ -2,7 +2,8 @@
 
 Only articles dated within the last RECENT_DAYS days are posted, once each per platform; posted slugs are
 recorded in content/syndicated.json. A platform with missing secrets is skipped, so this is safe to run
-before the accounts are set up. Every copy links back to kamleshbhagatkar.com as the original.
+before the accounts are set up. Every copy links back to kamleshbhagatkar.com as the original; the blogs
+(Blogger, WordPress.com) get an excerpt and a link, never the full text.
 
 Secrets (GitHub repo settings > Secrets and variables > Actions):
     TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID                     (e.g. @kamleshbhagatkar or -100123...)
@@ -20,6 +21,7 @@ Repo variable (not secret) SYNDICATION_PAUSED=true stops all posting.
 
 Usage:  python3 tools/syndicate.py            (post)
         python3 tools/syndicate.py --dry-run  (show what would be posted; no network, no state change)
+        python3 tools/syndicate.py --trim-copies [--apply]  (one-off: list, or with --apply cut, old full-text blog copies to excerpts)
 """
 import base64, datetime, hashlib, hmac, html, json, os, secrets, time, pathlib, re, sys, urllib.parse, urllib.request
 
@@ -77,7 +79,7 @@ def telegram(a):
 
 def blogger(a, token):
     post_json(f"https://www.googleapis.com/blogger/v3/blogs/{os.environ['BLOGGER_BLOG_ID']}/posts/",
-              {"title": a["title"], "content": note(a) + body_html(a["slug"]) + note(a), "labels": [a.get("category", "Articles")]},
+              {"title": a["title"], "content": excerpt_html(a), "labels": [a.get("category", "Articles")]},
               {"Authorization": f"Bearer {token}"})
 
 
@@ -89,6 +91,46 @@ def blogger_token():
 
 def note(a):
     return f'<p><i>Originally published at <a href="{a["url"]}">kamleshbhagatkar.com</a>.</i></p>'
+
+
+MORE = "Continue reading on kamleshbhagatkar.com"
+def excerpt_html(a):
+    """The note, the first three paragraphs and a link on. The blogs get this, not the full text: Blogger and WordPress.com
+    cannot name another site as canonical, so a full copy would compete with the original in Google."""
+    paras = re.findall(r"<p>.*?</p>", body_html(a["slug"]), re.S)[:3]
+    return note(a) + "".join(paras) + f'<p><b><a href="{a["url"]}">{MORE} →</a></b></p>'
+
+
+def trim_copies(apply):
+    """One-off (--trim-copies, add --apply to write): cut the full-text copies already on Blogger and WordPress.com down to excerpts.
+    Only posts carrying this script's "Originally published at" note for an article that still exists are touched."""
+    by_slug = {a["slug"]: a for a in articles()}
+    def plan(name, url, content):
+        m = re.search(r'Originally published at <a[^>]*href="https://kamleshbhagatkar\.com/articles/([a-z0-9-]+)\.html"', content)
+        if not m or m[1] not in by_slug:
+            print(f"{name}: left alone (not one of ours) {url}"); return None
+        if MORE in content:
+            print(f"{name}: already an excerpt {url}"); return None
+        print(f"{name}: {'trimming' if apply else 'would trim'} {url}")
+        return excerpt_html(by_slug[m[1]]) if apply else None
+    if all(os.environ.get(k) for k in PLATFORMS["blogger"][0]):
+        auth, base, page = {"Authorization": f"Bearer {blogger_token()}"}, f"https://www.googleapis.com/blogger/v3/blogs/{os.environ['BLOGGER_BLOG_ID']}/posts", ""
+        while True:
+            d = call("GET", f"{base}?maxResults=50&fetchBodies=true{page}", None, auth)
+            for p in d.get("items", []):
+                new = plan("blogger", p["url"], p.get("content", ""))
+                if new:
+                    call("PATCH", f"{base}/{p['id']}", {"content": new}, auth); time.sleep(3)
+            if not d.get("nextPageToken"):
+                break
+            page = "&pageToken=" + d["nextPageToken"]
+    if all(os.environ.get(k) for k in PLATFORMS["wpcom"][0]):
+        auth, base = {"Authorization": f"Bearer {os.environ['WPCOM_TOKEN']}"}, f"https://public-api.wordpress.com/rest/v1.1/sites/{os.environ['WPCOM_SITE']}/posts"
+        # shortcut: one page of 100 posts, add paging if the blog ever holds more copies than that before this is run
+        for p in call("GET", f"{base}/?number=100&fields=ID,URL,content", None, auth).get("posts", []):
+            new = plan("wpcom", p["URL"], p.get("content", ""))
+            if new:
+                post_json(f"{base}/{p['ID']}", {"content": new}, auth); time.sleep(3)
 
 
 def teaser(a, limit):
@@ -157,7 +199,7 @@ assert oauth1_header("POST", "https://a.b/c", {"x": "1 2"}, "k", "s", "t", "u").
 
 def tumblr(a, _):
     url = f"https://api.tumblr.com/v2/blog/{os.environ['TUMBLR_BLOG']}/post"
-    params = {"type": "text", "title": a["title"], "body": note(a) + body_html(a["slug"]) + note(a),
+    params = {"type": "text", "title": a["title"], "body": excerpt_html(a),
               "tags": "India,geopolitics," + a.get("category", ""), "source_url": a["url"]}
     post_json(url, params, {"Authorization": oauth1_header("POST", url, params, os.environ["TUMBLR_CONSUMER_KEY"],
               os.environ["TUMBLR_CONSUMER_SECRET"], os.environ["TUMBLR_TOKEN"], os.environ["TUMBLR_TOKEN_SECRET"])}, form=True)
@@ -165,7 +207,7 @@ def tumblr(a, _):
 
 def wpcom(a, _):
     post_json(f"https://public-api.wordpress.com/rest/v1.1/sites/{os.environ['WPCOM_SITE']}/posts/new",
-              {"title": a["title"], "content": note(a) + body_html(a["slug"]) + note(a), "excerpt": a["summary"],
+              {"title": a["title"], "content": excerpt_html(a), "excerpt": a["summary"],
                "categories": a.get("category", "Articles"), "tags": "India,geopolitics"},
               {"Authorization": f"Bearer {os.environ['WPCOM_TOKEN']}"})
 
@@ -177,7 +219,7 @@ def md_body(slug):
 
 def writeas(a, _):
     post_json(f"https://write.as/api/collections/{os.environ['WRITEAS_COLLECTION']}/posts",
-              {"title": a["title"], "body": f"*Originally published at [kamleshbhagatkar.com]({a['url']}).*\n\n" + md_body(a["slug"])},
+              {"title": a["title"], "body": f"*Originally published at [kamleshbhagatkar.com]({a['url']}).*\n\n" + "\n\n".join(md_body(a["slug"]).split("\n\n")[:3]) + f"\n\n**[{MORE} →]({a['url']})**"},
               {"Authorization": f"Token {os.environ['WRITEAS_TOKEN']}"})
 
 
@@ -275,4 +317,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    trim_copies("--apply" in sys.argv) if "--trim-copies" in sys.argv else main()

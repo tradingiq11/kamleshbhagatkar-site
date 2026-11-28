@@ -7,6 +7,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      trim_copies:
+        description: "Old full-text copies on Blogger and WordPress.com: preview lists them, apply cuts them to excerpts"
+        type: choice
+        options: ["no", "preview", "apply"]
+        default: "no"
 
 permissions:
   contents: write
@@ -121,3 +127,14 @@ jobs:
             git push
           fi
           exit $status
+
+      - name: Trim old full-text blog copies to excerpts (manual run only)
+        if: github.event_name == 'workflow_dispatch' && inputs.trim_copies != 'no'
+        env:
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+          WPCOM_SITE: ${{ secrets.WPCOM_SITE }}
+          WPCOM_TOKEN: ${{ secrets.WPCOM_TOKEN }}
+        run: python3 tools/syndicate.py --trim-copies ${{ inputs.trim_copies == 'apply' && '--apply' || '' }}
