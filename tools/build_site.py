@@ -17,6 +17,7 @@ Article file format (content/articles/<slug>.md):
     image_position: 50% 30%          (optional)
     countries: EU, USA               (optional; Geopolitics map highlights, comma-separated)
     place: New Delhi                 (optional; Indian city marked on Current Affairs / Defence maps)
+    updated: 2026-11-12              (optional; the date an article was last changed, for Google)
     essay: yes                       (optional; personal essays may skip the Sources list)
     ---
     Body in simple Markdown: paragraphs, ## headings, - lists, > quotes, *italic*, **bold**, [text](https://url).
@@ -240,6 +241,7 @@ PAGE = """<!doctype html>
 <meta name="twitter:creator" content="@KBhagatkar">
 <meta property="article:author" content="{base}">
 <meta property="article:published_time" content="{date}">
+<meta property="article:modified_time" content="{modified}">
 <link rel="alternate" type="application/rss+xml" title="Kamlesh Bhagatkar: articles" href="{base}feed.xml">
 {fonts}
 <link rel="stylesheet" href="../style.css">
@@ -251,7 +253,7 @@ PAGE = """<!doctype html>
   <ul><li><a href="../#books">Books</a></li><li><a href="./">Articles</a></li><li><a href="../publications/">Publications</a></li><li><a href="../about/">About</a></li><li><a href="../#contact">Contact</a></li></ul>
 </div></nav>
 <header class="article-head"><div class="wrap">
-  <p class="art-meta"><span class="tag-pill">{cat}</span> {nice_date} · {mins} min read</p>
+  <p class="art-meta"><span class="tag-pill">{cat}</span> <time datetime="{date}">{nice_date}</time> · {mins} min read</p>
   <h1>{title}</h1>
   <p class="by">By <a href="../about/" rel="author" style="color:inherit">Kamlesh Bhagatkar</a>, politician, author &amp; geopolitical analyst</p>
   <a class="btn primary dl-btn" href="../downloads/{slug}.pdf" download>{icon} Download PDF</a>
@@ -306,11 +308,11 @@ for stale in [*(SITE / "articles").glob("*.html"), *(SITE / "downloads").glob("*
 
 def social(title, desc, url):
     """Open Graph + X card tags for listing pages (articles use the fuller PAGE template)."""
-    img = BASE + "images/kamlesh-bhagatkar.jpg"
+    img = BASE + "images/og/home.png"  # 1200x630 card built below with the article share images
     return "\n".join([f'<meta property="og:type" content="website">', '<meta property="og:site_name" content="Kamlesh Bhagatkar">', f'<meta property="og:title" content="{esc(title)}">',
                       f'<meta property="og:description" content="{esc(desc)}">', f'<meta property="og:url" content="{url}">',
-                      f'<meta property="og:image" content="{img}">', '<meta name="twitter:card" content="summary_large_image">',
-                      '<meta name="twitter:site" content="@KBhagatkar">'])
+                      f'<meta property="og:image" content="{img}">', '<meta property="og:image:width" content="1200">', '<meta property="og:image:height" content="630">',
+                      '<meta name="twitter:card" content="summary_large_image">', '<meta name="twitter:site" content="@KBhagatkar">'])
 
 ABOUT = BASE + "about/"
 AUTHOR_LD = {"@type": "Person", "@id": BASE + "#person", "name": "Kamlesh Bhagatkar", "url": ABOUT}
@@ -350,7 +352,7 @@ for a in ARTS:
     ld = ld + '</script>\n<script type="application/ld+json">' + crumbs(("Articles", BASE + "articles/"), (a["title"], a["url"]))
     write_if_changed(SITE / "articles" / f"{a['slug']}.html", PAGE.format(
         page_title=esc(a["page_title"]),
-        title=esc(a["title"]), desc=esc(a["description"]), url=a["url"], og_image=og, base=BASE, date=a["date"], fonts=FONTS,
+        title=esc(a["title"]), desc=esc(a["description"]), url=a["url"], og_image=og, base=BASE, date=a["date"], modified=esc(a.get("updated", a["date"])), fonts=FONTS,
         ld=ld, cat=esc(a["category"]), nice_date=nice(a["date_obj"]), mins=max(1, round(a["words"] / 220)),
         slug=a["slug"], icon=ICON, body=a["body"], author_box=AUTHOR_BOX, year=a["date_obj"].year, share=share_bar(a)))
 
@@ -419,7 +421,7 @@ ARCHIVE = f"""<!doctype html>
     {''.join(f'<button type="button" class="chip" data-cat="{esc(c)}" aria-pressed="false">{esc(c)}</button>' for c in CATEGORIES if any(a["category"] == c for a in ARTS))}
   </div>
   <div class="cards">
-{chr(10).join(card(a, "../").replace('<article class="card reveal">', f'<article class="card" data-cat="{esc(a["category"])}">') for a in ARTS)}
+{chr(10).join(card(a, "../").replace('<article class="card reveal">', f'<article class="card" data-cat="{esc(a["category"])}">').replace("<h3>", "<h2>").replace("</h3>", "</h2>") for a in ARTS)}
   </div>
 </div></section></main>
 <footer><div class="wrap"><span>© {datetime.date.today().year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="../about/">About</a></span></div></footer>
@@ -481,7 +483,7 @@ def wp_cover(w, prefix):
     img = f"images/whitepapers/{w['slug']}.jpg"  # real cover (page 1 of the PDF) when present, else the text cover
     if (SITE / img).exists():
         return (f'<a class="wpcover wpimg" href="{prefix}whitepapers/{w["slug"]}.html" tabindex="-1" aria-hidden="true">'
-                f'<img src="{prefix}{img}" alt="" loading="lazy"></a>')
+                f'<img src="{prefix}{img}" alt="" width="800" height="1132" loading="lazy"></a>')  # shortcut: A4 cover from pdftoppm at 800 wide; read the real size if a paper is ever not A4
     return (f'<a class="wpcover" href="{prefix}whitepapers/{w["slug"]}.html" tabindex="-1" aria-hidden="true">'
             f'<span class="wpk">Whitepaper</span><span class="wpt">{esc(w["title"])}</span>'
             f'<span class="wpm">{esc(w["pages"])} pages · {w["date_obj"]:%B %Y}</span><span class="wpa">Kamlesh Bhagatkar</span></a>')
@@ -493,7 +495,7 @@ for w in WPS:
               if (SITE / img).exists() else BASE + "images/kamlesh-bhagatkar.jpg")
     og = (f'\n<meta property="og:site_name" content="Kamlesh Bhagatkar">\n<meta property="og:url" content="{w["url"]}">\n<meta property="og:image" content="{og_img}">'
           '\n<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:site" content="@KBhagatkar">')
-    fig = (f'<a class="wpfig" href="{pdf}"><img src="../{img}" alt="Cover of the whitepaper {esc(w["title"])}"></a>\n'
+    fig = (f'<a class="wpfig" href="{pdf}"><img src="../{img}" alt="Cover of the whitepaper {esc(w["title"])}" width="800" height="1132"></a>\n'
            if (SITE / img).exists() else "")
     cite = f"Kamlesh Bhagatkar ({w['date_obj'].year}). {w['title']}. Whitepaper, {w['pages']} pp. kamleshbhagatkar.com."
     doi = w.get("doi", "")  # optional front matter, e.g. 10.5281/zenodo.123
@@ -548,7 +550,7 @@ for w in WPS:
 
 def video_card(d, t, vid):
     return (f'<article class="vcard"><button type="button" class="vplay" data-id="{vid}" aria-label="Play video: {esc(t)}">'
-            f'<img src="https://i.ytimg.com/vi/{vid}/hqdefault.jpg" alt="" loading="lazy"><span class="vbtn" aria-hidden="true"></span></button>'
+            f'<img src="https://i.ytimg.com/vi/{vid}/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><span class="vbtn" aria-hidden="true"></span></button>'
             f'<div class="vbody"><span class="tag">{nice(datetime.date.fromisoformat(d))}</span><h3>{esc(t)}</h3>'
             f'<a class="more" href="https://www.youtube.com/watch?v={vid}" rel="noopener">Watch on YouTube →</a></div></article>')
 
@@ -887,7 +889,11 @@ WP_OG = [dict(slug="whitepaper-" + w["slug"], image=f"images/whitepapers/{w['slu
               # the cover stands whole on the right instead of being cropped behind the title
               css=".bg{inset:auto;right:64px;top:42px;width:auto;height:536px;box-shadow:0 14px 44px rgba(0,0,0,.55)}"
                   ".shade{display:none}.box{width:650px}h1{font-size:54px}") for w in WPS if (SITE / f"images/whitepapers/{w['slug']}.jpg").exists()]
-for a in ARTS + WP_OG:
+# the share card for the home page and the listing pages: the portrait whole on the right, the name as the headline
+HOME_OG = [dict(slug="home", image="images/kamlesh-bhagatkar.jpg", category="Politician, Author & Geopolitical Analyst", title="Kamlesh Bhagatkar",
+                css=".bg{inset:auto;right:0;top:0;width:504px;height:630px;object-position:50% 20%}.shade{display:none}.box{width:600px}"
+                    ".cat{font-size:17px;letter-spacing:.14em}h1{font-size:92px}.by{font-size:0}.by:after{content:'kamleshbhagatkar.com';font-size:24px}")]
+for a in ARTS + WP_OG + HOME_OG:
     bg = SITE / (a["image"] if a.get("image") else f"images/cards/{a['slug']}.svg")
     pos = a.get("image_position", "50% 35%")
     doc = f"""<!doctype html><html><head><meta charset="utf-8">{FONTS}<style>
@@ -949,6 +955,6 @@ for stale in SQ_DIR.glob("*.png") if SQ_DIR.exists() else []:
     if stale.stem not in live:
         stale.unlink(); print("removed", stale.relative_to(SITE))
 for stale in OG_DIR.glob("*.png") if OG_DIR.exists() else []:
-    if stale.stem not in live | {a["slug"] for a in WP_OG}:
+    if stale.stem not in live | {a["slug"] for a in WP_OG + HOME_OG}:
         stale.unlink(); print("removed", stale.relative_to(SITE))
 manifest_path.write_text(json.dumps(manifest, indent=1, sort_keys=True) + "\n")

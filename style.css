@@ -124,8 +124,9 @@ h3{font:600 24px/1.25 var(--cond);letter-spacing:.02em;margin:0 0 6px}
 .card:hover .card-img img{transform:scale(1.05)}
 .card-body{padding:22px 24px 26px;display:flex;flex-direction:column;flex:1;border-top:4px solid var(--red)}
 .tag{font:600 12px var(--cond);letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
-.card h3 a{color:var(--text);text-decoration:none}
-.card h3 a:hover{color:var(--red)}
+.card h2{font:600 24px/1.25 var(--cond);letter-spacing:.02em;text-transform:none;margin:0 0 6px}
+.card h3 a,.card h2 a{color:var(--text);text-decoration:none}
+.card h3 a:hover,.card h2 a:hover{color:var(--red)}
 .card p{font-size:16px;color:var(--muted);flex:1;margin:6px 0 16px}
 .more{font:600 13px var(--cond);letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
 
