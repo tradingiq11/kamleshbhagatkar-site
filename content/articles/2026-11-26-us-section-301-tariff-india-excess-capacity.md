@@ -2,6 +2,7 @@
 title: The US Proposes a 25% Tariff on India Over "Excess Capacity". Why the 17% Offer Is the Real Message
 seo_title: US Section 301: 25% Tariff on India Over Excess Capacity
 date: 2026-11-26
+updated: 2026-11-28
 category: Geopolitics
 summary: Washington proposes tariffs of up to 25% on Indian goods, or 17% with a trade deal. India rejects the excess capacity charge.
 countries: USA, China, Vietnam, Bangladesh
@@ -37,6 +38,8 @@ Two more points. The proposal exempts goods already covered by Section 232 dutie
 ## What to watch
 
 According to Holland & Knight, a senior US official indicated that more agreements, possibly including India's, could be finalised at the G20 leaders' summit in Miami on 14 and 15 December. If a deal comes there, compare the final rate with 18 per cent for Bangladesh and 20 per cent for Vietnam, and read what India gave in return. If it does not, the next dates are 5 January for comments and 25 January for hearings. All India Radio reports that the duties could take effect as early as February.
+
+For the full background, see my explainer: [The India-US Trade Deal: What Is on the Table and Where It Stands](https://kamleshbhagatkar.com/articles/india-us-trade-deal-explained.html).
 
 ## Sources
 

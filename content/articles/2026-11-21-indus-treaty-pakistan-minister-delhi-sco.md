@@ -2,6 +2,7 @@
 title: A Pakistani Minister in Delhi, and No Change on the Indus Waters Treaty
 seo_title: Indus Waters Treaty: Pakistani Minister in Delhi, No Change
 date: 2026-11-21
+updated: 2026-11-28
 category: Geopolitics
 summary: Pakistan's climate minister came to New Delhi for the SCO forum. India's answer on the Indus Waters Treaty stayed the same: no change.
 countries: Pakistan
@@ -41,6 +42,8 @@ There is also a lesson for our own diplomacy. A hard line on the treaty works be
 Malik promised to say more after his statement at the forum on Saturday, 21 November. Three things are worth watching. First, whether he raises the Indus Waters Treaty from the SCO stage, which would turn a cultural forum into a political platform. Second, whether any request for a bilateral meeting is made, and how New Delhi answers it. Third, whether Pakistan takes the water issue back to the Security Council in the coming weeks, as it did on 18 November.
 
 On the Indian side, the position is now on record twice in one week, at the Security Council on Wednesday and at the MEA briefing on Friday.
+
+For the full background, see my explainer: [The Indus Waters Treaty: What It Says and What "In Abeyance" Means](https://kamleshbhagatkar.com/articles/indus-waters-treaty-explained.html).
 
 ## Sources
 

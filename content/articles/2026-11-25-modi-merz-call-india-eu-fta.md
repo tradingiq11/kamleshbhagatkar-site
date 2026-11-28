@@ -2,6 +2,7 @@
 title: Modi and Merz Speak Before the India EU FTA Is Signed. What Bharat Should Watch
 seo_title: Modi-Merz Call Before the India-EU FTA: What to Watch
 date: 2026-11-25
+updated: 2026-11-28
 category: Geopolitics
 summary: Germany's Chancellor called Modi three weeks before the India EU free trade agreement is due to be signed in Brussels. What is settled, and what is not.
 countries: Germany, EU
@@ -41,6 +42,8 @@ The second is time. Negotiations ended in January, and the European Parliament's
 ## What to watch
 
 The first date is 16 December in Brussels. An official has called it likely, and the EU's Ambassador to India has said the agreement will be signed during Mr Modi's December visit and come into force next year. After that, I will watch for the European Parliament vote, the start of India's ratification, and the first CBAM talks under the new agreement. For Germany itself, the PMO statement named defence and advanced technologies but gave no project or figure. The next Intergovernmental Consultations will show whether Berlin turns its warm words into specific defence and technology work with India.
+
+For the full background, see my explainer: [The India-EU Free Trade Agreement: What Is in It and Where It Stands](https://kamleshbhagatkar.com/articles/india-eu-free-trade-agreement-explained.html).
 
 ## Sources
 

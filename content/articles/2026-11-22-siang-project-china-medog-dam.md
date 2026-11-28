@@ -2,6 +2,7 @@
 title: The Siang Project and China's Medog Dam: Why India Needs Its Own Reservoir
 seo_title: Siang Project vs China's Medog Dam: India's Reservoir Case
 date: 2026-11-22
+updated: 2026-11-28
 category: Geopolitics
 summary: Amit Shah promised dialogue on the 11,200 MW Siang project as local groups asked him to scrap it. China's Medog dam upstream is why India cannot drop the idea.
 countries: China
@@ -63,6 +64,8 @@ I have written before about how [China has made our northern border "more alive"
 ## What to watch
 
 Watch whether the dialogue Shah promised actually begins, who sits at the table, and whether the security deployment in Upper Siang and Siang districts is scaled down before it does. Watch whether the state government responds to the demand for a judicial inquiry into 23 October. Watch whether the rehabilitation package is published. And watch the pre-feasibility report: whether work resumes, and whether its findings are shared with the villages it concerns.
+
+For the full background, see my explainer: [The India-China Border Explained: The LAC, the 2020 Crisis and the 2024 Disengagement](https://kamleshbhagatkar.com/articles/india-china-border-lac-explained.html).
 
 ## Sources
 
