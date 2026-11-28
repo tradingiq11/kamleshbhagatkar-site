@@ -49,8 +49,6 @@ The dates are from the PTI timeline.
 
 The RSS describes it as a daily gathering of swayamsevaks of different ages at a fixed ground for one hour. The routine is "physical exercises, singing patriotic chorus, group discussions on varied range of subjects and a prayer for our motherland". The saffron flag, the Bhagwa Dhwaj, is treated as the guru.
 
-Reporters from the news agency AFP, who attended a shakha in Nagpur in October 2025, saw dozens of members, many of them middle-aged or elderly and not in uniform, gather for an hour of calisthenics and song.
-
 I wrote about what this routine builds over the years in [A Hundred Years of Sewa](https://kamleshbhagatkar.com/articles/hundred-years-of-sewa.html).
 
 ## What is sewa, and how large is it?
@@ -108,5 +106,4 @@ The thing to watch is the next annual report at the Pratinidhi Sabha. It will sh
 - [ThePrint: Founding, first shakha meet, 3 bans: key moments that define 96-year journey of RSS](https://theprint.in/india/founding-first-shakha-meet-3-bans-key-moments-that-define-96-year-journey-of-rss/749981/)
 - [Organiser: Every Swayamsevak of the Sangh thinks with a holistic perspective for entire Bharat: Dattatreya Hosabale](https://organiser.org/2026/03/15/344187/bharat/every-swayamsevak-of-the-sangh-thinks-with-a-holistic-perspective-for-entire-bharat-dattatreya-hosabale-ji/)
 - [ThePrint (PTI): Those who have benefitted from society should contribute to welfare of others: RSS leader Hosabale](https://theprint.in/india/those-who-have-benefitted-from-society-should-contribute-to-welfare-of-others-rss-leader-hosabale/3082100/)
-- [Malay Mail (AFP): From Gandhi's critics to Modi's allies: How India's century-old Hindu nationalist force RSS still shapes politics 100 years on](https://www.malaymail.com/news/world/2025/10/30/from-gandhis-critics-to-modis-allies-how-indias-century-old-hindu-nationalist-force-rss-still-shapes-politics-100-years-on/196448)
 - [Carnegie Endowment for International Peace: Parivar's Diversity in Unity](https://carnegieendowment.org/posts/2014/12/parivars-diversity-in-unity?lang=en)
