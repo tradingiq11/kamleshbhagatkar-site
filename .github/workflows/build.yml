@@ -61,6 +61,9 @@ jobs:
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: _site
+      # deploy-pages looked for the artifact under a second after the upload and found none (5 failed deploys on 28 Nov 2026)
+      - name: Wait for GitHub to register the uploaded site
+        run: sleep 20
       - id: deploy
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
 
