@@ -2,6 +2,7 @@
 title: The India Japan 2+2 in Tokyo: Test Ranges, Warships and Trust
 seo_title: India-Japan 2+2 in Tokyo: Test Ranges, Warships and Trust
 date: 2026-11-19
+updated: 2026-11-28
 category: Geopolitics
 summary: Rajnath Singh and S Jaishankar meet their Japanese counterparts in Tokyo today. Missile test ranges, joint shipbuilding and a stealth antenna are on the table.
 countries: Japan
@@ -41,6 +42,8 @@ I read the Tokyo visit through that lens. India needs partners who bring technol
 ## What to watch in the joint statement
 
 I will look for three things when the joint statement comes out. First, any language on Japanese use of Indian test ranges, even as a study. Second, a timeline for the UNICORN antenna. In August the ministers only committed to its "early realization". Third, whether the ship repair arrangement promised in August is finally signed, so that Japanese warships can be repaired in Indian yards. That would mean paid work for our shipyards.
+
+**Update:** I followed this story in [Japan Will Train at Indian Firing Ranges. What the Tokyo 2+2 Settled](https://kamleshbhagatkar.com/articles/2026-11-20-japan-indian-firing-ranges-2plus2.html).
 
 ## Sources
 

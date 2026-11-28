@@ -1,6 +1,7 @@
 ---
 title: India and the EU Clear the Desk Before Brussels
 date: 2026-11-09
+updated: 2026-11-28
 category: Geopolitics
 summary: The 7th India-EU review in New Delhi shows what is settled before the December trade deal signing, and what still is not.
 countries: EU
@@ -40,6 +41,8 @@ IMEC is the item I would watch most closely. The corridor is meant to link India
 I am watching for the date and place of the December signing, and whether the leaders also announce a timeline for the agreement to enter into force. After that, whether the Investment Protection Agreement and the Agreement on Geographical Indications move ahead with the main deal or stay pending. The GI agreement would protect product names linked to a place, which matters to Indian producers who sell under such names. And finally, whether India's association with Horizon Europe is formally announced.
 
 The next review meeting is due in Brussels next year, on a date still to be fixed. By then, if things go as Costa said, the trade agreement will have been signed for several months.
+
+**Update:** I followed this story in [Modi and Merz Speak Before the India EU FTA Is Signed. What Bharat Should Watch](https://kamleshbhagatkar.com/articles/2026-11-25-modi-merz-call-india-eu-fta.html).
 
 ## Sources
 

@@ -2,6 +2,7 @@
 title: A Trump-Xi-Putin Meeting in Shenzhen? What Bharat Should Watch
 seo_title: Trump-Xi-Putin Meeting in Shenzhen: What Bharat Should Watch
 date: 2026-11-12
+updated: 2026-11-28
 category: Geopolitics
 summary: Washington says peace and denuclearisation could come up at a possible US-China-Russia leaders' meeting next week. India will not be at that table.
 countries: USA, China, Russia
@@ -37,6 +38,8 @@ None of this calls for alarm. The meeting is still unconfirmed. Peskov hoped on 
 ## What to watch next
 
 The first test is Shenzhen on 18 and 19 November: whether the three leaders meet, and whether China's account of it mentions nuclear arms. The second is Miami. The G20 Leaders' Summit is on 14 and 15 December at Trump National Doral, Business Today reported, and the government has not yet formally announced Prime Minister Narendra Modi's participation, according to The Tribune, though a government document it saw shows planning for the visit has begun. Business Today reported in September that a Modi-Trump bilateral meeting is likely on the sidelines if the visit goes ahead.
+
+**Update:** I followed this story in [The Shenzhen Declaration: What Trump, Xi and Putin Agreed, and What It Means for India](https://kamleshbhagatkar.com/articles/2026-11-22-shenzhen-declaration-trump-xi-putin-india.html).
 
 ## Sources
 

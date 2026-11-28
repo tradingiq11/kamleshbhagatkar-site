@@ -1,6 +1,7 @@
 ---
 title: Modi Goes to Manila: Trade, Myanmar and an Unconfirmed Quad
 date: 2026-11-14
+updated: 2026-11-28
 category: Geopolitics
 summary: Modi attends the ASEAN-India and East Asia summits in Manila from 16 November. A Quad meeting is likely but unconfirmed. Trade is the harder test.
 countries: Philippines, USA, Japan, Australia
@@ -40,6 +41,8 @@ Myanmar's place in ASEAN is still unsettled. According to StratNews Global, Myan
 ## What to watch next
 
 The first thing to watch is whether the Quad summit is confirmed, and whether its statement says anything concrete on maritime cooperation beyond the usual language. The second is the ASEAN-India Summit outcome: any date for finishing the AITIGA review, or any bilateral trade facilitation steps with individual members. The third is Myanmar, and whether ASEAN's final documents move closer to India's view that engagement works better than isolation.
+
+**Update:** I followed this story in [The Quad Summit in Manila: Patrol Planes, Sea Cables and a Forum for India](https://kamleshbhagatkar.com/articles/2026-11-18-quad-manila-summit-sea-cables.html).
 
 ## Sources
 
