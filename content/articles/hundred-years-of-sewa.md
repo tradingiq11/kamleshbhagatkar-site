@@ -3,7 +3,6 @@ title: A Hundred Years of Sewa: What I Learnt Writing About the RSS
 date: 2026-11-09
 category: RSS at 100
 summary: How an organisation with no salaries and no glamour kept going for a century.
-description: Kamlesh Bhagatkar, author of RSS: 100 Years of Selfless Service, on how sewa kept the RSS going for a century.
 image: images/kamlesh-bhagatkar-speaking.jpg
 image_position: 50% 30%
 ---

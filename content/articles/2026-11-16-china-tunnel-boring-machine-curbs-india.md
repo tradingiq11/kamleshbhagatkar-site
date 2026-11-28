@@ -3,7 +3,6 @@ title: China Curbs Tunnel Boring Machine Exports. India Must Make Its Own
 date: 2026-11-16
 category: Geopolitics
 summary: From 18 November, China needs a licence to ship tunnel boring machines to "sensitive" countries. Here is what that means for India's tunnels and how we respond.
-description: Kamlesh Bhagatkar on China's export controls on tunnel boring machines from 18 November, India's dependence on Chinese-made TBMs and parts, and the push to build them in Bharat.
 countries: China
 ---
 From Wednesday, 18 November, China's new export controls on tunnel boring machines (TBMs) come into force. The Ministry of Commerce and the General Administration of Customs issued them on 19 October as Announcement No. 50 of 2026, and they cover shield machines, hard-rock tunnel borers and their main parts: cutterheads, main drive systems, segment erectors and screw conveyors, along with the technology for remanufacturing them. Walking excavators built for rough terrain and wet shotcrete machines for building above 3,000 metres are on the list too, according to China Daily and a trade summary of the announcement by HS Code Match.

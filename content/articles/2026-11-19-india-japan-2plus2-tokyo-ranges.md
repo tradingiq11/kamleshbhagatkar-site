@@ -3,7 +3,6 @@ title: The India Japan 2+2 in Tokyo: Test Ranges, Warships and Trust
 date: 2026-11-19
 category: Geopolitics
 summary: Rajnath Singh and S Jaishankar meet their Japanese counterparts in Tokyo today. Missile test ranges, joint shipbuilding and a stealth antenna are on the table.
-description: Kamlesh Bhagatkar on the fourth India Japan 2+2 dialogue in Tokyo, Japan's interest in Indian missile test ranges, naval cooperation and what it means for Bharat.
 countries: Japan
 ---
 Defence Minister Rajnath Singh and External Affairs Minister S Jaishankar reached Tokyo on Wednesday, 18 November, for the fourth India Japan 2+2 dialogue of foreign and defence ministers. They meet Japan's Defence Minister Shinjiro Koizumi and Foreign Minister Toshimitsu Motegi today, Thursday. Jaishankar is also holding the 19th India-Japan Foreign Ministers' Strategic Dialogue with Motegi, according to ANI. The last 2+2 was held in New Delhi in August 2024.

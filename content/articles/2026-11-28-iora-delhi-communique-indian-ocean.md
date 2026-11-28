@@ -3,7 +3,6 @@ title: The IORA Council of Ministers Meets in Delhi: What the Delhi Communiqué 
 date: 2026-11-28
 category: Geopolitics
 summary: IORA ministers met in New Delhi, adopted the Delhi Communiqué 2026 and endorsed two India-proposed centres of excellence. India added a $500,000 grant.
-description: Kamlesh Bhagatkar on the 25th IORA Council of Ministers in New Delhi, the Delhi Communiqué 2026, India's two centres of excellence and what India's chairship means for Bharat.
 countries: Mauritius, Maldives, Australia, Iran
 ---
 On Friday, 27 November, External Affairs Minister S Jaishankar chaired the 25th meeting of the Indian Ocean Rim Association (IORA) Council of Ministers in New Delhi. Ministers and heads of delegation from all 23 member states and 12 dialogue partners attended, according to News On AIR and ANI. The dialogue partners include China, Russia, the United States, Japan, the European Union and the United Kingdom. India holds the IORA chair for 2025 to 2027, with Mauritius as vice-chair.

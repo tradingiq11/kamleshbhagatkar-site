@@ -3,7 +3,6 @@ title: Securing the Bangladesh Border: Mobs, Smugglers and the Unfenced 864 km
 date: 2026-11-21
 category: Geopolitics
 summary: A mob attack on BSF men in Tripura shows what the unfenced India Bangladesh border costs. Land, fencing and talks with Dhaka come next.
-description: Kamlesh Bhagatkar on securing the India Bangladesh border after the attack on BSF personnel at Ashabari in Tripura: fencing gaps, land handovers and the talks with Dhaka.
 countries: Bangladesh
 ---
 On 2 November, a patrol of the Border Security Force's 49th Battalion stopped what it believed was a ganja smuggling run at Ashabari, a village under Kalamchoura police station in Tripura's Sepahijala district, close to the Bangladesh border. What followed was a mob attack. According to IANS, as carried by Telangana Today, a crowd of about 50 men and women surrounded the BSF personnel and attacked them. Organiser reported that a BSF vehicle carrying an Assistant Commandant, his driver and another jawan was set upon with sticks, bamboo poles and stones, the vehicle was vandalised, and someone tried to snatch a service firearm, which was later recovered. Three BSF personnel were injured, the Assistant Commandant among them, and were moved from Boxanagar hospital to Agartala.

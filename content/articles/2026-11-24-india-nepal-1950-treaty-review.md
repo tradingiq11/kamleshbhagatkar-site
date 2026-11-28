@@ -3,7 +3,6 @@ title: India and Nepal Agree to Review the 1950 Treaty. What Bharat Should Bring
 date: 2026-11-24
 category: Geopolitics
 summary: Modi and Balendra Shah adopted a joint vision that opens the 1950 treaty to review, with India's largest aid package for Nepal.
-description: Kamlesh Bhagatkar on the India Nepal 1950 treaty review, the ₹15,000 crore package and the boundary talks agreed during Balendra Shah's Delhi visit.
 countries: Nepal
 ---
 India and Nepal have agreed that the 1950 Treaty of Peace and Friendship can be reviewed. The line sits in paragraph 4 of the joint vision document that Prime Minister Narendra Modi and Nepal's Prime Minister Balendra Shah adopted in New Delhi on Monday, 23 November. It says existing agreements, "including the 1950 Treaty of Peace and Friendship, could be reviewed on the basis of mutual consent", and that all outstanding matters, boundary included, "are to be resolved through mutual discussion and dialogue."

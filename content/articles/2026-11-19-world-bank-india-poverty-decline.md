@@ -3,7 +3,6 @@ title: World Bank on India's Poverty: 27% to 2.6%, and the Work Still Ahead
 date: 2026-11-19
 category: Current Affairs
 summary: The World Bank says extreme poverty in India fell from 27.1% to 2.6% between 2011 and 2023. Here is what the figures show and what they leave open.
-description: Kamlesh Bhagatkar reads the World Bank's October 2026 brief on poverty in India, the 496 million figure, the jobs question and the eastern belt.
 ---
 The World Bank's October 2026 Poverty and Equity Brief for India says the share of Indians in extreme poverty fell from 27.1 per cent in 2011 to 2.6 per cent in 2023. Extreme poverty here means living on less than $3 a day, measured at 2021 purchasing power parity (PPP). The Bank called it "one of the fastest poverty declines in the world", ANI reported.
 

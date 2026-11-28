@@ -3,7 +3,6 @@ title: RBI's Stop Switch and Trusted Person Plan: More Control Over Your Bank Ac
 date: 2026-11-25
 category: Current Affairs
 summary: RBI's draft rules would let customers freeze all outgoing debits, set their own limits and name a trusted person to approve large transfers.
-description: Kamlesh Bhagatkar on the RBI Stop Switch draft, the trusted person mechanism and the wider definition of bank negligence in digital fraud.
 place: Mumbai
 ---
 The Reserve Bank of India has proposed a Stop Switch for bank accounts. Under draft directions released on 23 November, every bank would have to give customers a way to block, at once, all future outgoing debits from their accounts. "A bank shall provide its customers with a Stop Switch facility for immediate disablement of all outward future debits associated with her / his account(s)," the draft says, as quoted by ANI. Incoming money would still arrive.

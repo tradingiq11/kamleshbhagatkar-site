@@ -3,7 +3,6 @@ title: Modi and Merz Speak Before the India EU FTA Is Signed. What Bharat Should
 date: 2026-11-25
 category: Geopolitics
 summary: Germany's Chancellor called Modi three weeks before the India EU free trade agreement is due to be signed in Brussels. What is settled, and what is not.
-description: Kamlesh Bhagatkar on the Modi Merz call, the India EU free trade agreement due for signing in December, and what Bharat gains and must guard.
 countries: Germany, EU
 ---
 German Chancellor Friedrich Merz telephoned Prime Minister Narendra Modi on Tuesday, 24 November. According to the Prime Minister's Office, the two leaders reviewed the India-Germany Strategic Partnership and "expressed satisfaction at the sustained momentum in bilateral engagements." They reaffirmed their commitment to closer cooperation in sectors including defence and advanced technologies, and they "noted that the India-EU Free Trade Agreement would unlock several new opportunities for expanding bilateral trade and investment."

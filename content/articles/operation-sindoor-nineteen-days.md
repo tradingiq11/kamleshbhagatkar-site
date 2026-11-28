@@ -3,7 +3,6 @@ title: Nineteen Days: What Operation Sindoor Changed for India
 date: 2026-11-09
 category: Defence
 summary: Terror now has an address and a price. Four lessons from the nineteen days between Pahalgam and the ceasefire.
-description: Geopolitical analyst Kamlesh Bhagatkar on four things Operation Sindoor changed for India, from Pahalgam to the ceasefire.
 image: images/nineteen-days.jpg
 image_position: 50% 20%
 ---

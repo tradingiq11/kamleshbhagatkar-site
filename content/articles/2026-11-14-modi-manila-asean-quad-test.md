@@ -3,7 +3,6 @@ title: Modi Goes to Manila: Trade, Myanmar and an Unconfirmed Quad
 date: 2026-11-14
 category: Geopolitics
 summary: Modi attends the ASEAN-India and East Asia summits in Manila from 16 November. A Quad meeting is likely but unconfirmed. Trade is the harder test.
-description: Kamlesh Bhagatkar on Prime Minister Modi's Manila visit for the ASEAN-India and East Asia summits, the likely Quad meeting, Myanmar and India's trade deficit with ASEAN.
 countries: Philippines, USA, Japan, Australia
 ---
 Prime Minister Narendra Modi leaves for Manila on Monday, 16 November. Rudrendra Tandon, Secretary (East) in the Ministry of External Affairs, announced the trip at a briefing in New Delhi on Thursday. "Prime Minister Modi will be travelling to Manila, in the Philippines, to attend the 23rd ASEAN-India Summit and the 21st meeting of the ASEAN-led East Asia Summit process," he said, according to ANI. "The visit will take place from the 16th to the 18th of this month."

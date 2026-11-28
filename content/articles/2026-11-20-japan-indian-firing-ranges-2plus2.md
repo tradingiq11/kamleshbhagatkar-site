@@ -3,7 +3,6 @@ title: Japan Will Train at Indian Firing Ranges. What the Tokyo 2+2 Settled
 date: 2026-11-20
 category: Geopolitics
 summary: India and Japan signed a Letter of Intent for Japanese forces to train at Indian firing ranges, and named economic coercion as a shared worry.
-description: Kamlesh Bhagatkar on the India Japan 2+2 in Tokyo: the Letter of Intent on Indian firing ranges, the UNICORN antenna deadline, economic coercion and what it means for Bharat.
 countries: Japan
 ---
 The fourth India Japan 2+2 dialogue ended in Tokyo on Thursday, 19 November, with one decision I had hoped for. Defence Minister Rajnath Singh and External Affairs Minister S Jaishankar sat down with Japan's Foreign Minister Toshimitsu Motegi and Defence Minister Shinjiro Koizumi, and the joint statement welcomed the signing of a Letter of Intent "towards the utilisation of firing ranges in India" by Japanese forces. According to the statement, as reported by ANI, this would let the Japan Self-Defence Forces conduct live-fire training in India for the first time, including training with surface-to-ship missiles.

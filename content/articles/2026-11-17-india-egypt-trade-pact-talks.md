@@ -3,7 +3,6 @@ title: India and Egypt Agree to Explore a Trade Pact. The $12 Billion Test
 date: 2026-11-17
 category: Geopolitics
 summary: India and Egypt will study a preferential or free trade agreement. Trade is recovering, but an old $12 billion target is still out of reach.
-description: Kamlesh Bhagatkar on the India Egypt trade talks in Cairo's New Administrative Capital, the plan for a trade pact and what Egypt means for Bharat's route to Africa and Europe.
 countries: Egypt
 ---
 India and Egypt have agreed to explore a trade agreement. On Monday, 16 November, Commerce and Industry Minister Piyush Goyal and Egypt's Minister of Investment and Foreign Trade, Mohamed Farid Saleh, co-chaired the seventh session of the India Egypt Joint Trade Committee in Egypt's New Administrative Capital. It was the first time this committee met at ministerial level, according to the government statement carried by DD News and the report in The Tribune.

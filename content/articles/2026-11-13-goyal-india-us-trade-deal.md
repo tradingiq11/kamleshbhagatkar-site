@@ -3,7 +3,6 @@ title: Goyal Promises "One of the Best" US Trade Deals. Here Is the Test
 date: 2026-11-13
 category: Geopolitics
 summary: Piyush Goyal says India will get one of the best US trade deals. The real test is how our tariff compares with Vietnam's and Bangladesh's.
-description: Kamlesh Bhagatkar on Piyush Goyal's remarks about the India-US trade deal, the shifting US tariffs since February, and what India should hold out for.
 countries: USA
 ---
 On Thursday, 12 November, Commerce and Industry Minister Piyush Goyal spoke to reporters in Visakhapatnam about the trade agreement India has been negotiating with the United States for most of this year. "And in every respect, India will have one of the best deals with the US," he said, according to PTI. He went further: "We will have the most preferred market access in the US post the deal in products of our interest."

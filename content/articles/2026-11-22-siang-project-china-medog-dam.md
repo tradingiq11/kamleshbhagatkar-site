@@ -3,7 +3,6 @@ title: The Siang Project and China's Medog Dam: Why India Needs Its Own Reservoi
 date: 2026-11-22
 category: Geopolitics
 summary: Amit Shah promised dialogue on the 11,200 MW Siang project as local groups asked him to scrap it. China's Medog dam upstream is why India cannot drop the idea.
-description: Kamlesh Bhagatkar on the Siang Upper Multipurpose Project, China's Medog dam on the Yarlung Tsangpo, Amit Shah's assurance in Arunachal Pradesh, and what India must get right.
 countries: China
 ---
 Union Home Minister Amit Shah went to Arunachal Pradesh on Saturday, 21 November, and spoke about the Siang project, a hydropower plan that has brought protests to the Siang valley. At the Police Training Centre in Banderdewa, near Itanagar, where he presented the President's Police Colour to the Arunachal Pradesh Police, he addressed the people of the Siang valley directly. "We will find a way forward through positive dialogue... You need not worry about it," he said, as reported by ETV Bharat. "We will move forward without compromising the traditions, culture and religion of this place."

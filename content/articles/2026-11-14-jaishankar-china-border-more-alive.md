@@ -3,7 +3,6 @@ title: Jaishankar Says the China Border Is "More Alive". He Is Right
 date: 2026-11-14
 category: Geopolitics
 summary: Jaishankar says the China border now needs a much larger standing troop presence. The Arunachal face-offs show why the thaw has not changed the ground.
-description: Kamlesh Bhagatkar on S Jaishankar's remark that India's border with China has become "more alive", the Arunachal face-offs and what a permanently manned frontier means for Bharat.
 countries: China
 ---
 External Affairs Minister S Jaishankar said on Saturday, 14 November, that our border with China now needs far more soldiers, for far longer, than it once did. "What has happened today is the border with China has become more alive in a way. It has required a much greater commitment of troops on a sustained basis," he said at an interactive session at the HT Leadership Summit in New Delhi, according to PTI.

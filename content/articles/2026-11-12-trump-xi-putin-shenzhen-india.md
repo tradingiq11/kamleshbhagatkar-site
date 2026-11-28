@@ -3,7 +3,6 @@ title: A Trump-Xi-Putin Meeting in Shenzhen? What Bharat Should Watch
 date: 2026-11-12
 category: Geopolitics
 summary: Washington says peace and denuclearisation could come up at a possible US-China-Russia leaders' meeting next week. India will not be at that table.
-description: Kamlesh Bhagatkar on the possible Trump, Xi and Putin meeting at APEC in Shenzhen, what Washington and Beijing each said, and what it means for India.
 countries: USA, China, Russia
 ---
 On Wednesday, 11 November, US Secretary of State Marco Rubio spoke by phone with China's Foreign Minister Wang Yi. The call was to prepare for President Donald Trump's trip to the APEC summit in China next week and President Xi Jinping's visit to Florida for the G20 summit in December. According to the State Department, as reported by Reuters, the two "agreed on the importance of meaningful leader-level conversations to advance goals such as peace and denuclearization, including at any potential trilateral leaders meeting with Russia."

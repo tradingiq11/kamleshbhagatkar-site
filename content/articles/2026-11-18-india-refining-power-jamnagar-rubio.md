@@ -2,8 +2,7 @@
 title: Why Rubio Went to Jamnagar: India's Oil Refining Power and What It Buys Us
 date: 2026-11-18
 category: Geopolitics
-summary: India is the world's fourth-largest refining nation. Washington pressed us over Russian oil, then sent its top diplomat to Jamnagar. Refining capacity explains the gap.
-description: Kamlesh Bhagatkar on India's oil refining capacity, Marco Rubio's visit to the Jamnagar refinery, the US waiver on Russian oil buyers and the leverage refining gives Bharat.
+summary: India is the world's fourth-largest refiner. Washington pressed us over Russian oil, then sent its top diplomat to Jamnagar. Refining explains the gap.
 countries: USA, Russia, EU
 ---
 India's oil refining capacity has become a foreign policy asset, and one visit last month showed it plainly. On Wednesday, 21 October, US Secretary of State Marco Rubio flew to Jamnagar in Gujarat to see the Reliance Industries refinery, the largest single-site refinery in the world. He had met External Affairs Minister S. Jaishankar in Mumbai the day before, Business Today reported. Al Jazeera noted that he was skipping New Delhi on this trip.

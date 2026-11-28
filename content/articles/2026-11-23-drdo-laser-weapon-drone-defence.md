@@ -3,7 +3,6 @@ title: DRDO's 30 kW Laser Weapon: Can India Turn a Successful Test into a Drone 
 date: 2026-11-23
 category: Current Affairs
 summary: DRDO's 30 kW laser, proven against drones at Kurnool, is moving towards production. Whether it reaches our units depends on industry, orders and patience.
-description: Kamlesh Bhagatkar on DRDO's 30 kW laser directed energy weapon, its move towards production, the lessons of Operation Sindoor and what India must do to field it.
 place: Hyderabad
 ---
 DRDO's 30 kW laser weapon is moving from the test range towards the factory, and I think it is one of the most useful pieces of defence news India has had this year. In September, Dr B.K. Das, DRDO's Director General for Electronics and Communication Systems, told Outlook that an expression of interest would be issued within six months to find an industry partner that can build the first-of-production model of the 30 kW-class directed energy weapon. No decision on that model has been taken yet. "Technology is proved," he said.

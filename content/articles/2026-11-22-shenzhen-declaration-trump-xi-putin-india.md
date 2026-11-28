@@ -3,7 +3,6 @@ title: The Shenzhen Declaration: What Trump, Xi and Putin Agreed, and What It Me
 date: 2026-11-22
 category: Geopolitics
 summary: The Trump, Xi and Putin meeting in Shenzhen ended in a short four-point declaration. India has taken note and is waiting for details. I think that is right.
-description: Kamlesh Bhagatkar on the Trump, Xi and Putin Shenzhen declaration on UN reform, oil and nuclear risk, the MEA's response, and what it means for India.
 countries: USA, China, Russia
 ---
 The Trump, Xi and Putin meeting in Shenzhen has happened, and the outcome for India is easier to judge than the build-up suggested. On Thursday, 19 November, US President Donald Trump, Chinese President Xi Jinping and Russian President Vladimir Putin met for about an hour and a half at the Kylin Villa in Shenzhen, on the sidelines of the APEC summit, CNBC reported. It was their first meeting as a trio. Afterwards they issued identical texts under the title "Heads of State Declaration toward Peace."

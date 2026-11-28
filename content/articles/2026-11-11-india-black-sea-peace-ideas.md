@@ -3,7 +3,6 @@ title: India's Black Sea Ideas: A Practical Offer in the Ukraine War
 date: 2026-11-11
 category: Geopolitics
 summary: After Modi spoke to Zelenskyy and Jaishankar to Lavrov, New Delhi says it has shared ideas on Black Sea shipping, grain and energy.
-description: Kamlesh Bhagatkar on India's proposals to Russia and Ukraine on Black Sea shipping safety, grain and energy exports, and why they matter for Bharat.
 countries: Ukraine, Russia
 ---
 On Monday, 9 November, Prime Minister Narendra Modi spoke on the phone with Ukraine's President Volodymyr Zelenskyy. Within hours, External Affairs Minister S. Jaishankar spoke to Russia's Foreign Minister Sergey Lavrov. "Our conversation focused on the Ukraine conflict and ongoing diplomatic initiatives," Jaishankar wrote afterwards.

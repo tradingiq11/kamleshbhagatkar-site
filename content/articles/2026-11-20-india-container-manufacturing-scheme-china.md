@@ -3,7 +3,6 @@ title: Made-in-India Shipping Containers: Can ₹10,000 Crore Loosen China's Hol
 date: 2026-11-20
 category: Current Affairs
 summary: India's ₹10,000 crore container manufacturing scheme pays makers per box and aims for 7.5 lakh TEUs a year. The test is the price gap with China.
-description: Kamlesh Bhagatkar on India's Container Manufacturing Promotion Scheme: the ₹10,000 crore outlay, the per-container support, China's dominance and what it means for Bharat's exports.
 place: New Delhi
 ---
 On Thursday, 19 November, the Press Information Bureau published a detailed note on India's new container manufacturing scheme, the Container Manufacturing Promotion Scheme (CMPS). The Union Cabinet approved it on Wednesday, 28 October, with a budget of ₹10,000 crore that runs until the financial year 2039-40. Its aim, in the government's words, is "a globally competitive container manufacturing ecosystem in India", with less dependence on imports and more resilient supply chains.

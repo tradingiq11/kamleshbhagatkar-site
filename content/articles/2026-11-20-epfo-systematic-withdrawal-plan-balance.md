@@ -3,7 +3,6 @@ title: EPFO Approves Monthly PF Payouts and Cuts the Minimum Balance to 10%
 date: 2026-11-20
 category: Current Affairs
 summary: The EPFO board approved a Systematic Withdrawal Plan for retirees, a 10% minimum PF balance and a two-month wait for final withdrawal.
-description: Kamlesh Bhagatkar on the EPFO board's 19 November decisions: the Systematic Withdrawal Plan, the minimum PF balance cut from 25% to 10%, and what changes for workers.
 place: New Delhi
 ---
 The Central Board of Trustees of the Employees' Provident Fund Organisation (EPFO) met in New Delhi on Thursday, 19 November, for its 240th meeting and approved an EPFO Systematic Withdrawal Plan (SWP) for retiring members. Labour and Employment Minister Mansukh Mandaviya chaired the meeting. Under the plan, a member who retires can take the provident fund savings in instalments, monthly, quarterly or half-yearly, instead of withdrawing the whole amount at once. The rest of the money stays with the EPFO and keeps earning, according to the Ministry of Labour and Employment's release on PIB.

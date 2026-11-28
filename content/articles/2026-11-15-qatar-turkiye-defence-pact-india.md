@@ -3,7 +3,6 @@ title: Qatar and Türkiye Sign a Defence Pact. What It Means for Bharat
 date: 2026-11-15
 category: Geopolitics
 summary: Qatar, India's largest gas supplier, has signed a mutual defence pact with Türkiye, which is already bound to Pakistan by treaty. Here is what to watch.
-description: Kamlesh Bhagatkar on the Qatar-Türkiye mutual defence agreement signed in Istanbul, the web of Gulf defence pacts that includes Pakistan, and what it means for India's energy and diaspora.
 countries: Qatar, Turkey, Pakistan
 ---
 Türkiye and Qatar signed a mutual defence agreement in Istanbul on Friday, 13 November. President Recep Tayyip Erdogan and Qatar's Emir, Sheikh Tamim bin Hamad Al Thani, signed it at the 12th meeting of the two countries' Supreme Strategic Committee, according to Al Jazeera and France 24. The central promise, in the words of the joint communiqué quoted by The New Arab, is "a unified stance in confronting any external armed attack targeting either party or both of them."

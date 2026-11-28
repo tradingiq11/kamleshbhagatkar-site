@@ -3,7 +3,6 @@ title: The US Proposes a 25% Tariff on India Over "Excess Capacity". Why the 17%
 date: 2026-11-26
 category: Geopolitics
 summary: Washington proposes tariffs of up to 25% on Indian goods, or 17% with a trade deal. India rejects the excess capacity charge.
-description: Kamlesh Bhagatkar on the proposed US Section 301 tariff of up to 25% on India, the 17% trade deal rate, and what Bharat should do before February.
 countries: USA, China, Vietnam, Bangladesh
 ---
 On Wednesday, 25 November, United States Trade Representative Jamieson Greer announced that the manufacturing policies of 14 economies, India among them, are "unreasonable" and "burden or restrict U.S. commerce" under Section 301 of the Trade Act of 1974. For India, USTR proposes a US tariff of up to 25 per cent on all goods, net of existing Section 301 tariffs, with exemptions for certain goods. It adds that it would consider a rate of 17 per cent if India reaches an "Agreement on Reciprocal Trade" with the United States that responds to the findings.

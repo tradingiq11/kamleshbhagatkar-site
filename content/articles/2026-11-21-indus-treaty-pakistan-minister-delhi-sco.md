@@ -3,7 +3,6 @@ title: A Pakistani Minister in Delhi, and No Change on the Indus Waters Treaty
 date: 2026-11-21
 category: Geopolitics
 summary: Pakistan's climate minister came to New Delhi for the SCO forum. India's answer on the Indus Waters Treaty stayed the same: no change.
-description: Kamlesh Bhagatkar on the Indus Waters Treaty, Pakistan minister Musadik Malik's visit to Delhi for the SCO Civilisational Dialogue Forum, and why India kept its position.
 countries: Pakistan
 ---
 Pakistan's Climate Change Minister, Musadik Masood Malik, landed in New Delhi on Friday, 20 November, to lead his country's delegation at the first SCO Civilisational Dialogue Forum. News24 reported that his visit is the first by a Pakistani minister to India in three years. The same day, the Ministry of External Affairs was asked about the Indus Waters Treaty, and spokesperson Randhir Jaiswal gave a short answer. "As far as the IWT is concerned, we have made our position very clear, and that is where it remains," he said, according to Daily Jagran. "There is absolutely no change." Oneindia reported his words as "No change whatsoever."

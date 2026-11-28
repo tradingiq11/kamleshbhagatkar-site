@@ -3,7 +3,6 @@ title: India and Somalia Hold Their First Foreign Office Talks. Why It Matters a
 date: 2026-11-16
 category: Geopolitics
 summary: India and Somalia have opened a formal dialogue in Mogadishu, with piracy high on the agenda. Here is what it means for our sea lanes.
-description: Kamlesh Bhagatkar on the first India Somalia Foreign Office Consultations in Mogadishu, the return of Somali piracy and what a regular dialogue means for Bharat's sea lanes.
 countries: Somalia
 ---
 India and Somalia held their first round of Foreign Office Consultations in Mogadishu on Sunday, 15 November. Joint Secretary Suresh Kumar M, who heads the West Asia and North Africa division of the Ministry of External Affairs, led our side. Somalia's delegation was led by Hamza Adan Haadoow, Permanent Secretary in its Ministry of Foreign Affairs and International Cooperation, according to the MEA statement carried by ANI and IANS.

@@ -4,7 +4,6 @@ date: 2026-11-09
 category: Geopolitics
 essay: yes
 summary: Why geopolitics matters to anyone who runs a business, buys petrol or has a child in the army.
-description: Kamlesh Bhagatkar on why geopolitics matters to ordinary Indians, written from Nagpur, the centre of India.
 image: images/kamlesh-bhagatkar-reading.jpg
 image_position: 50% 35%
 ---

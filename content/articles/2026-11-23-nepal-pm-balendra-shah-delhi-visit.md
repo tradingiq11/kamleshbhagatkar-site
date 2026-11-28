@@ -3,7 +3,6 @@ title: Balendra Shah in Delhi: What India and Nepal Can Settle, and What They Wi
 date: 2026-11-23
 category: Geopolitics
 summary: Nepal's Prime Minister Balendra Shah is in Delhi for his first bilateral visit abroad. Trains and power are on the table; the boundary is not.
-description: Kamlesh Bhagatkar on Nepal Prime Minister Balendra Shah's state visit to India, the India Nepal talks on rail, hydropower and air routes, and what Bharat should watch.
 countries: Nepal
 ---
 Nepal's Prime Minister Balendra Shah arrived in New Delhi on Sunday, 22 November, for a two-day state visit, and India Nepal relations get their first real test under his government today. Shah, 36, came at Prime Minister Narendra Modi's invitation and was received at the airport by Union Minister Jitin Prasada, ANI reported in The Tribune. It is his first visit to India since he took office in March 2026, and his first bilateral visit abroad as Prime Minister.

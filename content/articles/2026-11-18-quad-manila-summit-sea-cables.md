@@ -3,7 +3,6 @@ title: The Quad Summit in Manila: Patrol Planes, Sea Cables and a Forum for Indi
 date: 2026-11-18
 category: Geopolitics
 summary: Quad leaders met in Manila after a gap of two years. They agreed on joint maritime surveillance, energy cables and a business forum India wants to host.
-description: Kamlesh Bhagatkar on the Quad summit in Manila, its maritime surveillance and undersea cable plans, the warning on economic coercion and what it means for Bharat.
 countries: USA, Japan, Australia, Philippines
 ---
 The Quad summit in Manila did take place. On Tuesday, 17 November, Prime Minister Narendra Modi, US President Donald Trump, Australian Prime Minister Anthony Albanese and Japanese Prime Minister Sanae Takaichi met for the 7th Quad Leaders' Summit, on the sidelines of the ASEAN meetings. When I wrote about [Modi's trip to Manila](https://kamleshbhagatkar.com/articles/2026-11-14-modi-manila-asean-quad-test.html) last week, New Delhi had not yet confirmed it.

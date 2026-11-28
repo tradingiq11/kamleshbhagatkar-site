@@ -3,7 +3,6 @@ title: RBI's Final Money Mule Rules: When Your Bank Can Put a Debit Hold, and fo
 date: 2026-11-28
 category: Current Affairs
 summary: RBI's final rules let banks place temporary debit holds on suspected money mule accounts, with seven-day deadlines and a 31st-day release rule.
-description: Kamlesh Bhagatkar explains the RBI's final money mule account rules, how bank debit holds will work from July 2027 and what protections genuine customers get.
 place: Mumbai
 ---
 On Friday, 27 November, the Reserve Bank of India issued final rules on suspected money mule accounts. The RBI's draft had proposed a "uniform, time-bound procedure" for banks to place temporary debit holds on amounts or accounts suspected to be linked to money mule activity and cyber-enabled financial fraud, and to remove those holds in coordination with law enforcement agencies, "while protecting genuine customers from inconvenience." The final directions keep that aim, with changes made after public feedback. They take effect from 1 July 2027, or earlier if a bank chooses.

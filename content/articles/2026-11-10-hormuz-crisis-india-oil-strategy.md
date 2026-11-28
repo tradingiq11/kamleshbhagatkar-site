@@ -3,7 +3,6 @@ title: Hormuz Is Burning, and India's Oil Still Flows. Here Is Why
 date: 2026-11-10
 category: Geopolitics
 summary: As tankers burn in the Strait of Hormuz, Indian Oil's numbers show how India spread its risk: 55 per cent Russian crude and fuller stocks.
-description: Kamlesh Bhagatkar on the Strait of Hormuz crisis, Indian Oil's plan to buy its own ships, and how India's independent energy diplomacy kept fuel flowing.
 countries: Iran, USA, Russia, Saudi Arabia
 ---
 On Sunday, 8 November, the war in West Asia came close to the oil that powers our economy. Iran said several tankers caught fire in the Strait of Hormuz after hitting mines. The same morning, the Saudi-led coalition said it had destroyed Houthi missiles launched towards Riyadh, and AFP reported that an Aramco building in the city's financial district was damaged. Saudi Arabia called the damage minor. By evening, the coalition said it had struck the Houthi launchers used in the attack.
