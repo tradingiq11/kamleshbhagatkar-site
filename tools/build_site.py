@@ -678,7 +678,7 @@ h2 = re.sub(r"(<!-- PUBS:START -->).*?(<!-- PUBS:END -->)", lambda m: m[1] + til
 write_if_changed(home, re.sub(r'(<b data-count="articles">)\d+(</b>)', lambda m: f"{m[1]}{len(ARTS)}{m[2]}", h2))
 
 # ---------------------------------------------------------------- about page (entity home: who he is, his books, his profiles)
-ABOUT_DATE = "2026-11-28"  # bump when the About text below changes
+ABOUT_DATE = "2026-11-29"  # bump when the About text below changes
 ld_blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', home.read_text(), re.S)
 PERSON = next(n for b in ld_blocks for n in json.loads(b).get("@graph", []) if n.get("@type") == "Person")  # single source: index.html
 
@@ -783,10 +783,11 @@ write_if_changed(SITE / "about/index.html", f"""<!doctype html>
 <p>Kamlesh Bhagatkar is a politician, author and geopolitical analyst from Nagpur, Maharashtra. For the past ten years he has studied geopolitics, national security and India's strategic choices, and he writes about them in plain language, from an Indian point of view.</p>
 <p><img class="sig" src="../images/kamlesh-bhagatkar-signature.png" alt="Signature of Kamlesh Bhagatkar" width="660" height="199" loading="lazy"></p>
 <h2 class="h">Books</h2>
-<p>His first book, <a href="../books/rss-100-years-of-selfless-service/"><i>RSS: 100 Years of Selfless Service – Engineers of Glorious Bharat</i></a> (2025), tells the story of the Sangh's first century for readers aged 10 to 18. His next, <a href="../books/nineteen-days/"><i>Nineteen Days: Pahalgam, Operation Sindoor and the Answer of Bharat</i></a>, is a narrative account of the nineteen days from the Pahalgam terror attack of 22 April 2025 to the ceasefire of 10 May. After it comes <a href="../books/the-uttar-pradesh-turnaround/"><i>The Uttar Pradesh Turnaround</i></a>, on how Yogi Adityanath set out to remake India's most populous state after 2017.</p>
+<p>His first book, <a href="../books/rss-100-years-of-selfless-service/"><i>RSS: 100 Years of Selfless Service – Engineers of Glorious Bharat</i></a> (2025), tells the story of the Sangh's first century for readers aged 10 to 18. His next, <a href="../books/nineteen-days/"><i>Nineteen Days: Pahalgam, Operation Sindoor and the Answer of Bharat</i></a>, is a narrative account of the nineteen days from the Pahalgam terror attack of 22 April 2025 to the ceasefire of 10 May. After it comes <a href="../books/the-uttar-pradesh-turnaround/"><i>The Uttar Pradesh Turnaround</i></a>, on how Yogi Adityanath set out to remake India's most populous state after 2017, and <a href="../books/the-bharat-doctrine/"><i>The Bharat Doctrine</i></a>, on how India's foreign policy changed between 2014 and 2026.</p>
 <ul><li><a href="https://www.amazon.com/dp/B0F6JMSHDH" rel="noopener" target="_blank"><i>RSS: 100 Years of Selfless Service</i></a> (2025, paperback, ISBN 9798281394369) · <a href="https://play.google.com/store/books/details?id=Ik5aEQAAQBAJ" rel="noopener" target="_blank">Google Play ebook</a></li>
 <li><a href="../books/nineteen-days/"><i>Nineteen Days</i></a> (coming soon)</li>
-<li><a href="../books/the-uttar-pradesh-turnaround/"><i>The Uttar Pradesh Turnaround</i></a> (coming soon)</li></ul>
+<li><a href="../books/the-uttar-pradesh-turnaround/"><i>The Uttar Pradesh Turnaround</i></a> (coming soon)</li>
+<li><a href="../books/the-bharat-doctrine/"><i>The Bharat Doctrine</i></a> (coming soon)</li></ul>
 <h2 class="h">What he writes here</h2>
 <p>Articles on this site are of two kinds. Geopolitics covers India's foreign and security relations and what world events mean for Bharat. Current Affairs covers Indian decisions of national importance, from the RBI to Parliament. Every news article ends with its sources and can be downloaded as a PDF. Longer research is published as whitepapers; the first, <i>From restraint to resolve: India's national security policy, 2014 to 2026</i>, runs to 50 pages and has a DOI.</p>
 {"<h2 class='h'>Whitepapers</h2><ul>" + wp_li + "</ul>" if WPS else ""}

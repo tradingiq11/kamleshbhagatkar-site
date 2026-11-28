@@ -29,6 +29,8 @@ img{max-width:100%;display:block}
 .nav ul a:after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
 .nav a:hover,.nav a:focus-visible{opacity:1}
 .nav ul a:hover:after,.nav ul a:focus-visible:after{transform:scaleX(1)}
+/* nine menu items: tighten on small laptops so the row does not wrap */
+@media (min-width:821px) and (max-width:1100px){.nav ul{gap:14px}.nav a{font-size:13px;letter-spacing:.06em}}
 .menu-btn{display:none;background:none;border:1px solid rgba(255,255,255,.25);color:var(--cream);font:500 14px var(--cond);letter-spacing:.12em;text-transform:uppercase;padding:8px 12px;cursor:pointer}
 
 /* ---------- hero ---------- */
@@ -245,7 +247,12 @@ footer a:hover{color:#fff}
 .stack.nd.up{--cover:url(images/up-turnaround.jpg)}
 .up .sp{border-top-color:rgba(232,130,40,.8)}
 .up .sp b{color:#f0a04b}
-#up-turnaround h2 .pre{display:block;font-size:.36em;letter-spacing:.22em;margin-bottom:.35em}
+/* Bharat Doctrine stack: navy book, gold accent */
+.stack.nd.bd{--cover:url(images/bharat-doctrine.jpg)}
+.bd .sp{background:linear-gradient(180deg,#22304f 0%,#101a33 55%,#0a1124 100%);border-top-color:rgba(201,146,42,.8)}
+.bd .sp b{color:#d9a441}
+.bd .b3d .s{background:linear-gradient(90deg,#0a1124,#1b2847 50%,#0a1124)}
+.band h2 .pre{display:block;font-size:.36em;letter-spacing:.22em;margin-bottom:.35em}
 .band.has-stack .wrap{grid-template-columns:240px 1fr 300px;gap:48px}
 .band.has-stack:before{display:none}
 @media (max-width:900px){.band.has-stack .wrap{grid-template-columns:200px 1fr}.band.has-stack .stack{grid-column:1/-1;justify-self:center;width:320px}}
