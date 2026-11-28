@@ -544,7 +544,7 @@ for w in WPS:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(w['title'])} | Whitepaper by Kamlesh Bhagatkar</title>
+<title>{esc(w.get('seo_title') or w['title'] + ' | Whitepaper by Kamlesh Bhagatkar')}</title>
 <meta name="description" content="{esc(w['summary'])}">
 <link rel="canonical" href="{w['url']}">
 <meta name="citation_title" content="{esc(w['title'])}">
@@ -759,8 +759,8 @@ write_if_changed(SITE / "about/index.html", f"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About Kamlesh Bhagatkar | Politician, Author &amp; Geopolitical Analyst, Nagpur</title>
-<meta name="description" content="Kamlesh Bhagatkar is a politician, author and geopolitical analyst from Nagpur, author of RSS: 100 Years of Selfless Service and the upcoming Nineteen Days on Operation Sindoor.">
+<title>About Kamlesh Bhagatkar | Politician and Author, Nagpur</title>
+<meta name="description" content="Kamlesh Bhagatkar is a politician, author and geopolitical analyst from Nagpur. His books, his writing on Bharat and the world, and how to reach him.">
 <link rel="canonical" href="{ABOUT}">
 <meta name="robots" content="index,follow,max-image-preview:large">
 {social("About Kamlesh Bhagatkar", "Politician, author and geopolitical analyst from Nagpur. Books, writing and profiles.", ABOUT).replace('content="website"', 'content="profile"')}

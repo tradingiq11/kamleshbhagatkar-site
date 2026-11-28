@@ -1,5 +1,6 @@
 ---
 title: From restraint to resolve: India's national security policy, 2014 to 2026
+seo_title: India's National Security Policy, 2014 to 2026: Whitepaper
 date: 2026-11-11
 updated: 2026-11-28
 pages: 50

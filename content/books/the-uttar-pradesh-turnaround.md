@@ -5,7 +5,7 @@ seo_title: The Uttar Pradesh Turnaround: Book on Yogi Adityanath
 id: up-turnaround
 status: Coming soon
 date: 2026-11-28
-summary: The Uttar Pradesh Turnaround by Kamlesh Bhagatkar: how Yogi Adityanath set out to remake Uttar Pradesh after 2017. Law and order, expressways, investment, welfare and faith.
+summary: The Uttar Pradesh Turnaround by Kamlesh Bhagatkar: how Yogi Adityanath set out to remake Uttar Pradesh after 2017, from law and order to expressways.
 cover: images/up-turnaround.webp
 cover_size: 800x1200
 cover_alt: Cover of The Uttar Pradesh Turnaround: Yogi Adityanath and the Remaking of a State by Kamlesh Bhagatkar, showing Yogi Adityanath in saffron robes
