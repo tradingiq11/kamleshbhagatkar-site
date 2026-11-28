@@ -1,5 +1,6 @@
 ---
 title: The India Japan 2+2 in Tokyo: Test Ranges, Warships and Trust
+seo_title: India-Japan 2+2 in Tokyo: Test Ranges, Warships and Trust
 date: 2026-11-19
 category: Geopolitics
 summary: Rajnath Singh and S Jaishankar meet their Japanese counterparts in Tokyo today. Missile test ranges, joint shipbuilding and a stealth antenna are on the table.

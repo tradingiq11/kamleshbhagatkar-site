@@ -1,5 +1,6 @@
 ---
 title: Jaishankar Says the China Border Is "More Alive". He Is Right
+seo_title: Jaishankar: China Border Is "More Alive". He Is Right
 date: 2026-11-14
 category: Geopolitics
 summary: Jaishankar says the China border now needs a much larger standing troop presence. The Arunachal face-offs show why the thaw has not changed the ground.

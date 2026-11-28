@@ -1,5 +1,6 @@
 ---
 title: Modi and Merz Speak Before the India EU FTA Is Signed. What Bharat Should Watch
+seo_title: Modi-Merz Call Before the India-EU FTA: What to Watch
 date: 2026-11-25
 category: Geopolitics
 summary: Germany's Chancellor called Modi three weeks before the India EU free trade agreement is due to be signed in Brussels. What is settled, and what is not.

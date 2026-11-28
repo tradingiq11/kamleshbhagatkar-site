@@ -1,5 +1,6 @@
 ---
 title: Securing the Bangladesh Border: Mobs, Smugglers and the Unfenced 864 km
+seo_title: Bangladesh Border Security: BSF Attacks and Fencing Gaps
 date: 2026-11-21
 category: Geopolitics
 summary: A mob attack on BSF men in Tripura shows what the unfenced India Bangladesh border costs. Land, fencing and talks with Dhaka come next.

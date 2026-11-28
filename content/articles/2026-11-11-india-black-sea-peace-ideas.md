@@ -1,5 +1,6 @@
 ---
 title: India's Black Sea Ideas: A Practical Offer in the Ukraine War
+seo_title: India's Black Sea Ideas: A Practical Offer on Ukraine
 date: 2026-11-11
 category: Geopolitics
 summary: After Modi spoke to Zelenskyy and Jaishankar to Lavrov, New Delhi says it has shared ideas on Black Sea shipping, grain and energy.

@@ -1,5 +1,6 @@
 ---
 title: The Quad Summit in Manila: Patrol Planes, Sea Cables and a Forum for India
+seo_title: Quad Summit in Manila: Patrol Planes, Sea Cables, India
 date: 2026-11-18
 category: Geopolitics
 summary: Quad leaders met in Manila after a gap of two years. They agreed on joint maritime surveillance, energy cables and a business forum India wants to host.

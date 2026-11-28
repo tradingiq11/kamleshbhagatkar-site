@@ -1,5 +1,6 @@
 ---
 title: RBI's Stop Switch and Trusted Person Plan: More Control Over Your Bank Account
+seo_title: RBI Stop Switch and Trusted Person Plan Explained
 date: 2026-11-25
 category: Current Affairs
 summary: RBI's draft rules would let customers freeze all outgoing debits, set their own limits and name a trusted person to approve large transfers.

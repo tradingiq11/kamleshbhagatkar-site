@@ -1,5 +1,6 @@
 ---
 title: Made-in-India Shipping Containers: Can ₹10,000 Crore Loosen China's Hold?
+seo_title: Made-in-India Shipping Containers: The ₹10,000 Crore Plan
 date: 2026-11-20
 category: Current Affairs
 summary: India's ₹10,000 crore container manufacturing scheme pays makers per box and aims for 7.5 lakh TEUs a year. The test is the price gap with China.

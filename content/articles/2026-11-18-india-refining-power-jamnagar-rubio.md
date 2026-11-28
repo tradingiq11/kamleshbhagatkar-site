@@ -1,5 +1,6 @@
 ---
 title: Why Rubio Went to Jamnagar: India's Oil Refining Power and What It Buys Us
+seo_title: Why Rubio Went to Jamnagar: India's Oil Refining Power
 date: 2026-11-18
 category: Geopolitics
 summary: India is the world's fourth-largest refiner. Washington pressed us over Russian oil, then sent its top diplomat to Jamnagar. Refining explains the gap.

@@ -1,5 +1,6 @@
 ---
 title: A Trump-Xi-Putin Meeting in Shenzhen? What Bharat Should Watch
+seo_title: Trump-Xi-Putin Meeting in Shenzhen: What Bharat Should Watch
 date: 2026-11-12
 category: Geopolitics
 summary: Washington says peace and denuclearisation could come up at a possible US-China-Russia leaders' meeting next week. India will not be at that table.

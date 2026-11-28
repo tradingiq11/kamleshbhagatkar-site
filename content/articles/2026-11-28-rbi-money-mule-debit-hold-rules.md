@@ -1,5 +1,6 @@
 ---
 title: RBI's Final Money Mule Rules: When Your Bank Can Put a Debit Hold, and for How Long
+seo_title: RBI Money Mule Rules: Debit Holds and How Long They Last
 date: 2026-11-28
 category: Current Affairs
 summary: RBI's final rules let banks place temporary debit holds on suspected money mule accounts, with seven-day deadlines and a 31st-day release rule.

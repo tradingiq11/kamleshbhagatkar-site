@@ -1,5 +1,6 @@
 ---
 title: A Pakistani Minister in Delhi, and No Change on the Indus Waters Treaty
+seo_title: Indus Waters Treaty: Pakistani Minister in Delhi, No Change
 date: 2026-11-21
 category: Geopolitics
 summary: Pakistan's climate minister came to New Delhi for the SCO forum. India's answer on the Indus Waters Treaty stayed the same: no change.

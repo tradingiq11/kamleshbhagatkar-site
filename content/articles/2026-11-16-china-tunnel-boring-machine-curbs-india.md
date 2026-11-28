@@ -1,5 +1,6 @@
 ---
 title: China Curbs Tunnel Boring Machine Exports. India Must Make Its Own
+seo_title: China Curbs Tunnel Boring Machine Exports: India's Answer
 date: 2026-11-16
 category: Geopolitics
 summary: From 18 November, China needs a licence to ship tunnel boring machines to "sensitive" countries. Here is what that means for India's tunnels and how we respond.

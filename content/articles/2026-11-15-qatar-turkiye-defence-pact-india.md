@@ -1,5 +1,6 @@
 ---
 title: Qatar and Türkiye Sign a Defence Pact. What It Means for Bharat
+seo_title: Qatar-Türkiye Defence Pact: What It Means for Bharat
 date: 2026-11-15
 category: Geopolitics
 summary: Qatar, India's largest gas supplier, has signed a mutual defence pact with Türkiye, which is already bound to Pakistan by treaty. Here is what to watch.

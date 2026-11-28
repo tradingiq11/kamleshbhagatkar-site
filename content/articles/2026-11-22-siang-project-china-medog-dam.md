@@ -1,5 +1,6 @@
 ---
 title: The Siang Project and China's Medog Dam: Why India Needs Its Own Reservoir
+seo_title: Siang Project vs China's Medog Dam: India's Reservoir Case
 date: 2026-11-22
 category: Geopolitics
 summary: Amit Shah promised dialogue on the 11,200 MW Siang project as local groups asked him to scrap it. China's Medog dam upstream is why India cannot drop the idea.

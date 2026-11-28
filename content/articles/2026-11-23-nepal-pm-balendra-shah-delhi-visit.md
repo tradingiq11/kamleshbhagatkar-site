@@ -1,5 +1,6 @@
 ---
 title: Balendra Shah in Delhi: What India and Nepal Can Settle, and What They Will Not
+seo_title: Balendra Shah in Delhi: What India and Nepal Can Settle
 date: 2026-11-23
 category: Geopolitics
 summary: Nepal's Prime Minister Balendra Shah is in Delhi for his first bilateral visit abroad. Trains and power are on the table; the boundary is not.

@@ -1,5 +1,6 @@
 ---
 title: Japan Will Train at Indian Firing Ranges. What the Tokyo 2+2 Settled
+seo_title: Japan to Train at Indian Firing Ranges: Tokyo 2+2 Outcome
 date: 2026-11-20
 category: Geopolitics
 summary: India and Japan signed a Letter of Intent for Japanese forces to train at Indian firing ranges, and named economic coercion as a shared worry.

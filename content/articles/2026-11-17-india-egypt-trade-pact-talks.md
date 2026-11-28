@@ -1,5 +1,6 @@
 ---
 title: India and Egypt Agree to Explore a Trade Pact. The $12 Billion Test
+seo_title: India-Egypt Trade Pact Talks: The $12 Billion Test
 date: 2026-11-17
 category: Geopolitics
 summary: India and Egypt will study a preferential or free trade agreement. Trade is recovering, but an old $12 billion target is still out of reach.

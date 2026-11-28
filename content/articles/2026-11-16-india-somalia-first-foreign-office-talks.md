@@ -1,5 +1,6 @@
 ---
 title: India and Somalia Hold Their First Foreign Office Talks. Why It Matters at Sea
+seo_title: India-Somalia First Foreign Office Talks: Why It Matters
 date: 2026-11-16
 category: Geopolitics
 summary: India and Somalia have opened a formal dialogue in Mogadishu, with piracy high on the agenda. Here is what it means for our sea lanes.

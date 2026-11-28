@@ -1,5 +1,6 @@
 ---
 title: SIM Binding for WhatsApp and Telegram: What Changes on 1 January
+seo_title: SIM Binding for WhatsApp, Telegram: What Changes 1 January
 date: 2026-11-17
 category: Current Affairs
 summary: From 1 January 2027, messaging apps in India must stay tied to the SIM in your phone. Why the government wants it, and what it costs.

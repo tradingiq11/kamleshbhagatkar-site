@@ -1,5 +1,6 @@
 ---
 title: EPFO Approves Monthly PF Payouts and Cuts the Minimum Balance to 10%
+seo_title: EPFO Monthly PF Payouts and the 10% Minimum Balance
 date: 2026-11-20
 category: Current Affairs
 summary: The EPFO board approved a Systematic Withdrawal Plan for retirees, a 10% minimum PF balance and a two-month wait for final withdrawal.

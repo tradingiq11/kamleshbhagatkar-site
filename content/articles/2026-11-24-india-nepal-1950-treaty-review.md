@@ -1,5 +1,6 @@
 ---
 title: India and Nepal Agree to Review the 1950 Treaty. What Bharat Should Bring to the Table
+seo_title: India-Nepal 1950 Treaty Review: What Bharat Should Bring
 date: 2026-11-24
 category: Geopolitics
 summary: Modi and Balendra Shah adopted a joint vision that opens the 1950 treaty to review, with India's largest aid package for Nepal.

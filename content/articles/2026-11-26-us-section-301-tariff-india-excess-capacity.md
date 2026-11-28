@@ -1,5 +1,6 @@
 ---
 title: The US Proposes a 25% Tariff on India Over "Excess Capacity". Why the 17% Offer Is the Real Message
+seo_title: US Section 301: 25% Tariff on India Over Excess Capacity
 date: 2026-11-26
 category: Geopolitics
 summary: Washington proposes tariffs of up to 25% on Indian goods, or 17% with a trade deal. India rejects the excess capacity charge.

@@ -1,5 +1,6 @@
 ---
 title: The IORA Council of Ministers Meets in Delhi: What the Delhi Communiqué Gives Bharat
+seo_title: IORA in Delhi: What the Delhi Communiqué Gives Bharat
 date: 2026-11-28
 category: Geopolitics
 summary: IORA ministers met in New Delhi, adopted the Delhi Communiqué 2026 and endorsed two India-proposed centres of excellence. India added a $500,000 grant.

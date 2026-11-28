@@ -1,5 +1,6 @@
 ---
 title: DRDO's 30 kW Laser Weapon: Can India Turn a Successful Test into a Drone Shield?
+seo_title: DRDO's 30 kW Laser Weapon: From Test to Drone Shield
 date: 2026-11-23
 category: Current Affairs
 summary: DRDO's 30 kW laser, proven against drones at Kurnool, is moving towards production. Whether it reaches our units depends on industry, orders and patience.
