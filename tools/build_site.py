@@ -30,8 +30,12 @@ BASE = "https://kamleshbhagatkar.com/"
 CATEGORIES = ["Geopolitics", "Current Affairs", "Defence", "RSS at 100"]
 ICON = ('<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" '
         'stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>')
-FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-         '<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">')
+# The site serves its own copies of the two fonts (fonts/, rules at the top of style.css); pages only preload the two used first.
+FONTS = ('<link rel="preload" href="/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin>\n'
+         '<link rel="preload" href="/fonts/alegreya-latin.woff2" as="font" type="font/woff2" crossorigin>')
+# PDFs and share images are rendered from local files by Chrome, where /fonts/ does not resolve, so they still load from Google.
+PDF_FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+             '<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">')
 AUTHOR_BOX = ('Kamlesh Bhagatkar is a politician, author and geopolitical analyst from Nagpur. His first book, <a href="/books/rss-100-years-of-selfless-service/"><i>RSS: 100 Years of Selfless Service – '
               'Engineers of Glorious Bharat</i></a> (2025), is available on <a href="https://www.amazon.com/dp/B0F6JMSHDH" target="_blank" rel="noopener">Amazon</a>. '
               'His next book, <a href="/books/nineteen-days/"><i>Nineteen Days</i></a>, on Pahalgam and Operation Sindoor, is coming soon.')
@@ -283,8 +287,8 @@ def with_csp(t):
     hashes = sorted({"'sha256-" + base64.b64encode(hashlib.sha256(m.encode()).digest()).decode() + "'"
                      for m in re.findall(r"<script>(.*?)</script>", t, re.S)})
     policy = "; ".join([
-        "default-src 'self'", "script-src 'self' " + " ".join(hashes), "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-        "font-src https://fonts.gstatic.com", "img-src 'self' data: https://i.ytimg.com", "frame-src https://www.youtube-nocookie.com",
+        "default-src 'self'", "script-src 'self' " + " ".join(hashes), "style-src 'self' 'unsafe-inline'",
+        "font-src 'self'", "img-src 'self' data: https://i.ytimg.com", "frame-src https://www.youtube-nocookie.com",
         "connect-src 'self'", "object-src 'none'", "base-uri 'self'", "form-action 'self'", "upgrade-insecure-requests"])
     t = ICON_RE.sub("", t)
     icons = ('\n<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n<link rel="icon" href="/favicon.ico" sizes="32x32">'
@@ -429,7 +433,7 @@ ARCHIVE = f"""<!doctype html>
     {''.join(f'<button type="button" class="chip" data-cat="{esc(c)}" aria-pressed="false">{esc(c)}</button>' for c in CATEGORIES if any(a["category"] == c for a in ARTS))}
   </div>
   <div class="cards">
-{chr(10).join(card(a, "../").replace('<article class="card reveal">', f'<article class="card" data-cat="{esc(a["category"])}">').replace("<h3>", "<h2>").replace("</h3>", "</h2>") for a in ARTS)}
+{chr(10).join(card(a, "../").replace('<article class="card reveal">', f'<article class="card" data-cat="{esc(a["category"])}">').replace("<h3>", "<h2>").replace("</h3>", "</h2>").replace('loading="lazy"', 'fetchpriority="high"' if i == 0 else "" if i < 3 else 'loading="lazy"', 1) for i, a in enumerate(ARTS))}
   </div>
 </div></section></main>
 <footer><div class="wrap"><span>© {datetime.date.today().year} Kamlesh Bhagatkar · <a href="../">Home</a> · <a href="../about/">About</a></span></div></footer>
@@ -523,7 +527,7 @@ for w in WPS:
               if (SITE / img).exists() else BASE + "images/kamlesh-bhagatkar.jpg")
     og = (f'\n<meta property="og:site_name" content="Kamlesh Bhagatkar">\n<meta property="og:url" content="{w["url"]}">\n<meta property="og:image" content="{og_img}">'
           '\n<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:site" content="@KBhagatkar">')
-    fig = (f'<a class="wpfig" href="{pdf}"><img src="../{img}" alt="Cover of the whitepaper {esc(w["title"])}" width="800" height="1132"></a>\n'
+    fig = (f'<a class="wpfig" href="{pdf}"><img src="../{img}" alt="Cover of the whitepaper {esc(w["title"])}" width="800" height="1132" fetchpriority="high"></a>\n'
            if (SITE / img).exists() else "")
     cite = f"Kamlesh Bhagatkar ({w['date_obj'].year}). {w['title']}. Whitepaper, {w['pages']} pp. kamleshbhagatkar.com."
     doi = w.get("doi", "")  # optional front matter, e.g. 10.5281/zenodo.123
@@ -899,7 +903,7 @@ manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else 
 for a in ARTS:
     hero = f'<figure class="hero"><img src="{(SITE / a["image"]).as_uri()}" alt=""></figure>' if a.get("image") else ""
     doc = f"""<!doctype html><html lang="en-IN"><head><meta charset="utf-8"><title>{esc(a['title'])} | Kamlesh Bhagatkar</title>
-{FONTS}<style>{PDF_CSS}</style></head><body>
+{PDF_FONTS}<style>{PDF_CSS}</style></head><body>
 <header class="head"><div class="brand"><b>Kamlesh Bhagatkar</b><span>kamleshbhagatkar.com</span></div>
 <span class="tag">{esc(a['category'])}</span><h1>{esc(a['title'])}</h1>
 <p class="by">By <strong>Kamlesh Bhagatkar</strong>, Politician, Author &amp; Geopolitical Analyst &middot; {nice(a['date_obj'])}</p></header>
@@ -932,7 +936,7 @@ HOME_OG = [dict(slug="home", image="images/kamlesh-bhagatkar.jpg", category="Pol
 for a in ARTS + WP_OG + HOME_OG:
     bg = SITE / (a["image"] if a.get("image") else f"images/cards/{a['slug']}.svg")
     pos = a.get("image_position", "50% 35%")
-    doc = f"""<!doctype html><html><head><meta charset="utf-8">{FONTS}<style>
+    doc = f"""<!doctype html><html><head><meta charset="utf-8">{PDF_FONTS}<style>
 html,body{{margin:0;width:1200px;height:630px;overflow:hidden;background:#121316}}
 .bg{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{pos}}}
 .shade{{position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,19,22,.94) 0%,rgba(18,19,22,.82) 48%,rgba(18,19,22,.25) 100%)}}
@@ -962,7 +966,7 @@ h1{{font:700 58px/1.05 Oswald;text-transform:uppercase;margin:28px 0 0}}
 SQ_DIR = SITE / "images/social"
 for a in ARTS:
     bg = SITE / (a["image"] if a.get("image") else f"images/cards/{a['slug']}.svg")
-    doc = f"""<!doctype html><html><head><meta charset="utf-8">{FONTS}<style>
+    doc = f"""<!doctype html><html><head><meta charset="utf-8">{PDF_FONTS}<style>
 html,body{{margin:0;width:1080px;height:1080px;overflow:hidden;background:#121316}}
 .bg{{position:absolute;left:0;top:0;width:1080px;height:675px;object-fit:cover;object-position:{a.get('image_position', '50% 35%')}}}
 .fade{{position:absolute;left:0;top:375px;width:100%;height:300px;background:linear-gradient(180deg,rgba(18,19,22,0),#121316)}}
