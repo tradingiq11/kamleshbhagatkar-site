@@ -31,9 +31,9 @@ ICON = ('<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="cur
         'stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>')
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
          '<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">')
-AUTHOR_BOX = ('Kamlesh Bhagatkar is a politician, author and geopolitical analyst from Nagpur. His first book, <i>RSS: 100 Years of Selfless Service – '
-              'Engineers of Glorious Bharat</i> (2025), is available on <a href="https://www.amazon.com/dp/B0F6JMSHDH" target="_blank" rel="noopener">Amazon</a>. '
-              'His next book, <i>Nineteen Days</i>, on Pahalgam and Operation Sindoor, is coming soon.')
+AUTHOR_BOX = ('Kamlesh Bhagatkar is a politician, author and geopolitical analyst from Nagpur. His first book, <a href="/books/rss-100-years-of-selfless-service/"><i>RSS: 100 Years of Selfless Service – '
+              'Engineers of Glorious Bharat</i></a> (2025), is available on <a href="https://www.amazon.com/dp/B0F6JMSHDH" target="_blank" rel="noopener">Amazon</a>. '
+              'His next book, <a href="/books/nineteen-days/"><i>Nineteen Days</i></a>, on Pahalgam and Operation Sindoor, is coming soon.')
 
 # ---------------------------------------------------------------- markdown subset
 def inline(t):
@@ -646,6 +646,71 @@ write_if_changed(home, re.sub(r'(<b data-count="articles">)\d+(</b>)', lambda m:
 ABOUT_DATE = "2026-11-15"  # bump when the About text below changes
 ld_blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', home.read_text(), re.S)
 PERSON = next(n for b in ld_blocks for n in json.loads(b).get("@graph", []) if n.get("@type") == "Person")  # single source: index.html
+
+# ---------------------------------------------------------------- book pages: content/books/<slug>.md -> books/<slug>/
+# The Book schema stays in index.html (single source, like PERSON); "id" in the front matter picks the node.
+# shortcut: a deleted book file leaves its page behind, delete books/<slug>/ by hand if a book is ever removed.
+HOME_BOOKS = {n["@id"].split("#")[1]: n for b in ld_blocks for n in json.loads(b).get("@graph", []) if n.get("@type") == "Book"}
+def load_book(path):
+    m = re.match(r"---\n(.*?)\n---\n(.*)", path.read_text(), re.S)
+    meta = {k.strip(): v.strip() for k, v in (l.split(":", 1) for l in m[1].splitlines() if ":" in l)} if m else {}
+    missing = [k for k in ("title", "subtitle", "id", "status", "date", "summary", "cover", "cover_size", "cover_alt") if not meta.get(k)]
+    if missing or meta["id"] not in HOME_BOOKS or len(meta.get("seo_title", "")) > 60 or not (SITE / meta["cover"]).exists():
+        raise SystemExit(f"{path.name}: needs front matter {missing or ''}, an id among {sorted(HOME_BOOKS)}, an existing cover and a seo_title of at most 60 characters")
+    meta["slug"], meta["body"], meta["url"] = path.stem, markdown(m[2]), f"{BASE}books/{path.stem}/"
+    return meta
+
+BOOKS = [load_book(p) for p in sorted((SITE / "content/books").glob("*.md"))]
+for k in BOOKS:
+    og_img = BASE + k["cover"].rsplit(".", 1)[0] + ".jpg"
+    ld = json.dumps({"@context": "https://schema.org", **HOME_BOOKS[k["id"]], "mainEntityOfPage": k["url"], "author": AUTHOR_LD},
+                    ensure_ascii=False).replace("</", "<\\/")
+    btns = "".join(f'<a class="btn primary dl-btn" href="{esc(k[f])}" target="_blank" rel="noopener">{label} →</a> '
+                   for f, label in (("buy", "Buy on Amazon"), ("ebook", "Ebook on Google Play")) if k.get(f)) \
+        or '<a class="btn primary dl-btn" href="/#contact">Publishers &amp; media: get in touch</a>'
+    write_if_changed(SITE / "books" / k["slug"] / "index.html", f"""<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{esc(k.get('seo_title') or k['title'] + ' | Kamlesh Bhagatkar')}</title>
+<meta name="description" content="{esc(k['summary'])}">
+<link rel="canonical" href="{k['url']}">
+<meta name="author" content="Kamlesh Bhagatkar">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="book">
+<meta property="og:site_name" content="Kamlesh Bhagatkar">
+<meta property="og:title" content="{esc(k['title'] + ': ' + k['subtitle'])}">
+<meta property="og:description" content="{esc(k['summary'])}">
+<meta property="og:url" content="{k['url']}">
+<meta property="og:image" content="{og_img}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@KBhagatkar">
+{FONTS}
+<link rel="stylesheet" href="/style.css">
+{ld_tag(ld, crumbs(("Books", BASE + "#books"), (k["title"], k["url"])))}
+</head>
+<body>
+<nav class="nav" aria-label="Main"><div class="wrap">
+  <a class="brand" href="/">Kamlesh Bhagatkar</a>
+  <ul><li><a href="/#books">Books</a></li><li><a href="/articles/">Articles</a></li><li><a href="/publications/">Publications</a></li><li><a href="/about/">About</a></li><li><a href="/#contact">Contact</a></li></ul>
+</div></nav>
+<header class="article-head"><div class="wrap">
+  <p class="art-meta"><span class="tag-pill">Book</span> {esc(k['status'])}</p>
+  <h1>{esc(k['title'])}</h1>
+  <p class="by">{esc(k['subtitle'])} · by <a href="/about/" rel="author" style="color:inherit">Kamlesh Bhagatkar</a></p>
+  {btns}
+</div></header>
+<main><article class="prose">
+<figure class="wpfig" style="margin-top:0"><img src="/{esc(k['cover'])}" alt="{esc(k['cover_alt'])}" width="{esc(k['cover_size'].split('x')[0])}" height="{esc(k['cover_size'].split('x')[-1])}"></figure>
+{k['body']}
+<p class="author-box">{AUTHOR_BOX}</p>
+<p class="dl-end"><a class="dl" href="/#books">All books</a> · <a class="dl" href="/articles/">Articles</a></p>
+</article></main>
+<footer><div class="wrap"><span>© {datetime.date.today().year} Kamlesh Bhagatkar · <a href="/">Home</a> · <a href="/about/">About</a></span></div></footer>
+</body>
+</html>
+""")
 LABELS = {"x.com": "X (Twitter)", "facebook.com": "Facebook", "amazon.": "Amazon author page", "linkedin.com": "LinkedIn",
           "goodreads.com": "Goodreads", "youtube.com": "YouTube", "orcid.org": "ORCID", "medium.com": "Medium", "instagram.com": "Instagram", "mastodon.": "Mastodon"}
 def label(u): return next((v for k, v in LABELS.items() if k in u), u.split("/")[2])
@@ -686,7 +751,7 @@ write_if_changed(SITE / "about/index.html", f"""<!doctype html>
 <h2 class="h">Books</h2>
 <ul><li><a href="https://www.amazon.com/dp/B0F6JMSHDH" rel="noopener" target="_blank"><i>RSS: 100 Years of Selfless Service</i></a> (2025, paperback, ISBN 9798281394369) · <a href="https://play.google.com/store/books/details?id=Ik5aEQAAQBAJ" rel="noopener" target="_blank">Google Play ebook</a></li>
 <li><a href="../#nineteen-days"><i>Nineteen Days</i></a> (coming soon)</li></ul>
-{"<p class='h'>Whitepapers</p><ul>" + wp_li + "</ul>" if WPS else ""}
+{"<h2 class='h'>Whitepapers</h2><ul>" + wp_li + "</ul>" if WPS else ""}
 <h2 class="h">Latest articles</h2>
 <ul>{latest_li}</ul>
 <p><a href="../articles/">All {len(ARTS)} articles →</a></p>
@@ -726,7 +791,7 @@ write_if_changed(SITE / "404.html", f"""<!doctype html>
 <main><div class="prose">
 <p>Try one of these instead:</p>
 <ul><li><a href="/">Home</a></li><li><a href="/articles/">All articles</a></li><li><a href="/publications/">Publications</a></li><li><a href="/#books">Books</a></li></ul>
-{"<p class='h'>Latest</p><ul>" + "".join(f'<li><a href="/articles/{a["slug"]}.html">{esc(a["title"])}</a></li>' for a in ARTS[:3]) + "</ul>" if ARTS else ""}
+{"<h2 class='h'>Latest</h2><ul>" + "".join(f'<li><a href="/articles/{a["slug"]}.html">{esc(a["title"])}</a></li>' for a in ARTS[:3]) + "</ul>" if ARTS else ""}
 </div></main>
 <footer><div class="wrap"><span>© {datetime.date.today().year} Kamlesh Bhagatkar · <a href="/">Home</a></span></div></footer>
 </body>
@@ -735,7 +800,7 @@ write_if_changed(SITE / "404.html", f"""<!doctype html>
 
 # ---------------------------------------------------------------- sitemap + RSS
 latest = ARTS[0]["date"] if ARTS else datetime.date.today().isoformat()
-urls = [(BASE, latest), (ABOUT, ABOUT_DATE), (BASE + "articles/", latest), (BASE + "publications/", latest)] + [(a["url"], a["date"]) for a in ARTS] + [(w["url"], w["date"]) for w in WPS]
+urls = [(BASE, latest), (ABOUT, ABOUT_DATE), (BASE + "articles/", latest), (BASE + "publications/", latest)] + [(a["url"], a["date"]) for a in ARTS] + [(w["url"], w["date"]) for w in WPS] + [(k["url"], k["date"]) for k in BOOKS]
 write_if_changed(SITE / "sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                  + "".join(f"  <url><loc>{u}</loc><lastmod>{d}</lastmod></url>\n" for u, d in urls) + "</urlset>\n")
 items = "".join(f"""  <item><title>{esc(a['title'])}</title><link>{a['url']}</link><guid>{a['url']}</guid>

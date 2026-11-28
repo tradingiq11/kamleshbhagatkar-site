@@ -39,6 +39,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A about articles downloads images/cards images/og images/social publications 404.html index.html sitemap.xml feed.xml
           [ -d whitepapers ] && git add -A whitepapers || true
+          [ -d books ] && git add -A books || true
           if ! git diff --cached --quiet; then
             git commit -m "Build site from content"
             git push
